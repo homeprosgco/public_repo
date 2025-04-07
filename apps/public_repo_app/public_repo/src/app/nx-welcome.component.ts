@@ -1,9 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ButtonDemo } from './button_demo/button_demo.comoponent';
 
 @Component({
   selector: 'app-nx-welcome',
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonDemo],
   template: `
     <!--
      * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -862,6 +863,8 @@ nx g &#64;nx/angular:component ui/src/lib/button</pre>
         </p>
       </div>
     </div>
+    <button-demo></button-demo>
+    <div class="text-display-large font-display-large">Typography Test</div>
   `,
   styles: [],
   encapsulation: ViewEncapsulation.None,

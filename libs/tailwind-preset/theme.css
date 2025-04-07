@@ -1,0 +1,138 @@
+@theme {
+    --breakpoint-xs: 20rem;
+
+    /* ✨ Custom Fonts */
+    --font-primary: "Inter", sans-serif;
+    --font-secondary: "Playfair Display", serif;
+    --font-accent: "Monoton", cursive;
+
+    --color-primary: var(--p-colors-primary);
+    --color-on-primary: var(--p-colors-on-primary);
+    --color-primary-container: var(--p-colors-primary-container);
+    --color-on-primary-container: var(--p-colors-on-primary-container);
+
+    --color-secondary: var(--p-colors-secondary);
+    --color-on-secondary: var(--p-colors-on-secondary);
+    --color-secondary-container: var(--p-colors-secondary-container);
+    --color-on-secondary-container: var(--p-colors-on-secondary-container);
+
+    --color-tertiary: var(--p-colors-tertiary);
+    --color-on-tertiary: var(--p-colors-on-tertiary);
+    --color-tertiary-container: var(--p-colors-tertiary-container);
+    --color-on-tertiary-container: var(--p-colors-on-tertiary-container);
+
+    --color-error: var(--p-colors-error);
+    --color-on-error: var(--p-colors-on-error);
+    --color-error-container: var(--p-colors-error-container);
+    --color-on-error-container: var(--p-colors-on-error-container);
+
+    /* 🟦 Primary Fixed */
+    --color-primary-fixed: var(--p-colors-primary-fixed);
+    --color-primary-fixed-dim: var(--p-colors-primary-fixed-dim);
+    --color-on-primary-fixed: var(--p-colors-on-primary-fixed);
+    --color-on-primary-fixed-variant: var(--p-colors-on-primary-fixed-variant);
+
+    /* 🟪 Secondary Fixed */
+    --color-secondary-fixed: var(--p-colors-secondary-fixed);
+    --color-secondary-fixed-dim: var(--p-colors-secondary-fixed-dim);
+    --color-on-secondary-fixed: var(--p-colors-on-secondary-fixed);
+    --color-on-secondary-fixed-variant: var(--p-colors-on-secondary-fixed-variant);
+
+    /* 🟧 Tertiary Fixed */
+    --color-tertiary-fixed: var(--p-colors-tertiary-fixed);
+    --color-tertiary-fixed-dim: var(--p-colors-tertiary-fixed-dim);
+    --color-on-tertiary-fixed: var(--p-colors-on-tertiary-fixed);
+    --color-on-tertiary-fixed-variant: var(--p-colors-on-tertiary-fixed-variant);
+
+    /* 🎨 Surfaces */
+    --color-surface: var(--p-colors-surface);
+    --color-surface-dim: var(--p-colors-surface-dim);
+    --color-surface-bright: var(--p-colors-surface-bright);
+    --color-surface-container-lowest: var(--p-colors-surface-container-lowest);
+    --color-surface-container-low: var(--p-colors-surface-container-low);
+    --color-surface-container: var(--p-colors-surface-container);
+    --color-surface-container-high: var(--p-colors-surface-container-high);
+    --color-surface-container-highest: var(--p-colors-surface-container-highest);
+
+    /* 🧱 Surface Text */
+    --color-on-surface: var(--p-colors-on-surface);
+    --color-on-surface-variant: var(--p-colors-on-surface-variant);
+
+    /* ✏️ Outlines */
+    --color-outline: var(--p-colors-outline);
+    --color-outline-variant: var(--p-colors-outline-variant);
+
+    /* 🎭 Inverse Surfaces */
+    --color-inverse-surface: var(--p-colors-inverse-surface);
+    --color-inverse-on-surface: var(--p-colors-inverse-on-surface);
+    --color-inverse-primary: var(--p-colors-inverse-primary);
+
+    /* 🕳️ Overlays */
+    --color-scrim: var(--p-colors-scrim);
+    --color-shadow: var(--p-colors-shadow);
+
+    /* 🪩 Display Typography */
+    --text-display-large: var(--p-typography-display-large-size);
+    --text-display-large--line-height: var(--p-typography-display-large-line-height);
+    --font-weight-display-large: var(--p-typography-display-large-weight);
+
+    --font-display-medium: var(--p-typography-display-medium-size);
+    --font-display-medium--line-height: var(--p-typography-display-medium-line-height);
+    --font-weight-display-medium: var(--p-typography-display-medium-weight);
+
+    --font-display-small: var(--p-typography-display-small-size);
+    --font-display-small--line-height: var(--p-typography-display-small-line-height);
+    --font-weight-display-small: var(--p-typography-display-small-weight);
+
+    /* 📰 Headline Typography */
+    --text-headline-large: var(--p-typography-headline-large-size);
+    --text-headline-large--line-height: var(--p-typography-headline-large-line-height);
+    --font-weight-headline-large: var(--p-typography-headline-large-weight);
+
+    --text-headline-medium: var(--p-typography-headline-medium-size);
+    --text-headline-medium--line-height: var(--p-typography-headline-medium-line-height);
+    --font-weight-headline-medium: var(--p-typography-headline-medium-weight);
+
+    --text-headline-small: var(--p-typography-headline-small-size);
+    --text-headline-small--line-height: var(--p-typography-headline-small-line-height);
+    --font-weight-headline-small: var(--p-typography-headline-small-weight);
+
+    /* 🏷️ Title Typography */
+    --text-title-large: var(--p-typography-title-large-size);
+    --text-title-large--line-height: var(--p-typography-title-large-line-height);
+    --font-weight-title-large: var(--p-typography-title-large-weight);
+
+    --text-title-medium: var(--p-typography-title-medium-size);
+    --text-title-medium--line-height: var(--p-typography-title-medium-line-height);
+    --font-weight-title-medium: var(--p-typography-title-medium-weight);
+
+    --text-title-small: var(--p-typography-title-small-size);
+    --text-title-small--line-height: var(--p-typography-title-small-line-height);
+    --font-weight-title-small: var(--p-typography-title-small-weight);
+
+    /* 📜 Body Text */
+    --text-body-large: var(--p-typography-body-large-size);
+    --text-body-large--line-height: var(--p-typography-body-large-line-height);
+    --font-weight-body-large: var(--p-typography-body-large-weight);
+
+    --text-body-medium: var(--p-typography-body-medium-size);
+    --text-body-medium--line-height: var(--p-typography-body-medium-line-height);
+    --font-weight-body-medium: var(--p-typography-body-medium-weight);
+
+    --text-body-small: var(--p-typography-body-small-size);
+    --text-body-small--line-height: var(--p-typography-body-small-line-height);
+    --font-weight-body-small: var(--p-typography-body-small-weight);
+
+    /* 🏷️ Label Text */
+    --text-label-large: var(--p-typography-label-large-size);
+    --text-label-large--line-height: var(--p-typography-label-large-line-height);
+    --font-weight-label-large: var(--p-typography-label-large-weight);
+
+    --text-label-medium: var(--p-typography-label-medium-size);
+    --text-label-medium--line-height: var(--p-typography-label-medium-line-height);
+    --font-weight-label-medium: var(--p-typography-label-medium-weight);
+
+    --text-label-small: var(--p-typography-label-small-size);
+    --text-label-small--line-height: var(--p-typography-label-small-line-height);
+    --font-weight-label-small: var(--p-typography-label-small-weight);
+}

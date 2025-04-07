@@ -15,14 +15,14 @@
         "browser": "apps/public_repo_app/public_repo/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/public_repo_app/public_repo/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
+        "inlineStyleLanguage": "css",
         "assets": [
           {
             "glob": "**/*",
             "input": "apps/public_repo_app/public_repo/public"
           }
         ],
-        "styles": ["apps/public_repo_app/public_repo/src/styles.scss"],
+        "styles": ["apps/public_repo_app/public_repo/src/styles.css"],
         "scripts": []
       },
       "configurations": {
@@ -81,7 +81,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "public_repo_app/public_repo:build",
-        "port": 4200,
+        "port": 3500,
         "staticFilePath": "dist/apps/public_repo_app/public_repo/browser",
         "spa": true
       }
