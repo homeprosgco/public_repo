@@ -1,0 +1,369 @@
+{
+ "Resources": {
+  "LambdaRole3A44B857": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/LambdaRole/Resource"
+   }
+  },
+  "LambdaRoleDefaultPolicy75625A82": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "cognito-idp:AdminAddUserToGroup",
+        "cognito-idp:AdminUpdateUserAttributes"
+       ],
+       "Effect": "Allow",
+       "Resource": "arn:aws:cognito-idp:us-east-1:879381260600:userpool/*"
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "HomeProSGCO-Staging-DynamoDBTableStack:ExportsOutputFnGetAttDynamoDBTable59784FC0ArnFDE6BED0"
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::ImportValue": "HomeProSGCO-Staging-DynamoDBTableStack:ExportsOutputFnGetAttDynamoDBTable59784FC0ArnFDE6BED0"
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LambdaRoleDefaultPolicy75625A82",
+    "Roles": [
+     {
+      "Ref": "LambdaRole3A44B857"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/LambdaRole/DefaultPolicy/Resource"
+   }
+  },
+  "PostAuthConfirmLambda24567B99": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-879381260600-us-east-1",
+     "S3Key": "30bca40a59b8d87b16cf9e67d4735d149d5ac356f75ecdca1abf34a6a3f25b10.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "DYNAMODB_TABLE": {
+       "Fn::ImportValue": "HomeProSGCO-Staging-DynamoDBTableStack:ExportsOutputRefDynamoDBTable59784FC027915268"
+      }
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "LambdaRole3A44B857",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x"
+   },
+   "DependsOn": [
+    "LambdaRoleDefaultPolicy75625A82",
+    "LambdaRole3A44B857"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/PostAuthConfirmLambda/Resource",
+    "aws:asset:path": "../asset.30bca40a59b8d87b16cf9e67d4735d149d5ac356f75ecdca1abf34a6a3f25b10",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "UserPoolPostConfirmationCognito0E6001F8": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "PostAuthConfirmLambda24567B99",
+      "Arn"
+     ]
+    },
+    "Principal": "cognito-idp.amazonaws.com",
+    "SourceArn": {
+     "Fn::GetAtt": [
+      "UserPool6BA7E5F2",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/UserPool/PostConfirmationCognito"
+   }
+  },
+  "UserPoolsmsRole4EA729DD": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Condition": {
+        "StringEquals": {
+         "sts:ExternalId": "HomeProSGCOStagingUserPoolEFD1C4BE"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "cognito-idp.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Policies": [
+     {
+      "PolicyDocument": {
+       "Statement": [
+        {
+         "Action": "sns:Publish",
+         "Effect": "Allow",
+         "Resource": "*"
+        }
+       ],
+       "Version": "2012-10-17"
+      },
+      "PolicyName": "sns-publish"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/UserPool/smsRole/Resource"
+   }
+  },
+  "UserPool6BA7E5F2": {
+   "Type": "AWS::Cognito::UserPool",
+   "Properties": {
+    "AccountRecoverySetting": {
+     "RecoveryMechanisms": [
+      {
+       "Name": "verified_email",
+       "Priority": 1
+      }
+     ]
+    },
+    "AdminCreateUserConfig": {
+     "AllowAdminCreateUserOnly": false
+    },
+    "AutoVerifiedAttributes": [
+     "email"
+    ],
+    "EmailVerificationMessage": "The verification code to your new account is {####}",
+    "EmailVerificationSubject": "Verify your new account",
+    "EnabledMfas": [
+     "SMS_MFA",
+     "SOFTWARE_TOKEN_MFA"
+    ],
+    "LambdaConfig": {
+     "PostConfirmation": {
+      "Fn::GetAtt": [
+       "PostAuthConfirmLambda24567B99",
+       "Arn"
+      ]
+     }
+    },
+    "MfaConfiguration": "OPTIONAL",
+    "Policies": {
+     "PasswordPolicy": {
+      "MinimumLength": 12,
+      "RequireLowercase": true,
+      "RequireNumbers": true,
+      "RequireSymbols": true,
+      "RequireUppercase": true
+     }
+    },
+    "Schema": [
+     {
+      "Mutable": true,
+      "Name": "email",
+      "Required": true
+     },
+     {
+      "AttributeDataType": "String",
+      "Mutable": false,
+      "Name": "tenantId"
+     },
+     {
+      "AttributeDataType": "String",
+      "Mutable": false,
+      "Name": "appId"
+     },
+     {
+      "AttributeDataType": "String",
+      "Mutable": true,
+      "Name": "role"
+     }
+    ],
+    "SmsConfiguration": {
+     "ExternalId": "HomeProSGCOStagingUserPoolEFD1C4BE",
+     "SnsCallerArn": {
+      "Fn::GetAtt": [
+       "UserPoolsmsRole4EA729DD",
+       "Arn"
+      ]
+     }
+    },
+    "SmsVerificationMessage": "The verification code to your new account is {####}",
+    "UserPoolName": "UserPool",
+    "UsernameAttributes": [
+     "email"
+    ],
+    "VerificationMessageTemplate": {
+     "DefaultEmailOption": "CONFIRM_WITH_CODE",
+     "EmailMessage": "The verification code to your new account is {####}",
+     "EmailSubject": "Verify your new account",
+     "SmsMessage": "The verification code to your new account is {####}"
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/UserPool/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/6VTy27bMBD8lvAYMGri9FD4prQJECBIAtvpxQiCNblWNuFD5ZI2DEH/XoiSnIeLokBPpGaWnJnlalKcfZsUp0ew5ROlX08MrYpmHkG9StjyU0Ngi2bmDS4bAczJor7YiWkj6kBOUQ2mVMonF8VUHAs51HQHShXJuwy3UlhwUKG+94YUIYvpsvmA7cow1D62shGg9cL3RFf6Hhx1D9gYQT1fO0MO95w4Fv9A/v3e/0hNb4I5dM4nv69dVyp7pc7G3uHCd8yB8UNY63mEiBZd5A8dOoCzXi/VSgN2paForpLLRpeNCMlFsjgkeQanDYbhS3k9EiEbyFt0GwredSJD0Kx8+R7OqbLbrD/qZS8YLDGTd63k8ydgxshF2S2Sz4uLpF4xXgDj8lEqXzmKvmgeGMO992bZiDRsb2HvmtGs51S5h/rSwcqgFtMYEkrBVLlrVxoC7vrfCLRApmdbKSBF/xMDrXeHHEdwGoIuYwy0SjGfb6VQiaO379Fswa5BTMXd/eL67ra86YE5Ku/0FajoQyfAlkdjPtZ7pRqYtz7ocfIaYcndoKvi89h8/JUo4ENdY1DAON4y4Dd++0f8B1UU+RM439mVN7xX70diEaiqMAwZoZ/uGSq/wbAT00l33PrN2+8hAkYgN8zz+DxtK2fIPgWF+wmQ+WnnESpyVVd8l2KdYiud11i88JfNZFKcfS1Oj16Y6GSYx2LWr78BDvYnzqEEAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "UserPoolId": {
+   "Value": {
+    "Ref": "UserPool6BA7E5F2"
+   }
+  },
+  "UserPoolARN": {
+   "Value": {
+    "Fn::GetAtt": [
+     "UserPool6BA7E5F2",
+     "Arn"
+    ]
+   }
+  },
+  "PostAuthConfirmLambdaArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "PostAuthConfirmLambda24567B99",
+     "Arn"
+    ]
+   }
+  },
+  "ExportsOutputRefUserPool6BA7E5F296FD7236": {
+   "Value": {
+    "Ref": "UserPool6BA7E5F2"
+   },
+   "Export": {
+    "Name": "HomeProSGCO-Staging-UserPool:ExportsOutputRefUserPool6BA7E5F296FD7236"
+   }
+  },
+  "ExportsOutputFnGetAttUserPool6BA7E5F2ProviderNameA3E1F80D": {
+   "Value": {
+    "Fn::GetAtt": [
+     "UserPool6BA7E5F2",
+     "ProviderName"
+    ]
+   },
+   "Export": {
+    "Name": "HomeProSGCO-Staging-UserPool:ExportsOutputFnGetAttUserPool6BA7E5F2ProviderNameA3E1F80D"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

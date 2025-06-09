@@ -1,0 +1,16 @@
+export enum CampaignMetricTypeEnum {
+  Impressions = 'Impressions',
+  Clicks = 'Clicks',
+  Conversions = 'Conversions',
+  CTR = 'CTR',
+  CPC = 'CPC',
+  CPA = 'CPA',
+  CPM = 'CPM',
+  ROI = 'ROI',
+  EngagementRate = 'EngagementRate',
+  BounceRate = 'BounceRate',
+  LeadGeneration = 'LeadGeneration',
+  SalesRevenue = 'SalesRevenue',
+  CustomerAcquisitionCost = 'CustomerAcquisitionCost',
+  LifetimeValue = 'LifetimeValue',
+}

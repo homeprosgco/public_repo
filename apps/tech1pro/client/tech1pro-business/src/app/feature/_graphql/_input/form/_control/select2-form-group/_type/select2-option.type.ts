@@ -1,0 +1,1 @@
+export type Select2Option = {id: string, text: string, selected?: boolean, disabled?: boolean};

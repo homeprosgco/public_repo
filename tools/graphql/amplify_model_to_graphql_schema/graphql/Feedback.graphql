@@ -1,0 +1,101 @@
+enum SatisfactionRating {
+  VERY_DISSATISFIED
+  DISSATISFIED
+  NEUTRAL
+  SATISFIED
+  VERY_SATISFIED
+}
+enum FeedbackResponseStatus {
+  Pending
+  InProgress
+  Resolved
+  Closed
+  Reopened
+}
+enum FeedbackType {
+  General
+  BugReport
+  FeatureRequest
+  ServiceComplaint
+  Praise
+  Other
+}
+type Feedback {
+  id: ID!
+  tenant: Tenant @belongsTo
+  user: AppUser @belongsTo
+  project: Project @belongsTo
+  message: String
+  rating: SatisfactionRating
+  notes: String
+  responseStatus: FeedbackResponseStatus
+  feedbackType: FeedbackType
+  text: String
+  submittedBy: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  team: Team @belongsTo
+  isDeleted: Boolean!
+}
+input CreateFeedbackInput {
+  tenant: Tenant
+  user: AppUser
+  project: Project
+  message: String
+  rating: SatisfactionRating
+  notes: String
+  responseStatus: FeedbackResponseStatus
+  feedbackType: FeedbackType
+  text: String
+  submittedBy: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  team: Team
+  isDeleted: Boolean = false
+}
+input UpdateFeedbackInput {
+  id: ID!
+  tenant: Tenant
+  user: AppUser
+  project: Project
+  message: String
+  rating: SatisfactionRating
+  notes: String
+  responseStatus: FeedbackResponseStatus
+  feedbackType: FeedbackType
+  text: String
+  submittedBy: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  team: Team
+  isDeleted: Boolean
+}
+input SoftDeleteFeedbackInput {
+  id: ID!
+}
+
+input FeedbackFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getFeedback(id: ID!): Feedback
+  queryFeedbacks(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: FeedbackFilterInput
+  ): [Feedback]
+}
+type Mutation {
+  putFeedback(input: CreateFeedbackInput!): Feedback
+  updateFeedback(input: UpdateFeedbackInput!): Feedback
+  softDeleteFeedback(input: SoftDeleteFeedbackInput!): Feedback
+  deleteFeedback(id: ID!): Feedback
+}
+type Subscription {
+  onPutFeedback: Feedback @aws_subscribe(mutations: ["putFeedback"])
+  onUpdateFeedback: Feedback @aws_subscribe(mutations: ["updateFeedback"])
+  onSoftDeleteFeedback: Feedback @aws_subscribe(mutations: ["softDeleteFeedback"])
+}

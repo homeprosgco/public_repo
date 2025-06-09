@@ -1,0 +1,53 @@
+
+type Invite {
+  id: ID!
+  tenant: Tenant @belongsTo
+  email: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateInviteInput {
+  tenant: Tenant
+  email: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateInviteInput {
+  id: ID!
+  tenant: Tenant
+  email: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteInviteInput {
+  id: ID!
+}
+
+input InviteFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getInvite(id: ID!): Invite
+  queryInvites(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: InviteFilterInput
+  ): [Invite]
+}
+type Mutation {
+  putInvite(input: CreateInviteInput!): Invite
+  updateInvite(input: UpdateInviteInput!): Invite
+  softDeleteInvite(input: SoftDeleteInviteInput!): Invite
+  deleteInvite(id: ID!): Invite
+}
+type Subscription {
+  onPutInvite: Invite @aws_subscribe(mutations: ["putInvite"])
+  onUpdateInvite: Invite @aws_subscribe(mutations: ["updateInvite"])
+  onSoftDeleteInvite: Invite @aws_subscribe(mutations: ["softDeleteInvite"])
+}

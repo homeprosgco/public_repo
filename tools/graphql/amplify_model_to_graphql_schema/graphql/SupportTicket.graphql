@@ -1,0 +1,84 @@
+enum SupportTicketStatus {
+  Open
+  InProgress
+  Resolved
+  Closed
+  OnHold
+  Escalated
+}
+enum SupportTicketPriority {
+  Low
+  Medium
+  High
+  Critical
+}
+type SupportTicket {
+  id: ID!
+  tenant: Tenant @belongsTo
+  team: Team @belongsTo
+  teamMember: TeamMember @belongsTo
+  issueType: String
+  description: String
+  resolutionDetails: String
+  status: SupportTicketStatus
+  priority: SupportTicketPriority
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateSupportTicketInput {
+  tenant: Tenant
+  team: Team
+  teamMember: TeamMember
+  issueType: String
+  description: String
+  resolutionDetails: String
+  status: SupportTicketStatus
+  priority: SupportTicketPriority
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateSupportTicketInput {
+  id: ID!
+  tenant: Tenant
+  team: Team
+  teamMember: TeamMember
+  issueType: String
+  description: String
+  resolutionDetails: String
+  status: SupportTicketStatus
+  priority: SupportTicketPriority
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteSupportTicketInput {
+  id: ID!
+}
+
+input SupportTicketFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getSupportTicket(id: ID!): SupportTicket
+  querySupportTickets(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: SupportTicketFilterInput
+  ): [SupportTicket]
+}
+type Mutation {
+  putSupportTicket(input: CreateSupportTicketInput!): SupportTicket
+  updateSupportTicket(input: UpdateSupportTicketInput!): SupportTicket
+  softDeleteSupportTicket(input: SoftDeleteSupportTicketInput!): SupportTicket
+  deleteSupportTicket(id: ID!): SupportTicket
+}
+type Subscription {
+  onPutSupportTicket: SupportTicket @aws_subscribe(mutations: ["putSupportTicket"])
+  onUpdateSupportTicket: SupportTicket @aws_subscribe(mutations: ["updateSupportTicket"])
+  onSoftDeleteSupportTicket: SupportTicket @aws_subscribe(mutations: ["softDeleteSupportTicket"])
+}

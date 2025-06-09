@@ -1,0 +1,56 @@
+
+type ChatRoom {
+  id: ID!
+  messages: [ChatMessage] @hasMany
+  participants: [ChatRoomUser] @hasMany
+  created: AWSDateTime
+  updated: AWSDateTime
+  chatmessage: ChatMessage @belongsTo
+  isDeleted: Boolean!
+}
+input CreateChatRoomInput {
+  messages: [ChatMessage]
+  participants: [ChatRoomUser]
+  created: AWSDateTime
+  updated: AWSDateTime
+  chatmessage: ChatMessage
+  isDeleted: Boolean = false
+}
+input UpdateChatRoomInput {
+  id: ID!
+  messages: [ChatMessage]
+  participants: [ChatRoomUser]
+  created: AWSDateTime
+  updated: AWSDateTime
+  chatmessage: ChatMessage
+  isDeleted: Boolean
+}
+input SoftDeleteChatRoomInput {
+  id: ID!
+}
+
+input ChatRoomFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getChatRoom(id: ID!): ChatRoom
+  queryChatRooms(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ChatRoomFilterInput
+  ): [ChatRoom]
+}
+type Mutation {
+  putChatRoom(input: CreateChatRoomInput!): ChatRoom
+  updateChatRoom(input: UpdateChatRoomInput!): ChatRoom
+  softDeleteChatRoom(input: SoftDeleteChatRoomInput!): ChatRoom
+  deleteChatRoom(id: ID!): ChatRoom
+}
+type Subscription {
+  onPutChatRoom: ChatRoom @aws_subscribe(mutations: ["putChatRoom"])
+  onUpdateChatRoom: ChatRoom @aws_subscribe(mutations: ["updateChatRoom"])
+  onSoftDeleteChatRoom: ChatRoom @aws_subscribe(mutations: ["softDeleteChatRoom"])
+}

@@ -1,0 +1,68 @@
+
+type ChatMessage {
+  id: ID!
+  user: AppUser @belongsTo
+  chatRoom: ChatRoom @hasOne
+  messageContent: String
+  timestamp: AWSDateTime
+  messageType: String
+  attachments: [ChatAttachment] @hasMany
+  created: AWSDateTime
+  updated: AWSDateTime
+  chatroom: ChatRoom @belongsTo
+  isDeleted: Boolean!
+}
+input CreateChatMessageInput {
+  user: AppUser
+  chatRoom: ChatRoom
+  messageContent: String
+  timestamp: AWSDateTime
+  messageType: String
+  attachments: [ChatAttachment]
+  created: AWSDateTime
+  updated: AWSDateTime
+  chatroom: ChatRoom
+  isDeleted: Boolean = false
+}
+input UpdateChatMessageInput {
+  id: ID!
+  user: AppUser
+  chatRoom: ChatRoom
+  messageContent: String
+  timestamp: AWSDateTime
+  messageType: String
+  attachments: [ChatAttachment]
+  created: AWSDateTime
+  updated: AWSDateTime
+  chatroom: ChatRoom
+  isDeleted: Boolean
+}
+input SoftDeleteChatMessageInput {
+  id: ID!
+}
+
+input ChatMessageFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getChatMessage(id: ID!): ChatMessage
+  queryChatMessages(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ChatMessageFilterInput
+  ): [ChatMessage]
+}
+type Mutation {
+  putChatMessage(input: CreateChatMessageInput!): ChatMessage
+  updateChatMessage(input: UpdateChatMessageInput!): ChatMessage
+  softDeleteChatMessage(input: SoftDeleteChatMessageInput!): ChatMessage
+  deleteChatMessage(id: ID!): ChatMessage
+}
+type Subscription {
+  onPutChatMessage: ChatMessage @aws_subscribe(mutations: ["putChatMessage"])
+  onUpdateChatMessage: ChatMessage @aws_subscribe(mutations: ["updateChatMessage"])
+  onSoftDeleteChatMessage: ChatMessage @aws_subscribe(mutations: ["softDeleteChatMessage"])
+}

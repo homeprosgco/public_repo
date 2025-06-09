@@ -1,0 +1,20 @@
+{
+  "version": "40.0.0",
+  "files": {
+    "76e17c3bd970aebf6284a914e24f66d1f50e973911cc5400c0554b213a5f304a": {
+      "source": {
+        "path": "HomeProSGCOStagingDynamoDBTableStack237A36F7.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "879381260600-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-879381260600-us-east-1",
+          "objectKey": "76e17c3bd970aebf6284a914e24f66d1f50e973911cc5400c0554b213a5f304a.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::879381260600:role/cdk-hnb659fds-file-publishing-role-879381260600-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

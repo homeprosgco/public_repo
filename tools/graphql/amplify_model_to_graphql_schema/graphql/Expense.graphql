@@ -1,0 +1,98 @@
+enum ExpenseType {
+  Company
+  Project
+}
+type Expense {
+  id: ID!
+  tenant: Tenant @belongsTo
+  customer: Customer @belongsTo
+  approvedBy: TeamMember @belongsTo
+  purchasedFor: TeamMember @belongsTo
+  job: Job @belongsTo
+  type: ExpenseType
+  amount: Float
+  for: String
+  category: String
+  description: String
+  notes: String
+  location: String
+  receiptUrls: [String]
+  date: AWSDateTime
+  isRecurring: Boolean
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateExpenseInput {
+  tenant: Tenant
+  customer: Customer
+  approvedBy: TeamMember
+  purchasedFor: TeamMember
+  job: Job
+  type: ExpenseType
+  amount: Float
+  for: String
+  category: String
+  description: String
+  notes: String
+  location: String
+  receiptUrls: [String]
+  date: AWSDateTime
+  isRecurring: Boolean
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateExpenseInput {
+  id: ID!
+  tenant: Tenant
+  customer: Customer
+  approvedBy: TeamMember
+  purchasedFor: TeamMember
+  job: Job
+  type: ExpenseType
+  amount: Float
+  for: String
+  category: String
+  description: String
+  notes: String
+  location: String
+  receiptUrls: [String]
+  date: AWSDateTime
+  isRecurring: Boolean
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteExpenseInput {
+  id: ID!
+}
+
+input ExpenseFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getExpense(id: ID!): Expense
+  queryExpenses(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ExpenseFilterInput
+  ): [Expense]
+}
+type Mutation {
+  putExpense(input: CreateExpenseInput!): Expense
+  updateExpense(input: UpdateExpenseInput!): Expense
+  softDeleteExpense(input: SoftDeleteExpenseInput!): Expense
+  deleteExpense(id: ID!): Expense
+}
+type Subscription {
+  onPutExpense: Expense @aws_subscribe(mutations: ["putExpense"])
+  onUpdateExpense: Expense @aws_subscribe(mutations: ["updateExpense"])
+  onSoftDeleteExpense: Expense @aws_subscribe(mutations: ["softDeleteExpense"])
+}

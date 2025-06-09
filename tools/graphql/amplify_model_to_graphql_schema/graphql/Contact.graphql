@@ -1,0 +1,59 @@
+
+type Contact {
+  id: ID!
+  tenant: Tenant @belongsTo
+  fullName: String
+  email: String
+  message: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateContactInput {
+  tenant: Tenant
+  fullName: String
+  email: String
+  message: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateContactInput {
+  id: ID!
+  tenant: Tenant
+  fullName: String
+  email: String
+  message: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteContactInput {
+  id: ID!
+}
+
+input ContactFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getContact(id: ID!): Contact
+  queryContacts(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ContactFilterInput
+  ): [Contact]
+}
+type Mutation {
+  putContact(input: CreateContactInput!): Contact
+  updateContact(input: UpdateContactInput!): Contact
+  softDeleteContact(input: SoftDeleteContactInput!): Contact
+  deleteContact(id: ID!): Contact
+}
+type Subscription {
+  onPutContact: Contact @aws_subscribe(mutations: ["putContact"])
+  onUpdateContact: Contact @aws_subscribe(mutations: ["updateContact"])
+  onSoftDeleteContact: Contact @aws_subscribe(mutations: ["softDeleteContact"])
+}

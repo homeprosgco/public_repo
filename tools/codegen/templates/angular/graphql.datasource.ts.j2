@@ -1,0 +1,92 @@
+import { Injectable } from '@angular/core';
+import { IGraphQLClientService } from '@homeprosgco/graphql-client';
+import { Observable, from } from 'rxjs';
+import { GET_{{ type_name.upper() }} } from '../../datasources/queries/get-{{ split_and_hyphenate(type_name) }}.query';
+import { GET_{{ type_name.upper() }} } from '../../datasources/queries/query-{{ split_and_hyphenate(type_name) }}.query';
+import { PUT_{{ type_name.upper() }} } from '../../datasources/mutations/put-{{ split_and_hyphenate(type_name) }}.mutation';
+import { UPDATE_{{ type_name.upper() }} } from '../../datasources/mutations/update-{{ split_and_hyphenate(type_name) }}.mutation';
+import { DELETE_{{ type_name.upper() }} } from '../../datasources/mutations/delete-{{ split_and_hyphenate(type_name) }}.mutation';
+import { SOFT_DELETE{{ type_name.upper() }} } from '../../datasources/mutations/soft-delete-{{ split_and_hyphenate(type_name) }}.mutation';
+import { ON_PUT{{ type_name.upper() }} } from '../../datasources/subscritions/on-put-{{ split_and_hyphenate(type_name) }}.subscription';
+import { ON_UPADATE{{ type_name.upper() }} } from '../../datasources/subscritions/on-update-{{ split_and_hyphenate(type_name) }}.subscription';
+import { ON_DELETE{{ type_name.upper() }} } from '../../datasources/subscritions/on-delete-{{ split_and_hyphenate(type_name) }}.subscription';
+import {
+  Get{{ type_name }}Response,
+  Put{{ type_name }}Response,
+  Update{{ type_name }}Response,
+  Delete{{ type_name }}Response,
+  SoftDelete{{ type_name }}Response,
+  Query{{ type_name }}sResponse,
+  OnPut{{ type_name }}Response,
+  OnUpdate{{ type_name }}Response,
+  OnSoftDelete{{ type_name }}Response
+} from '../../models/{{ split_and_hyphenate(type_name) }}-responses.interface';
+import { {{ type_name }} } from '../../models/{{ split_and_hyphenate(type_name) }}.interface';
+import { I{{ type_name }}DataSource } from './i-{{ split_and_hyphenate(type_name) }}.datasource';
+import { RouteQueryService } from '@homeprosgco/angular-utils';
+import { {{ type_name.upper() }}_FILTER_KEYS } from '../../filters/{{ split_and_hyphenate(type_name)  }}-filter.keys';
+
+@Injectable({ providedIn: 'root' })
+export class GraphQL{{ type_name }}DataSource implements I{{ type_name }}DataSource {
+  constructor(
+    private client: IGraphQLClientService,
+    private routeQuery: RouteQueryService
+  ) {}
+
+  get{{ type_name }}(id: string): Observable<Get{{ type_name }}Response> {
+  return from(this.client.query<Get{{ type_name }}Response>(GET_{{ type_name.upper() }}, { id }));
+  }
+
+  put{{ type_name }}(input: {{ type_name }}): Observable<Put{{ type_name }}Response> {
+    return from(this.client.mutate<Put{{ type_name }}Response>(PUT_{{ type_name.upper() }}, { input }));
+  }
+
+  update{{ type_name }}(input: Partial<{{ type_name }}>): Observable<Update{{ type_name }}Response> {
+    return from(this.client.mutate<Update{{ type_name }}Response>(UPDATE_{{ type_name.upper() }}, { input }));
+  }
+
+  delete{{ type_name }}(id: string): Observable<Delete{{ type_name }}Response> {
+    return from(this.client.mutate<Delete{{ type_name }}Response>(DELETE_{{ type_name.upper() }}, { id }));
+
+  softDelete{{ type_name }}(input: { id: string }): Observable<SoftDelete{{ type_name }}Response> {
+    return from(this.client.mutate<SoftDelete{{ type_name }}Response>(SOFT_DELETE_{{ type_name.upper() }}, { input }));
+  }
+
+  query{{ pluralize(type_name) }}(): Observable<Query{{ pluralize(type_name) }}Response> {
+    const raw = this.routeQuery.getRawFilters();
+    const includes = this.routeQuery.getRawIncludes();
+
+    const filters: {{ type_name }}FilterInput = {};
+    for (const key in raw) {
+      if ({{ type_name.upper() }}_FILTER_KEYS.has(key)) {
+        filters[key as keyof {{ type_name }}FilterInput] = raw[key];
+      }
+    }
+
+    return from(this.client.query<Query{{ pluralize(type_name) }}Response>(
+      QUERY_{{ pluralize(type_name).upper() }},
+      {
+        filters,
+        ...includes,
+      }
+    ));
+  }
+
+  onPut{{ type_name }}(): Observable<OnPut{{ type_name }}Response> {
+    return from(this.client.query<OnPut{{ type_name }}Response>(
+      ON_PUT_{{ type_name.upper() }}
+    ));
+  }
+
+  onUpdate{{ type_name }}(): Observable<OnUpdate{{ type_name }}Response> {
+    return from(this.client.query<OnUpdate{{ type_name }}Response>(
+      ON_UPDATE_{{ type_name.upper() }}
+    ));
+  }
+
+  onSoftDelete{{ type_name }}(): Observable<OnSoftDelete{{ type_name }}Response> {
+    return from(this.client.query<OnSoftDelete{{ type_name }}Response>(
+      ON_SOFT_DELETE_{{ type_name.upper() }}
+    ));
+  }
+}

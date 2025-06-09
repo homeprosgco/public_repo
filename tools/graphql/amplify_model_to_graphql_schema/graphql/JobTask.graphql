@@ -1,0 +1,86 @@
+enum JobTaskPriority {
+  Low
+  Medium
+  High
+  Critical
+}
+enum JobTaskStatus {
+  NotStarted
+  InProgress
+  Completed
+  OnHold
+  Cancelled
+}
+type JobTask {
+  id: ID!
+  tenant: Tenant @belongsTo
+  assignedTo: TeamMember @belongsTo
+  name: String
+  description: String
+  category: String
+  notes: String
+  priority: JobTaskPriority
+  status: JobTaskStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  team: Team @belongsTo
+  isDeleted: Boolean!
+}
+input CreateJobTaskInput {
+  tenant: Tenant
+  assignedTo: TeamMember
+  name: String
+  description: String
+  category: String
+  notes: String
+  priority: JobTaskPriority
+  status: JobTaskStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  team: Team
+  isDeleted: Boolean = false
+}
+input UpdateJobTaskInput {
+  id: ID!
+  tenant: Tenant
+  assignedTo: TeamMember
+  name: String
+  description: String
+  category: String
+  notes: String
+  priority: JobTaskPriority
+  status: JobTaskStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  team: Team
+  isDeleted: Boolean
+}
+input SoftDeleteJobTaskInput {
+  id: ID!
+}
+
+input JobTaskFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getJobTask(id: ID!): JobTask
+  queryJobTasks(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: JobTaskFilterInput
+  ): [JobTask]
+}
+type Mutation {
+  putJobTask(input: CreateJobTaskInput!): JobTask
+  updateJobTask(input: UpdateJobTaskInput!): JobTask
+  softDeleteJobTask(input: SoftDeleteJobTaskInput!): JobTask
+  deleteJobTask(id: ID!): JobTask
+}
+type Subscription {
+  onPutJobTask: JobTask @aws_subscribe(mutations: ["putJobTask"])
+  onUpdateJobTask: JobTask @aws_subscribe(mutations: ["updateJobTask"])
+  onSoftDeleteJobTask: JobTask @aws_subscribe(mutations: ["softDeleteJobTask"])
+}

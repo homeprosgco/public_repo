@@ -1,0 +1,59 @@
+input ProposalInput {
+  prospectId: String!
+  status: ProposalStatus!
+  category: String!
+  requestedWorkScope: String!
+  definedWorkScope: String!
+  createdById: String!
+  address: AddressInput!
+  jobLeadId: String!
+  notes: String
+  comments: [CommentInput]
+  imageURLs: [String]
+  fileURLs: [String]
+  activity: [ActivityInput]
+  referenceId: String
+}
+
+type Proposal {
+  id: String!
+  prospectId: String!
+  status: ProposalStatus!
+  category: String!
+  requestedWorkScope: String!
+  definedWorkScope: String!
+  createdById: String!
+  address: Address
+  jobLeadId: String!
+  notes: String
+  comments: [Comment!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activity: [Activity!]
+  referenceId: String
+  created: String!
+  updated: String
+}
+
+type Query {
+  proposals: [Proposal!]!
+  proposalById(proposalIdInput: GetByID!): Proposal!
+}
+
+type Mutation {
+  createProposal(proposalInput: ProposalInput!): Proposal!
+  updateProposal(
+    proposalIdInput: GetByID!
+    updateProposalInput: ProposalInput!
+  ): Proposal!
+  removeProposal(proposalIdInput: GetByID!): String!
+}
+
+enum ProposalStatus {
+  DRAFT
+  ACCEPTED
+  DENIED
+  EXPIRED
+  SENT
+  VIEWED
+}

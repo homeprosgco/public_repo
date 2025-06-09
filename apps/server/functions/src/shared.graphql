@@ -1,0 +1,87 @@
+input AddressInput {
+  streetAddress: String!
+  city: String!
+  state: String!
+  zipcode: String!
+}
+
+type Address {
+  streetAddress: String!
+  city: String!
+  state: String!
+  zipcode: String!
+}
+
+input CommentInput {
+  userId: String!
+  comment: String!
+}
+
+input ActivityInput {
+  userId: String!
+  activity: String!
+}
+
+type Comment {
+  userId: String!
+  comment: String!
+  created: String!
+}
+
+type Activity {
+  userId: String!
+  activity: String!
+  created: String!
+}
+
+input GetByID {
+  id: String!
+}
+
+input GetByCustomerID {
+  customerId: String!
+}
+
+input GetByProposalID {
+  prosalId: String!
+}
+
+input GetByJobLeadID {
+  jobLeadId: String!
+}
+
+input GetByJobID {
+  jobId: String!
+}
+
+input GetByCategory {
+  category: String!
+}
+
+input GetByReferenceID {
+  referenceId: String!
+}
+
+input GetByStatus {
+  status: String!
+}
+
+input LineItemInput {
+  quantity: Int!
+  item: ItemInput!
+}
+
+type LineItem {
+  quantity: Int!
+  item: Item!
+}
+
+input LineWorkServiceInput {
+  quantity: Int!
+  workService: WorkServiceInput!
+}
+
+type LineWorkService {
+  quantity: Int!
+  workService: WorkService!
+}

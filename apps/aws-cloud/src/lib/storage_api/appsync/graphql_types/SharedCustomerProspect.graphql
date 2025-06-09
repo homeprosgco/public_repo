@@ -1,0 +1,81 @@
+
+type SharedCustomerProspect {
+  id: ID!
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateSharedCustomerProspectInput {
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateSharedCustomerProspectInput {
+  id: ID!
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteSharedCustomerProspectInput {
+  id: ID!
+}
+
+type Query {
+    getSharedCustomerProspect(id: ID!): SharedCustomerProspect
+    
+    querySharedCustomerProspects(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: SharedCustomerProspectFilterInput
+    ): [SharedCustomerProspect]
+    }
+
+    input SharedCustomerProspectFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putSharedCustomerProspect(input: CreateSharedCustomerProspectInput!): SharedCustomerProspect
+    updateSharedCustomerProspect(input: UpdateSharedCustomerProspectInput!): SharedCustomerProspect
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteSharedCustomerProspect(input: SoftDeleteSharedCustomerProspectInput!): SharedCustomerProspect
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteSharedCustomerProspect(id: ID!): SharedCustomerProspect
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutSharedCustomerProspect: SharedCustomerProspect @aws_subscribe(mutations: ["putSharedCustomerProspect"])
+    onUpdateSharedCustomerProspect: SharedCustomerProspect @aws_subscribe(mutations: ["updateSharedCustomerProspect"])
+    onSoftDeleteSharedCustomerProspect: SharedCustomerProspect @aws_subscribe(mutations: ["softDeleteSharedCustomerProspect"])
+}
+    

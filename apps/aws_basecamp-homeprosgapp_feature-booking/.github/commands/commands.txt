@@ -1,0 +1,25 @@
+Username for 'https://github.com': 
+it@thehomeproservicegruop
+
+git remote get-url origin
+
+List All Remotes
+git remote -v
+
+# Clone your repo as a backup
+git clone --mirror https://github.com/thehomeproservicegroup-it/aws_basecamp.git aws_basecamp_backup_repo.git
+
+git checkout [branch]
+
+Run git filter-repo to remove all unrelated directories:
+- if packages/auth/ doesn’t belong to the feature/core branch, run
+
+git filter-repo --path packages/aws_backend/ --path apps/homeprosgapp/ --invert-paths
+
+stop tracking
+git rm -r --cached apps/homeprosgapp
+
+To create a new branch named develop, use the following command:
+
+git checkout -b develop
+The -b flag creates the branch.

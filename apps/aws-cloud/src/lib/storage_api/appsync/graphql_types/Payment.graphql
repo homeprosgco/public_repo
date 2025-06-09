@@ -1,0 +1,91 @@
+enum PaymentPaymentstatusEnum {
+  Pending
+  Completed
+  Failed
+}
+type Payment {
+  id: ID!
+  amount: Float
+  notes: String
+  method: String
+  status: String
+  payerId: ID!
+  payeeName: String
+  for: String
+  paymentAddress: String
+  paymentStatus: PaymentPaymentstatusEnum
+  date: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreatePaymentInput {
+  amount: Float
+  notes: String
+  method: String
+  status: String
+  payerId: ID!
+  payeeName: String
+  for: String
+  paymentAddress: String
+  paymentStatus: PaymentPaymentstatusEnum
+  date: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdatePaymentInput {
+  id: ID!
+  amount: Float
+  notes: String
+  method: String
+  status: String
+  payerId: ID!
+  payeeName: String
+  for: String
+  paymentAddress: String
+  paymentStatus: PaymentPaymentstatusEnum
+  date: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeletePaymentInput {
+  id: ID!
+}
+
+type Query {
+    getPayment(id: ID!): Payment
+    
+    queryPayments(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: PaymentFilterInput
+    ): [Payment]
+    }
+
+    input PaymentFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putPayment(input: CreatePaymentInput!): Payment
+    updatePayment(input: UpdatePaymentInput!): Payment
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeletePayment(input: SoftDeletePaymentInput!): Payment
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deletePayment(id: ID!): Payment
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutPayment: Payment @aws_subscribe(mutations: ["putPayment"])
+    onUpdatePayment: Payment @aws_subscribe(mutations: ["updatePayment"])
+    onSoftDeletePayment: Payment @aws_subscribe(mutations: ["softDeletePayment"])
+}
+    

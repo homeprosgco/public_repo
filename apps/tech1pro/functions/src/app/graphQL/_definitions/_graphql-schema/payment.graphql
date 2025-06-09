@@ -1,0 +1,37 @@
+input PaymentInput {
+  amount: String!
+  created: String!
+  to: String!
+  for: String!
+  direction: String!
+  referenceId: String!
+  referenceType: String!
+  createdById: String!
+  updated: String
+  note: String
+}
+
+type Payment {
+  id: String
+  amount: String!
+  direction: String!
+  created: String!
+  to: String!
+  for: String!
+  referenceId: String!
+  referenceType: String!
+  createdById: String!
+  updated: String
+  note: String
+}
+
+enum PaymentDirection {
+  INCOMING
+  OUTGOING
+}
+
+enum ReferenceType {
+  INVOICE
+  JOB
+  PROJECT
+}

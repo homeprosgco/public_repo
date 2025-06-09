@@ -1,0 +1,18 @@
+{
+  "version": "40.0.0",
+  "artifacts": {
+    "assembly-HomeProSGCO-Staging": {
+      "type": "cdk:cloud-assembly",
+      "properties": {
+        "directoryName": "assembly-HomeProSGCO-Staging",
+        "displayName": "HomeProSGCO-Staging"
+      }
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,133 @@
+enum PropertyType {
+  SingleFamily
+  MultiFamily
+  Apartment
+  Commercial
+  MobileHome
+}
+enum BookingStatus {
+  Requested
+  PendingReview
+  Contacted
+  Scheduled
+  Confirmed
+  InProgress
+  Completed
+  Cancelled
+  NoShow
+  Rescheduled
+}
+enum HiringStage {
+  ReadyToHire
+  PlanningAndBudgeting
+}
+enum HiringTimeline {
+  Within1Week
+  OneToTwoWeeks
+  MoreThanTwoWeeks
+  TimingIsFlexible
+}
+enum AppointmentSlot {
+  EarlyMorning
+  Morning
+  Afternoon
+  LateAfternoon
+}
+enum OwnershipStatus {
+  Own
+  Rent
+}
+type Booking {
+  id: ID!
+  bids: [Bid] @hasMany
+  service: String
+  propertyType: PropertyType
+  status: BookingStatus
+  hiringStage: HiringStage
+  hiringTimeline: HiringTimeline
+  appointmentSlot: AppointmentSlot
+  ownership: OwnershipStatus
+  details: String
+  photoUploadUrls: [String]
+  termsAccepted: Boolean
+  fullname: String
+  address: String
+  email: String
+  phone: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  confirmed: Boolean
+  isDeleted: Boolean!
+}
+input CreateBookingInput {
+  bids: [Bid]
+  service: String
+  propertyType: PropertyType
+  status: BookingStatus
+  hiringStage: HiringStage
+  hiringTimeline: HiringTimeline
+  appointmentSlot: AppointmentSlot
+  ownership: OwnershipStatus
+  details: String
+  photoUploadUrls: [String]
+  termsAccepted: Boolean
+  fullname: String
+  address: String
+  email: String
+  phone: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  confirmed: Boolean
+  isDeleted: Boolean = false
+}
+input UpdateBookingInput {
+  id: ID!
+  bids: [Bid]
+  service: String
+  propertyType: PropertyType
+  status: BookingStatus
+  hiringStage: HiringStage
+  hiringTimeline: HiringTimeline
+  appointmentSlot: AppointmentSlot
+  ownership: OwnershipStatus
+  details: String
+  photoUploadUrls: [String]
+  termsAccepted: Boolean
+  fullname: String
+  address: String
+  email: String
+  phone: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  confirmed: Boolean
+  isDeleted: Boolean
+}
+input SoftDeleteBookingInput {
+  id: ID!
+}
+
+input BookingFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getBooking(id: ID!): Booking
+  queryBookings(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: BookingFilterInput
+  ): [Booking]
+}
+type Mutation {
+  putBooking(input: CreateBookingInput!): Booking
+  updateBooking(input: UpdateBookingInput!): Booking
+  softDeleteBooking(input: SoftDeleteBookingInput!): Booking
+  deleteBooking(id: ID!): Booking
+}
+type Subscription {
+  onPutBooking: Booking @aws_subscribe(mutations: ["putBooking"])
+  onUpdateBooking: Booking @aws_subscribe(mutations: ["updateBooking"])
+  onSoftDeleteBooking: Booking @aws_subscribe(mutations: ["softDeleteBooking"])
+}

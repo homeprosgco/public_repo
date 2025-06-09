@@ -1,0 +1,75 @@
+input InvoiceInput {
+  customerId: String!
+  jobId: String
+  projectId: String
+  estimateId: String
+  companyId: String
+  jobLeadId: String
+  proposalId: String
+  createdById: String!
+  number: Int!
+  status: InvoiceStatus!
+  lineItems: [LineItemInput!]
+  lineWorkServices: [LineWorkServiceInput!]
+  notes: String
+  comments: [CommentInput!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activity: [ActivityInput!]
+  referenceId: String
+  address: AddressInput!
+  category: String
+}
+
+type Invoice {
+  customerId: String!
+  jobId: String
+  projectId: String
+  estimateId: String
+  companyId: String
+  jobLeadId: String
+  proposalId: String
+  createdById: String!
+  created: String!
+  number: Int!
+  status: InvoiceStatus!
+  updated: String
+  lineItems: [LineItem!]
+  lineWorkServices: [LineWorkService!]
+  notes: String
+  comments: [Comment!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activity: [Activity!]
+  referenceId: String
+  serviceAddress: Address!
+  category: String
+  viewedDate: String
+}
+
+type Query {
+  invoices: [Invoice!]!
+  invoicesByCategory(categoryInput: GetByCategory!): [Invoice!]!
+  invoicesByStatus(statusInput: GetByStatus!): [Invoice!]!
+  invoiceById(invoiceIdInput: GetByID!): Invoice!
+  invoiceByReferenceId(referenceIdInput: GetByReferenceID!): Invoice!
+  invoiceByAddress(addressInput: AddressInput!): [Invoice!]!
+}
+
+type Mutation {
+  createInvoice(invoiceInput: InvoiceInput!): Invoice!
+  updateInvoice(
+    invoiceIdInput: GetByID!
+    updateInvoiceInput: InvoiceInput!
+  ): Invoice!
+  removeInvoice(invoiceIdInput: GetByID!): String!
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+  OVERDUE
+  UNPAID
+  VIEWED
+}

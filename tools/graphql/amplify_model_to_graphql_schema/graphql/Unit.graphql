@@ -1,0 +1,68 @@
+
+type Unit {
+  id: ID!
+  property: Property @belongsTo
+  unitNumber: String
+  bedrooms: Int
+  bathrooms: Int
+  sqft: Float
+  rentAmount: Float
+  created: AWSDateTime
+  updated: AWSDateTime
+  lease: Lease @belongsTo
+  isDeleted: Boolean!
+}
+input CreateUnitInput {
+  property: Property
+  unitNumber: String
+  bedrooms: Int
+  bathrooms: Int
+  sqft: Float
+  rentAmount: Float
+  created: AWSDateTime
+  updated: AWSDateTime
+  lease: Lease
+  isDeleted: Boolean = false
+}
+input UpdateUnitInput {
+  id: ID!
+  property: Property
+  unitNumber: String
+  bedrooms: Int
+  bathrooms: Int
+  sqft: Float
+  rentAmount: Float
+  created: AWSDateTime
+  updated: AWSDateTime
+  lease: Lease
+  isDeleted: Boolean
+}
+input SoftDeleteUnitInput {
+  id: ID!
+}
+
+input UnitFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getUnit(id: ID!): Unit
+  queryUnits(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: UnitFilterInput
+  ): [Unit]
+}
+type Mutation {
+  putUnit(input: CreateUnitInput!): Unit
+  updateUnit(input: UpdateUnitInput!): Unit
+  softDeleteUnit(input: SoftDeleteUnitInput!): Unit
+  deleteUnit(id: ID!): Unit
+}
+type Subscription {
+  onPutUnit: Unit @aws_subscribe(mutations: ["putUnit"])
+  onUpdateUnit: Unit @aws_subscribe(mutations: ["updateUnit"])
+  onSoftDeleteUnit: Unit @aws_subscribe(mutations: ["softDeleteUnit"])
+}

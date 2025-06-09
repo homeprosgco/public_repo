@@ -1,0 +1,24 @@
+input ExpenseInput {
+  amount: String!
+  category: String!
+  created: String!
+  createdById: String!
+  imageURL: String
+  location: String!
+  subCategory: String
+  updated: String
+  userId: String!
+}
+
+type Expense {
+  amount: String!
+  category: String!
+  created: String!
+  createdById: String!
+  id: String
+  imageURL: String
+  location: String!
+  subCategory: String
+  updated: String
+  userId: String!
+}

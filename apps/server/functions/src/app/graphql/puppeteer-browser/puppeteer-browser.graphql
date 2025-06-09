@@ -1,0 +1,8 @@
+type PuppeteerBrowser {
+  connectionURL: String
+  openPagesURLs: [String]
+}
+
+type Query {
+  puppeteerBrowser: PuppeteerBrowser
+}

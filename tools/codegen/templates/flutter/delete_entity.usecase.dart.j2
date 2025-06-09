@@ -1,0 +1,13 @@
+// GENERATED DELETE {{ type_name.upper() }} USE CASE
+import '../repositories/i_{{ filename }}_repository.dart';
+import '../../data/models/{{ filename }}.dart';
+
+class Delete{{ type_name }}UseCase {
+  final I{{ type_name }}Repository repository;
+
+  Delete{{ type_name }}UseCase(this.repository);
+
+  Future<{{ type_name }}Model> execute(String id) {
+    return repository.delete{{ type_name }}(id);
+  }
+}

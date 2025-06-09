@@ -1,0 +1,84 @@
+
+type Product {
+  id: ID!
+  name: String
+  purchasePrice: Float
+  category: String
+  description: String
+  supplier: String
+  salePrice: Float
+  sku: String
+  notes: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateProductInput {
+  name: String
+  purchasePrice: Float
+  category: String
+  description: String
+  supplier: String
+  salePrice: Float
+  sku: String
+  notes: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateProductInput {
+  id: ID!
+  name: String
+  purchasePrice: Float
+  category: String
+  description: String
+  supplier: String
+  salePrice: Float
+  sku: String
+  notes: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteProductInput {
+  id: ID!
+}
+
+type Query {
+    getProduct(id: ID!): Product
+    
+    queryProducts(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: ProductFilterInput
+    ): [Product]
+    }
+
+    input ProductFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putProduct(input: CreateProductInput!): Product
+    updateProduct(input: UpdateProductInput!): Product
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteProduct(input: SoftDeleteProductInput!): Product
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteProduct(id: ID!): Product
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutProduct: Product @aws_subscribe(mutations: ["putProduct"])
+    onUpdateProduct: Product @aws_subscribe(mutations: ["updateProduct"])
+    onSoftDeleteProduct: Product @aws_subscribe(mutations: ["softDeleteProduct"])
+}
+    

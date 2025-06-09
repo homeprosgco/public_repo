@@ -1,0 +1,75 @@
+
+type SupportTicket {
+  id: ID!
+  teamMemberId: ID!
+  issueType: String
+  description: String
+  resolutionDetails: String
+  status: String
+  priority: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateSupportTicketInput {
+  teamMemberId: ID!
+  issueType: String
+  description: String
+  resolutionDetails: String
+  status: String
+  priority: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateSupportTicketInput {
+  id: ID!
+  teamMemberId: ID!
+  issueType: String
+  description: String
+  resolutionDetails: String
+  status: String
+  priority: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteSupportTicketInput {
+  id: ID!
+}
+
+type Query {
+    getSupportTicket(id: ID!): SupportTicket
+    
+    querySupportTickets(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: SupportTicketFilterInput
+    ): [SupportTicket]
+    }
+
+    input SupportTicketFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putSupportTicket(input: CreateSupportTicketInput!): SupportTicket
+    updateSupportTicket(input: UpdateSupportTicketInput!): SupportTicket
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteSupportTicket(input: SoftDeleteSupportTicketInput!): SupportTicket
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteSupportTicket(id: ID!): SupportTicket
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutSupportTicket: SupportTicket @aws_subscribe(mutations: ["putSupportTicket"])
+    onUpdateSupportTicket: SupportTicket @aws_subscribe(mutations: ["updateSupportTicket"])
+    onSoftDeleteSupportTicket: SupportTicket @aws_subscribe(mutations: ["softDeleteSupportTicket"])
+}
+    

@@ -1,0 +1,56 @@
+
+type ChatAttachment {
+  id: ID!
+  chatMessage: ChatMessage @belongsTo
+  fileURL: String
+  fileType: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateChatAttachmentInput {
+  chatMessage: ChatMessage
+  fileURL: String
+  fileType: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateChatAttachmentInput {
+  id: ID!
+  chatMessage: ChatMessage
+  fileURL: String
+  fileType: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteChatAttachmentInput {
+  id: ID!
+}
+
+input ChatAttachmentFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getChatAttachment(id: ID!): ChatAttachment
+  queryChatAttachments(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ChatAttachmentFilterInput
+  ): [ChatAttachment]
+}
+type Mutation {
+  putChatAttachment(input: CreateChatAttachmentInput!): ChatAttachment
+  updateChatAttachment(input: UpdateChatAttachmentInput!): ChatAttachment
+  softDeleteChatAttachment(input: SoftDeleteChatAttachmentInput!): ChatAttachment
+  deleteChatAttachment(id: ID!): ChatAttachment
+}
+type Subscription {
+  onPutChatAttachment: ChatAttachment @aws_subscribe(mutations: ["putChatAttachment"])
+  onUpdateChatAttachment: ChatAttachment @aws_subscribe(mutations: ["updateChatAttachment"])
+  onSoftDeleteChatAttachment: ChatAttachment @aws_subscribe(mutations: ["softDeleteChatAttachment"])
+}

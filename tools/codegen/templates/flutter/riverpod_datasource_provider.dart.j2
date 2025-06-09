@@ -1,0 +1,15 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:@homeprosgco/graphql_client/graphql_client_provider.dart';
+import 'package:flutter_route_query/route_query_service.dart';
+
+import '../../data/datasources/graphql_{{ filename }}_datasource.dart';
+import '../../domain/interfaces/i_{{ filename }}_graphql_datasource.dart';
+
+part '{{ filename }}_datasource_provider.g.dart';
+
+@riverpod
+I{{ type_name }}GraphQLDatasource {{ filename }}GraphQLDatasource(Ref ref) {
+  final client = ref.watch(graphQLClientProvider);
+  final routeQuery = ref.watch(routeQueryServiceProvider);
+  return GraphQL{{ type_name }}Datasource(client, routeQuery);
+}

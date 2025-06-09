@@ -1,0 +1,79 @@
+enum SatisfactionRating {
+  VERY_DISSATISFIED
+  DISSATISFIED
+  NEUTRAL
+  SATISFIED
+  VERY_SATISFIED
+}
+enum ReviewVisibility {
+  Public
+  Private
+  Internal
+}
+type Review {
+  id: ID!
+  tenant: Tenant @belongsTo
+  project: Project @belongsTo
+  reviewerName: String
+  rating: SatisfactionRating
+  comment: String
+  response: String
+  visibility: ReviewVisibility
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateReviewInput {
+  tenant: Tenant
+  project: Project
+  reviewerName: String
+  rating: SatisfactionRating
+  comment: String
+  response: String
+  visibility: ReviewVisibility
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateReviewInput {
+  id: ID!
+  tenant: Tenant
+  project: Project
+  reviewerName: String
+  rating: SatisfactionRating
+  comment: String
+  response: String
+  visibility: ReviewVisibility
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteReviewInput {
+  id: ID!
+}
+
+input ReviewFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getReview(id: ID!): Review
+  queryReviews(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ReviewFilterInput
+  ): [Review]
+}
+type Mutation {
+  putReview(input: CreateReviewInput!): Review
+  updateReview(input: UpdateReviewInput!): Review
+  softDeleteReview(input: SoftDeleteReviewInput!): Review
+  deleteReview(id: ID!): Review
+}
+type Subscription {
+  onPutReview: Review @aws_subscribe(mutations: ["putReview"])
+  onUpdateReview: Review @aws_subscribe(mutations: ["updateReview"])
+  onSoftDeleteReview: Review @aws_subscribe(mutations: ["softDeleteReview"])
+}

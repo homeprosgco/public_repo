@@ -1,0 +1,14 @@
+# GENERATED ON_UPDATE {{ type_name.upper() }} SUBSCRIPTION
+subscription OnUpdate{{ type_name }} {
+  onUpdate{{ type_name }} {
+    id
+    {% for scalar in scalars %}
+    {{ scalar }}
+    {% endfor %}
+    {% for rel in relations %}
+    {{ rel | lower }} {
+      id
+    }
+    {% endfor %}
+  }
+}

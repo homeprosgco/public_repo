@@ -1,0 +1,71 @@
+input EstimateInput {
+  jobLeadId: String
+  proposalId: String
+  createdById: String!
+  number: Int!
+  lineItems: [LineItemInput!]
+  lineWorkServices: [LineWorkServiceInput!]
+  notes: String
+  comments: [CommentInput!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activity: [ActivityInput!]
+  referenceId: String
+  addressId: AddressInput!
+  status: String!
+  category: String
+  viewedDate: String
+  prospectId: String
+}
+
+type Estimate {
+  created: String!
+  createdById: String!
+  id: String
+  prospectId: String!
+  prospect: Prospect
+  companyId: String
+  jobLeadId: String
+  jobLead: JobLead
+  proposalId: String
+  proposal: Proposal
+  number: Int!
+  status: String!
+  updated: String
+  expires: String
+  lineItems: [LineItem!]
+  lineWorkServices: [LineWorkService!]
+  notes: String
+  comments: [Comment!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activity: [Activity!]
+  referenceId: String
+  serviceAddress: Address!
+  category: String
+  viewedDate: String
+}
+
+type Query {
+  estimates: [Estimate!]!
+  estimatesByCategory(categoryInput: GetByCategory!): [Estimate!]!
+  estimateById(estimateIdInput: GetByID!): Estimate!
+}
+
+type Mutation {
+  createEstimate(estimateInput: EstimateInput!): Estimate!
+  updateEstimate(
+    estimateIdInput: GetByID!
+    updateEstimateInput: EstimateInput!
+  ): Estimate!
+  removeEstimate(estimateIdInput: GetByID!): String!
+}
+
+enum EstimateStatus {
+  DRAFT
+  ACCEPTED
+  DENIED
+  EXPIRED
+  SENT
+  VIEWED
+}

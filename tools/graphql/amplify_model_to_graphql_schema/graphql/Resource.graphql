@@ -1,0 +1,65 @@
+
+type Resource {
+  id: ID!
+  tenant: Tenant @belongsTo
+  title: String
+  category: String
+  url: String
+  description: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateResourceInput {
+  tenant: Tenant
+  title: String
+  category: String
+  url: String
+  description: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateResourceInput {
+  id: ID!
+  tenant: Tenant
+  title: String
+  category: String
+  url: String
+  description: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteResourceInput {
+  id: ID!
+}
+
+input ResourceFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getResource(id: ID!): Resource
+  queryResources(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ResourceFilterInput
+  ): [Resource]
+}
+type Mutation {
+  putResource(input: CreateResourceInput!): Resource
+  updateResource(input: UpdateResourceInput!): Resource
+  softDeleteResource(input: SoftDeleteResourceInput!): Resource
+  deleteResource(id: ID!): Resource
+}
+type Subscription {
+  onPutResource: Resource @aws_subscribe(mutations: ["putResource"])
+  onUpdateResource: Resource @aws_subscribe(mutations: ["updateResource"])
+  onSoftDeleteResource: Resource @aws_subscribe(mutations: ["softDeleteResource"])
+}

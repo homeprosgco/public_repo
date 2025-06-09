@@ -1,0 +1,75 @@
+
+type SubscriptionPlan {
+  id: ID!
+  planName: String
+  price: Float
+  features: [String]
+  billingCycle: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateSubscriptionPlanInput {
+  planName: String
+  price: Float
+  features: [String]
+  billingCycle: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateSubscriptionPlanInput {
+  id: ID!
+  planName: String
+  price: Float
+  features: [String]
+  billingCycle: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteSubscriptionPlanInput {
+  id: ID!
+}
+
+type Query {
+    getSubscriptionPlan(id: ID!): SubscriptionPlan
+    
+    querySubscriptionPlans(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: SubscriptionPlanFilterInput
+    ): [SubscriptionPlan]
+    }
+
+    input SubscriptionPlanFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putSubscriptionPlan(input: CreateSubscriptionPlanInput!): SubscriptionPlan
+    updateSubscriptionPlan(input: UpdateSubscriptionPlanInput!): SubscriptionPlan
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteSubscriptionPlan(input: SoftDeleteSubscriptionPlanInput!): SubscriptionPlan
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteSubscriptionPlan(id: ID!): SubscriptionPlan
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutSubscriptionPlan: SubscriptionPlan @aws_subscribe(mutations: ["putSubscriptionPlan"])
+    onUpdateSubscriptionPlan: SubscriptionPlan @aws_subscribe(mutations: ["updateSubscriptionPlan"])
+    onSoftDeleteSubscriptionPlan: SubscriptionPlan @aws_subscribe(mutations: ["softDeleteSubscriptionPlan"])
+}
+    

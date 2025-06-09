@@ -1,0 +1,27 @@
+input BeneficiaryInput {
+  address: AddressInput
+  customerId: String!
+  displayName: String!
+  email: String
+  firstname: String
+  lastname: String
+  phone: String
+  type: String!
+  created: String
+  updated: String
+}
+
+type Beneficiary implements Contact {
+  address: Address
+  addressId: String
+  created: String
+  customerId: String!
+  email: String
+  displayName: String!
+  firstname: String
+  lastname: String
+  id: String
+  phone: String
+  type: String!
+  updated: String
+}

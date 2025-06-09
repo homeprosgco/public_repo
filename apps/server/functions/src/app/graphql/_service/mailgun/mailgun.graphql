@@ -1,0 +1,21 @@
+type MailgunMessageResult {
+  id: String
+  message: String
+  status: Int
+  details: String
+}
+
+input IHtmlEmailMessage {
+  from: String!
+  to: String!
+  subject: String!
+  text: String
+  html: String
+}
+
+type Mutation {
+  sendHtmlEmailMessage(input: IHtmlEmailMessage!): MailgunMessageResult!
+  sendTextEmail(input: IHtmlEmailMessage!): MailgunMessageResult!
+  sendLinkNewUserInvitationEmail: MailgunMessageResult!
+  sendTestEmail: MailgunMessageResult!
+}

@@ -1,0 +1,78 @@
+
+type ChatMessage {
+  id: ID!
+  userId: ID!
+  chatRoomId: ID!
+  messageContent: String
+  timestamp: AWSDateTime
+  messageType: String
+  attachments: [String]
+  messengerIds: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateChatMessageInput {
+  userId: ID!
+  chatRoomId: ID!
+  messageContent: String
+  timestamp: AWSDateTime
+  messageType: String
+  attachments: [String]
+  messengerIds: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateChatMessageInput {
+  id: ID!
+  userId: ID!
+  chatRoomId: ID!
+  messageContent: String
+  timestamp: AWSDateTime
+  messageType: String
+  attachments: [String]
+  messengerIds: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteChatMessageInput {
+  id: ID!
+}
+
+type Query {
+    getChatMessage(id: ID!): ChatMessage
+    
+    queryChatMessages(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: ChatMessageFilterInput
+    ): [ChatMessage]
+    }
+
+    input ChatMessageFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putChatMessage(input: CreateChatMessageInput!): ChatMessage
+    updateChatMessage(input: UpdateChatMessageInput!): ChatMessage
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteChatMessage(input: SoftDeleteChatMessageInput!): ChatMessage
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteChatMessage(id: ID!): ChatMessage
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutChatMessage: ChatMessage @aws_subscribe(mutations: ["putChatMessage"])
+    onUpdateChatMessage: ChatMessage @aws_subscribe(mutations: ["updateChatMessage"])
+    onSoftDeleteChatMessage: ChatMessage @aws_subscribe(mutations: ["softDeleteChatMessage"])
+}
+    

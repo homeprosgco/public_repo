@@ -1,0 +1,66 @@
+
+type TrafficSource {
+  id: ID!
+  sourceType: String
+  visits: Int
+  bounceRate: Float
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateTrafficSourceInput {
+  sourceType: String
+  visits: Int
+  bounceRate: Float
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateTrafficSourceInput {
+  id: ID!
+  sourceType: String
+  visits: Int
+  bounceRate: Float
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteTrafficSourceInput {
+  id: ID!
+}
+
+type Query {
+    getTrafficSource(id: ID!): TrafficSource
+    
+    queryTrafficSources(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: TrafficSourceFilterInput
+    ): [TrafficSource]
+    }
+
+    input TrafficSourceFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putTrafficSource(input: CreateTrafficSourceInput!): TrafficSource
+    updateTrafficSource(input: UpdateTrafficSourceInput!): TrafficSource
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteTrafficSource(input: SoftDeleteTrafficSourceInput!): TrafficSource
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteTrafficSource(id: ID!): TrafficSource
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutTrafficSource: TrafficSource @aws_subscribe(mutations: ["putTrafficSource"])
+    onUpdateTrafficSource: TrafficSource @aws_subscribe(mutations: ["updateTrafficSource"])
+    onSoftDeleteTrafficSource: TrafficSource @aws_subscribe(mutations: ["softDeleteTrafficSource"])
+}
+    

@@ -1,0 +1,101 @@
+enum PropertyType {
+  SingleFamily
+  MultiFamily
+  Apartment
+  Commercial
+  MobileHome
+}
+enum PropertyStatus {
+  Active
+  Pending
+  Rented
+  Sold
+}
+type Property {
+  id: ID!
+  tenant: Tenant @belongsTo
+  owner: Customer @belongsTo
+  tenants: [Recipient] @hasMany
+  address: String
+  city: String
+  state: String
+  zipCode: String
+  country: String
+  propertyType: PropertyType
+  numberOfUnits: Int
+  squareFeet: Float
+  amenities: [String]
+  status: PropertyStatus
+  photos: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreatePropertyInput {
+  tenant: Tenant
+  owner: Customer
+  tenants: [Recipient]
+  address: String
+  city: String
+  state: String
+  zipCode: String
+  country: String
+  propertyType: PropertyType
+  numberOfUnits: Int
+  squareFeet: Float
+  amenities: [String]
+  status: PropertyStatus
+  photos: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdatePropertyInput {
+  id: ID!
+  tenant: Tenant
+  owner: Customer
+  tenants: [Recipient]
+  address: String
+  city: String
+  state: String
+  zipCode: String
+  country: String
+  propertyType: PropertyType
+  numberOfUnits: Int
+  squareFeet: Float
+  amenities: [String]
+  status: PropertyStatus
+  photos: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeletePropertyInput {
+  id: ID!
+}
+
+input PropertyFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getProperty(id: ID!): Property
+  queryProperties(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: PropertyFilterInput
+  ): [Property]
+}
+type Mutation {
+  putProperty(input: CreatePropertyInput!): Property
+  updateProperty(input: UpdatePropertyInput!): Property
+  softDeleteProperty(input: SoftDeletePropertyInput!): Property
+  deleteProperty(id: ID!): Property
+}
+type Subscription {
+  onPutProperty: Property @aws_subscribe(mutations: ["putProperty"])
+  onUpdateProperty: Property @aws_subscribe(mutations: ["updateProperty"])
+  onSoftDeleteProperty: Property @aws_subscribe(mutations: ["softDeleteProperty"])
+}

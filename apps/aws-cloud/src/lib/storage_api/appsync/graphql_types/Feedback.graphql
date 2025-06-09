@@ -1,0 +1,81 @@
+
+type Feedback {
+  id: ID!
+  userId: ID!
+  message: String
+  rating: Float
+  notes: String
+  responseStatus: String
+  feedbackType: String
+  text: String
+  submittedBy: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateFeedbackInput {
+  userId: ID!
+  message: String
+  rating: Float
+  notes: String
+  responseStatus: String
+  feedbackType: String
+  text: String
+  submittedBy: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateFeedbackInput {
+  id: ID!
+  userId: ID!
+  message: String
+  rating: Float
+  notes: String
+  responseStatus: String
+  feedbackType: String
+  text: String
+  submittedBy: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteFeedbackInput {
+  id: ID!
+}
+
+type Query {
+    getFeedback(id: ID!): Feedback
+    
+    queryFeedbacks(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: FeedbackFilterInput
+    ): [Feedback]
+    }
+
+    input FeedbackFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putFeedback(input: CreateFeedbackInput!): Feedback
+    updateFeedback(input: UpdateFeedbackInput!): Feedback
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteFeedback(input: SoftDeleteFeedbackInput!): Feedback
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteFeedback(id: ID!): Feedback
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutFeedback: Feedback @aws_subscribe(mutations: ["putFeedback"])
+    onUpdateFeedback: Feedback @aws_subscribe(mutations: ["updateFeedback"])
+    onSoftDeleteFeedback: Feedback @aws_subscribe(mutations: ["softDeleteFeedback"])
+}
+    

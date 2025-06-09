@@ -1,0 +1,65 @@
+
+type DoorMeasurement {
+  door1Width: Float
+  door1MaxWidening: Float
+  door1Location: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateDoorMeasurementInput {
+  door1Width: Float
+  door1MaxWidening: Float
+  door1Location: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateDoorMeasurementInput {
+  id: ID!
+  door1Width: Float
+  door1MaxWidening: Float
+  door1Location: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteDoorMeasurementInput {
+  id: ID!
+}
+
+type Query {
+    getDoorMeasurement(id: ID!): DoorMeasurement
+    
+    queryDoorMeasurements(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: DoorMeasurementFilterInput
+    ): [DoorMeasurement]
+    }
+
+    input DoorMeasurementFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putDoorMeasurement(input: CreateDoorMeasurementInput!): DoorMeasurement
+    updateDoorMeasurement(input: UpdateDoorMeasurementInput!): DoorMeasurement
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteDoorMeasurement(input: SoftDeleteDoorMeasurementInput!): DoorMeasurement
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteDoorMeasurement(id: ID!): DoorMeasurement
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutDoorMeasurement: DoorMeasurement @aws_subscribe(mutations: ["putDoorMeasurement"])
+    onUpdateDoorMeasurement: DoorMeasurement @aws_subscribe(mutations: ["updateDoorMeasurement"])
+    onSoftDeleteDoorMeasurement: DoorMeasurement @aws_subscribe(mutations: ["softDeleteDoorMeasurement"])
+}
+    

@@ -1,0 +1,61 @@
+<div class="modal-body modal-body-md">
+  <form [formGroup]="prospectForm" (ngSubmit)="onSubmit()">
+    <h5 *ngIf="!isEditing" class="title">Create New Prospect Customer</h5>
+    <h5 *ngIf="isEditing" class="title">Update Prospect Information</h5>
+    <ul class="nk-nav nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#infomation">Prospect Information</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#address">Address</a>
+      </li>
+    </ul><!-- .nav-tabs -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="infomation">
+        <div class="row gy-4">
+          <div class="col-md-6">
+            <app-form-group [controlName]="'firstname'" [form]="prospectForm" [inputId]="'prospect-firstname'"
+              [label]="'Firstname'" [placeholder]="'e.g Abu Bin'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'lastname'" [form]="prospectForm" [inputId]="'prospect-lastname'"
+              [label]="'Lastname'" [placeholder]="'e.g Ishtiyak'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'displayName'" [form]="prospectForm" [inputId]="'prospect-display-name'"
+              [label]="'Display Name'" [placeholder]="'e.g Abu Bin Ishtiyak'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'email'" [form]="prospectForm" [inputId]="'prospect-email'" [label]="'Email'"
+              [placeholder]="'e.g aubueih@gmail.com'" [inputType]="'email'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'phone'" [form]="prospectForm" [inputId]="'prospect-phone'"
+              [label]="'Primary Phone'" [placeholder]="'(xxx) xxx-xxxx'" [inputType]="'tel'"></app-form-group>
+          </div>
+          <div>
+            <div class="col-md-6">
+              <app-radio-form-group [controlName]="'type'" [form]="prospectForm" [groupName]="'prospectType'"
+                [label]="'Prospect Type'" [radioInputs]="prospectTypes" (radioValue)="onProspectType($event)">
+              </app-radio-form-group>
+            </div>
+          </div>
+        </div>
+      </div><!-- .tab-pane -->
+      <div class="tab-pane" id="address">
+        <app-address-form-group [form]="prospectForm" [idSuffx]="'prospect'" [addressForm]="addressForm"></app-address-form-group>
+      </div><!-- .tab-pane -->
+    </div><!-- .tab-content -->
+    <div class="col-12">
+      <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2 justify-end">
+        <li>
+          <button *ngIf="isTesting" type="button" href="#" class="btn btn-primary" (click)="addTestProspect()">Add Test Prospect</button>
+          <span class="d-inline-block me-2"></span>
+          <button *ngIf="!isEditing" type="submit" href="#" class="btn btn-primary">Create New Prospect</button>
+          <button *ngIf="isEditing" type="submit" href="#" class="btn btn-primary">Update Prospect</button>
+        </li>
+      </ul>
+    </div>
+  </form>
+
+</div><!-- .modal-body -->

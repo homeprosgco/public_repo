@@ -1,0 +1,98 @@
+enum ShowerWallCondition {
+  Good
+  Bad
+}
+enum ShowerWallType {
+  Tile
+  Fiberglass
+}
+type GrabBarEstimate {
+  description: String
+  grabBarLocation: String
+  grabBarLengths: [String]
+  grabBarTypes: [String]
+  need90DegreeGrabBar: Boolean
+  locationOf90DegreeGrabBar: String
+  bathroomDimensions: String
+  needSmallerGrabBar: Boolean
+  showerWallCondition: ShowerWallCondition
+  showerWallType: ShowerWallType
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreateGrabBarEstimateInput {
+  description: String
+  grabBarLocation: String
+  grabBarLengths: [String]
+  grabBarTypes: [String]
+  need90DegreeGrabBar: Boolean
+  locationOf90DegreeGrabBar: String
+  bathroomDimensions: String
+  needSmallerGrabBar: Boolean
+  showerWallCondition: ShowerWallCondition
+  showerWallType: ShowerWallType
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdateGrabBarEstimateInput {
+  id: ID!
+  description: String
+  grabBarLocation: String
+  grabBarLengths: [String]
+  grabBarTypes: [String]
+  need90DegreeGrabBar: Boolean
+  locationOf90DegreeGrabBar: String
+  bathroomDimensions: String
+  needSmallerGrabBar: Boolean
+  showerWallCondition: ShowerWallCondition
+  showerWallType: ShowerWallType
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeleteGrabBarEstimateInput {
+  id: ID!
+}
+
+input GrabBarEstimateFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getGrabBarEstimate(id: ID!): GrabBarEstimate
+  queryGrabBarEstimates(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: GrabBarEstimateFilterInput
+  ): [GrabBarEstimate]
+}
+type Mutation {
+  putGrabBarEstimate(input: CreateGrabBarEstimateInput!): GrabBarEstimate
+  updateGrabBarEstimate(input: UpdateGrabBarEstimateInput!): GrabBarEstimate
+  softDeleteGrabBarEstimate(input: SoftDeleteGrabBarEstimateInput!): GrabBarEstimate
+  deleteGrabBarEstimate(id: ID!): GrabBarEstimate
+}
+type Subscription {
+  onPutGrabBarEstimate: GrabBarEstimate @aws_subscribe(mutations: ["putGrabBarEstimate"])
+  onUpdateGrabBarEstimate: GrabBarEstimate @aws_subscribe(mutations: ["updateGrabBarEstimate"])
+  onSoftDeleteGrabBarEstimate: GrabBarEstimate @aws_subscribe(mutations: ["softDeleteGrabBarEstimate"])
+}

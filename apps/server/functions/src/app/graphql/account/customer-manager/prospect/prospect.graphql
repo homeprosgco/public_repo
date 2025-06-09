@@ -1,0 +1,40 @@
+input ProspectInput {
+  firstname: String
+  lastname: String
+  displayName: String!
+  email: String
+  phone: String
+  address: AddressInput
+  type: ProspectType!
+}
+
+type Prospect {
+  id: String
+  firstname: String
+  lastname: String
+  displayName: String!
+  email: String
+  phone: String
+  address: Address
+  type: ProspectType!
+  created: String
+}
+
+type Query {
+  prospects: [Prospect!]!
+  prospectById(prospectIdInput: GetByID!): Prospect!
+}
+
+type Mutation {
+  createProspect(prospectInput: ProspectInput!): Prospect!
+  updateProspect(
+    prospectIdInput: GetByID!
+    updateProspectInput: ProspectInput!
+  ): Prospect!
+  removeProspect(prospectIdInput: GetByID!): String!
+}
+
+enum ProspectType {
+  INDIVIDUAL
+  COMPANY
+}

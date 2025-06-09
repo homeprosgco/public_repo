@@ -1,0 +1,89 @@
+enum AdContentAdType {
+  Banner
+  Video
+  Text
+  Carousel
+  Native
+  Popup
+  Interstitial
+  SocialMediaPost
+  Email
+  SearchAd
+}
+enum AdContentAdStatus {
+  Draft
+  PendingApproval
+  Approved
+  Active
+  Paused
+  Completed
+  Cancelled
+  Rejected
+}
+type AdContent {
+  id: ID!
+  campaign: Campaign @belongsTo
+  title: String
+  bodyText: String
+  mediaURL: String
+  adType: AdContentAdType
+  status: AdContentAdStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  joblead: JobLead @belongsTo
+  isDeleted: Boolean!
+}
+input CreateAdContentInput {
+  campaign: Campaign
+  title: String
+  bodyText: String
+  mediaURL: String
+  adType: AdContentAdType
+  status: AdContentAdStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  joblead: JobLead
+  isDeleted: Boolean = false
+}
+input UpdateAdContentInput {
+  id: ID!
+  campaign: Campaign
+  title: String
+  bodyText: String
+  mediaURL: String
+  adType: AdContentAdType
+  status: AdContentAdStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  joblead: JobLead
+  isDeleted: Boolean
+}
+input SoftDeleteAdContentInput {
+  id: ID!
+}
+
+input AdContentFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getAdContent(id: ID!): AdContent
+  queryAdContents(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: AdContentFilterInput
+  ): [AdContent]
+}
+type Mutation {
+  putAdContent(input: CreateAdContentInput!): AdContent
+  updateAdContent(input: UpdateAdContentInput!): AdContent
+  softDeleteAdContent(input: SoftDeleteAdContentInput!): AdContent
+  deleteAdContent(id: ID!): AdContent
+}
+type Subscription {
+  onPutAdContent: AdContent @aws_subscribe(mutations: ["putAdContent"])
+  onUpdateAdContent: AdContent @aws_subscribe(mutations: ["updateAdContent"])
+  onSoftDeleteAdContent: AdContent @aws_subscribe(mutations: ["softDeleteAdContent"])
+}

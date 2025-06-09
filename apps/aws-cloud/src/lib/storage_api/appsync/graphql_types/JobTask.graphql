@@ -1,0 +1,87 @@
+
+type JobTask {
+  id: ID!
+  name: String
+  description: String
+  category: String
+  cost: Float
+  materialList: AWSJSON
+  estimatedHours: Float
+  actualHours: Float
+  notes: String
+  priority: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateJobTaskInput {
+  name: String
+  description: String
+  category: String
+  cost: Float
+  materialList: AWSJSON
+  estimatedHours: Float
+  actualHours: Float
+  notes: String
+  priority: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateJobTaskInput {
+  id: ID!
+  name: String
+  description: String
+  category: String
+  cost: Float
+  materialList: AWSJSON
+  estimatedHours: Float
+  actualHours: Float
+  notes: String
+  priority: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteJobTaskInput {
+  id: ID!
+}
+
+type Query {
+    getJobTask(id: ID!): JobTask
+    
+    queryJobTasks(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: JobTaskFilterInput
+    ): [JobTask]
+    }
+
+    input JobTaskFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putJobTask(input: CreateJobTaskInput!): JobTask
+    updateJobTask(input: UpdateJobTaskInput!): JobTask
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteJobTask(input: SoftDeleteJobTaskInput!): JobTask
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteJobTask(id: ID!): JobTask
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutJobTask: JobTask @aws_subscribe(mutations: ["putJobTask"])
+    onUpdateJobTask: JobTask @aws_subscribe(mutations: ["updateJobTask"])
+    onSoftDeleteJobTask: JobTask @aws_subscribe(mutations: ["softDeleteJobTask"])
+}
+    

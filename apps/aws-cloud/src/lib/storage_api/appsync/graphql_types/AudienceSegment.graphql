@@ -1,0 +1,66 @@
+
+type AudienceSegment {
+  id: ID!
+  name: String
+  criteria: String
+  segmentSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateAudienceSegmentInput {
+  name: String
+  criteria: String
+  segmentSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateAudienceSegmentInput {
+  id: ID!
+  name: String
+  criteria: String
+  segmentSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteAudienceSegmentInput {
+  id: ID!
+}
+
+type Query {
+    getAudienceSegment(id: ID!): AudienceSegment
+    
+    queryAudienceSegments(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: AudienceSegmentFilterInput
+    ): [AudienceSegment]
+    }
+
+    input AudienceSegmentFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putAudienceSegment(input: CreateAudienceSegmentInput!): AudienceSegment
+    updateAudienceSegment(input: UpdateAudienceSegmentInput!): AudienceSegment
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteAudienceSegment(input: SoftDeleteAudienceSegmentInput!): AudienceSegment
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteAudienceSegment(id: ID!): AudienceSegment
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutAudienceSegment: AudienceSegment @aws_subscribe(mutations: ["putAudienceSegment"])
+    onUpdateAudienceSegment: AudienceSegment @aws_subscribe(mutations: ["updateAudienceSegment"])
+    onSoftDeleteAudienceSegment: AudienceSegment @aws_subscribe(mutations: ["softDeleteAudienceSegment"])
+}
+    

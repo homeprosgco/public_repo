@@ -1,0 +1,105 @@
+
+type Job {
+  id: ID!
+  scope: String
+  actualHours: Float
+  completionDate: AWSDateTime
+  estimatedHours: Float
+  managerId: ID!
+  notes: String
+  pricingModel: String
+  priority: String
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  status: String
+  tasks: [AWSJSON]
+  lineItems: [AWSJSON]
+  title: String
+  assignedToId: ID!
+  requirements: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateJobInput {
+  scope: String
+  actualHours: Float
+  completionDate: AWSDateTime
+  estimatedHours: Float
+  managerId: ID!
+  notes: String
+  pricingModel: String
+  priority: String
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  status: String
+  tasks: [AWSJSON]
+  lineItems: [AWSJSON]
+  title: String
+  assignedToId: ID!
+  requirements: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateJobInput {
+  id: ID!
+  scope: String
+  actualHours: Float
+  completionDate: AWSDateTime
+  estimatedHours: Float
+  managerId: ID!
+  notes: String
+  pricingModel: String
+  priority: String
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  status: String
+  tasks: [AWSJSON]
+  lineItems: [AWSJSON]
+  title: String
+  assignedToId: ID!
+  requirements: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteJobInput {
+  id: ID!
+}
+
+type Query {
+    getJob(id: ID!): Job
+    
+    queryJobs(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: JobFilterInput
+    ): [Job]
+    }
+
+    input JobFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putJob(input: CreateJobInput!): Job
+    updateJob(input: UpdateJobInput!): Job
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteJob(input: SoftDeleteJobInput!): Job
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteJob(id: ID!): Job
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutJob: Job @aws_subscribe(mutations: ["putJob"])
+    onUpdateJob: Job @aws_subscribe(mutations: ["updateJob"])
+    onSoftDeleteJob: Job @aws_subscribe(mutations: ["softDeleteJob"])
+}
+    

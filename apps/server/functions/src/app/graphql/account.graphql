@@ -1,0 +1,88 @@
+type AccountProfile {
+  accountOwnerId: String
+  created: String
+  userIds: [String!]
+}
+
+type Account {
+  id: String
+  companyProfile: CompanyProfile
+  prospects: [Prospect!]
+  prospectById(prospectId: String!): Prospect
+  jobLeads: [JobLead!]
+  jobLeadById(jobLeadId: String!): JobLead
+  jobLeadsByStatus(status: LeadStatus!): [JobLead!]
+  jobLeadsByLeadSource(leadSource: LeadSource!): [JobLead!]
+  jobLeadsCreatedBy(userId: String!): [JobLead!]
+  jobLeadsByCategory(categoryName: String!): [JobLead!]
+  jobLeadsByDate(after: String!, befor: String!): [JobLead!]
+  proposals: [Proposal!]
+  proposalById(proposalId: String!): Proposal
+  proposalByJobLeadId(jobLeadId: String!): Proposal
+  proposalsByStatus(proposalStatus: ProposalStatus!): [Proposal!]
+  proposalsCreatedBy(userId: String!): [Proposal!]
+  proposalByReferenceId(referenceId: String!): Proposal
+  proposalsByDate(after: String!, before: String): [Proposal!]
+  estimates: [Estimate!]
+  estimateById(estimteId: String!): Estimate
+  estimatesCreatedBy(userId: String!): [Estimate!]
+  estimateByProspectId(prospectId: String!): Estimate
+  estimteByJobLeadId(jobLeadId: String!): Estimate
+  estimateByProposalid(proposalId: String!): Estimate
+  estimateByNumber(number: Int!): Estimate
+  estimatesByStatus(estimateStatus: EstimateStatus!): [Estimate!]
+  estimatesExpired: [Estimate!]
+  estimateByReferenceId(referenceId: String!): Estimate
+  estimatesByCategory(category: String!): [Estimate!]
+  items: [Item!]
+  itemById(itemId: String!): Item
+  itemsByCategory(category: String!): [Item!]
+  itemBySku(sku: String!): Item
+  workServices: [WorkService!]
+  workServiceById(workServiceId: String!): WorkService
+  workServicesByCategory(category: String!): [WorkService!]
+  customers: [Customer!]
+  customerById(customerId: String!): Customer
+  customerByEmail(customerEmail: String!): Customer
+  customerByPhoneNumbers(customerPhoneNumbers: [String!]!): Customer
+  customersByType(customerType: CustomerType!): [Customer!]
+  customerInvoices(customerId: String!): [Invoice!]
+  customerBeneficiaries(customerId: String!): [Beneficiary!]
+  beneficiaries: [Beneficiary!]
+  beneficiariesByCustomerId(customerId: String!): [Beneficiary!]
+  jobs: [Job!]
+  jobById(jobId: String!): Job
+  jobByEstimateId(estimateId: String!): Job
+  jobsByCustomerId(customerId: String!): [Job!]
+  jobsByStatus(jobStatus: JobStatus!): [Job!]
+  jobsByCategory(category: String!): [Job!]
+  jobsCreatedBy(userId: String!): [Job]
+  jobByJobLeadId(jobLeadId: String!): Job
+  jobByPONumber(poNumber: String!): Job
+  jobsByJobManager(userId: String!): [Job!]
+  projects: [Project!]
+  projectById(projectId: String!): Project
+  projectsByCustomerId(customerId: String!): [Project!]
+  projectsByCategory(category: String!): [Project!]
+  projectsCreatedBy(userId: String!): [Project!]
+  projectsByJobLeadId(jobLeadId: String!): [Project!]
+  projectsByProjectManager(userId: String!): [Project!]
+  projectsWithTeamMember(userId: String!): [Project!]
+  projectsWithFieldTeamMember(userId: String!): [Project!]
+  projectByReferenceNumber(referenceNumber: Int!): Project
+  invoices: [Invoice!]
+  invoiceById(invoiceId: String!): Invoice
+  invoiceByJobId(jobId: String!): Invoice
+  invoiceByProjectId(projectId: String!): Invoice
+  invoiceByEstimateId(estimateId: String!): Invoice
+  invoiceByProposalId(prosalId: String!): Invoice
+  invoicesCreateBy(userId: String!): [Invoice!]
+  invoicesByDate(after: String!, before: String): [Invoice!]
+  invoiceByNumber(number: Int!): Invoice
+  invoicesByStatus(invoiceStatus: InvoiceStatus!): [Invoice!]
+  invoicebyReferenceId(referenceId: String!): Invoice
+}
+
+type Query {
+  account(accountId: String!): Account
+}

@@ -1,0 +1,34 @@
+input CustomerInput {
+  address: AddressInput
+  addressId: String
+  displayName: String!
+  email: String
+  firstname: String
+  lastname: String
+  phone: String
+  prospectId: String
+  type: String!
+  created: String
+  updated: String
+}
+
+type Customer {
+  address: Address
+  addressId: String
+  created: String
+  customerId: String
+  email: String
+  displayName: String!
+  firstname: String
+  lastname: String
+  id: String
+  phone: String
+  prospectId: String
+  type: String!
+  updated: String
+}
+
+enum CustomerType {
+  INDIVIDUAL
+  COMPANY
+}

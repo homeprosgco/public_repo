@@ -1,0 +1,30 @@
+Suggestions (Optional Improvements)
+1. Add Auto-Detection of GQL Models
+Right now it requires specifying a graphql_type. You could scan GRAPHQL_DIR for all *.graphql and batch process.
+
+for graphql_file in Path(GRAPHQL_DIR).glob("*.graphql"):
+    type_name = graphql_file.stem
+    # Run parse_graphql_file and trigger generate_services_and_components(...)
+2. Auto-Extract Enums from Schema
+Right now enum values are hardcoded in getEnumOptions. You could:
+
+Parse .graphql files for enum EnumName { ... }
+Generate a shared enum.constants.ts file
+Import that into components for consistency
+3. Auto-Create GQL Operations File
+Create shared .graphql strings to match:
+
+query Query<type>s($limit: Int, ...) {
+  query<type>s(...) { items { ... } }
+}
+Would streamline Apollo usage or allow swapping to other clients later.
+
+🔁 Making this run in batch for all .graphql files?
+📦 Converting this to an NPM or Nx plugin?
+🧪 Generating Cypress or Jest tests per component?
+🗃️ Outputting a JSON registry of all generated components/types/services?
+
+nx run homeprosgco-tools:graphql_to_angular_generator --args="--graphql_type AppUser --extra_args='--dashboards --interfaces --services put --components put'"
+nx run your-lib:graphql_to_angular_generator \
+  --args="--graphql_type UserProfile --extra_args='--dashboards --interfaces --services put --components put'"
+/workspace/tools/scripts/python/graphql/amplify_model_to_graphql_schema/graphql/AdContent.graphql

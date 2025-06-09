@@ -1,0 +1,10 @@
+import { Component } from '@angular/core';
+import { TranslateYDirective, PaddingLeftDirective, WidthDirective, TransitionPropertyDirective, PaddingBottomDirective, HeightDirective, BackgroundZincColorDirective, FontSizeDirective, MaxWScreenDirective, MarginLeftDirective, BackgroundOrangeColorDirective, AlignItemsDirective, JustifyContentDirective, ColorNeutralDirective, PositionDirective, LineHeightDirective, MarginBottomDirective, TextTransformDirective, TextAlignDirective, TransitionTimingFunctionDirective, PaddingTopDirective, VerticalAlignDirective, MaxWidthDirective, TransitionDurationDirective, MarginTopDirective, ObjectPositionDirective, MaxHeightDirective, FlexDirectionDirective, PaddingRightDirective, OpacityDirective, ColorZincDirective, ColumnGapDirective, DisplayDirective, ColorDirective, ObjectFitDirective, OverflowDirective, MarginRightDirective, CursorDirective, RowGapDirective, BottomDirective, FontWeightDirective } from '@public-repo/tailwindcss';
+
+@Component({
+  selector: 'sg-section_three',
+  templateUrl: './section_three.component.html',
+  standalone: true,
+  imports: [TranslateYDirective, PaddingLeftDirective, WidthDirective, TransitionPropertyDirective, PaddingBottomDirective, HeightDirective, BackgroundZincColorDirective, FontSizeDirective, MaxWScreenDirective, MarginLeftDirective, BackgroundOrangeColorDirective, AlignItemsDirective, JustifyContentDirective, ColorNeutralDirective, PositionDirective, LineHeightDirective, MarginBottomDirective, TextTransformDirective, TextAlignDirective, TransitionTimingFunctionDirective, PaddingTopDirective, VerticalAlignDirective, MaxWidthDirective, TransitionDurationDirective, MarginTopDirective, ObjectPositionDirective, MaxHeightDirective, FlexDirectionDirective, PaddingRightDirective, OpacityDirective, ColorZincDirective, ColumnGapDirective, DisplayDirective, ColorDirective, ObjectFitDirective, OverflowDirective, MarginRightDirective, CursorDirective, RowGapDirective, BottomDirective, FontWeightDirective]
+})
+export class SectionThreeComponent {}

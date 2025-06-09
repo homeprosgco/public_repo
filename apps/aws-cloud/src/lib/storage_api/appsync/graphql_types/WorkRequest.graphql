@@ -1,0 +1,87 @@
+
+type WorkRequest {
+  id: ID!
+  createdById: ID!
+  assignedProId: ID!
+  title: String
+  category: String
+  description: String
+  notes: String
+  status: String
+  priority: String
+  workScope: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateWorkRequestInput {
+  createdById: ID!
+  assignedProId: ID!
+  title: String
+  category: String
+  description: String
+  notes: String
+  status: String
+  priority: String
+  workScope: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateWorkRequestInput {
+  id: ID!
+  createdById: ID!
+  assignedProId: ID!
+  title: String
+  category: String
+  description: String
+  notes: String
+  status: String
+  priority: String
+  workScope: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteWorkRequestInput {
+  id: ID!
+}
+
+type Query {
+    getWorkRequest(id: ID!): WorkRequest
+    
+    queryWorkRequests(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: WorkRequestFilterInput
+    ): [WorkRequest]
+    }
+
+    input WorkRequestFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putWorkRequest(input: CreateWorkRequestInput!): WorkRequest
+    updateWorkRequest(input: UpdateWorkRequestInput!): WorkRequest
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteWorkRequest(input: SoftDeleteWorkRequestInput!): WorkRequest
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteWorkRequest(id: ID!): WorkRequest
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutWorkRequest: WorkRequest @aws_subscribe(mutations: ["putWorkRequest"])
+    onUpdateWorkRequest: WorkRequest @aws_subscribe(mutations: ["updateWorkRequest"])
+    onSoftDeleteWorkRequest: WorkRequest @aws_subscribe(mutations: ["softDeleteWorkRequest"])
+}
+    

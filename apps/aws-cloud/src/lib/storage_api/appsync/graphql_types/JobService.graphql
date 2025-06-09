@@ -1,0 +1,90 @@
+
+type JobService {
+  id: ID!
+  name: String
+  description: String
+  serviceType: String
+  category: String
+  estimatedCost: Float
+  durationInHours: Float
+  requiredMaterials: [AWSJSON]
+  status: String
+  photoUrls: [String]
+  materialList: [AWSJSON]
+  lineItems: [AWSJSON]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateJobServiceInput {
+  name: String
+  description: String
+  serviceType: String
+  category: String
+  estimatedCost: Float
+  durationInHours: Float
+  requiredMaterials: [AWSJSON]
+  status: String
+  photoUrls: [String]
+  materialList: [AWSJSON]
+  lineItems: [AWSJSON]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateJobServiceInput {
+  id: ID!
+  name: String
+  description: String
+  serviceType: String
+  category: String
+  estimatedCost: Float
+  durationInHours: Float
+  requiredMaterials: [AWSJSON]
+  status: String
+  photoUrls: [String]
+  materialList: [AWSJSON]
+  lineItems: [AWSJSON]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteJobServiceInput {
+  id: ID!
+}
+
+type Query {
+    getJobService(id: ID!): JobService
+    
+    queryJobServices(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: JobServiceFilterInput
+    ): [JobService]
+    }
+
+    input JobServiceFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putJobService(input: CreateJobServiceInput!): JobService
+    updateJobService(input: UpdateJobServiceInput!): JobService
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteJobService(input: SoftDeleteJobServiceInput!): JobService
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteJobService(id: ID!): JobService
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutJobService: JobService @aws_subscribe(mutations: ["putJobService"])
+    onUpdateJobService: JobService @aws_subscribe(mutations: ["updateJobService"])
+    onSoftDeleteJobService: JobService @aws_subscribe(mutations: ["softDeleteJobService"])
+}
+    

@@ -1,0 +1,40 @@
+input ItemInput {
+  category: String!
+  description: String
+  imageURL: String
+  websiteReferences: [String!]
+  name: String!
+  purchasePrice: String!
+  salePrice: String!
+  sku: String
+  modelNumber: String
+  brand: String
+  make: String
+  installLinks: [String!]
+  orderLinks: [String!]
+  created: String
+  updated: String
+}
+
+input ItemSku {
+  sku: String!
+}
+
+type Item {
+  brand: String
+  category: String!
+  created: String
+  description: String
+  id: String
+  imageURL: String
+  installLinks: [String!]
+  make: String
+  modelNumber: String
+  name: String!
+  orderLinks: [String!]
+  purchasePrice: String!
+  salePrice: String!
+  sku: String
+  updated: String
+  websiteReferences: [String!]
+}

@@ -1,0 +1,57 @@
+{
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "concurrently \"npm run build:watch\" \"firebase emulators:start \"",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@apollo/gateway": "^2.0.5",
+    "@faker-js/faker": "^7.3.0",
+    "@graphql-tools/utils": "^8.8.0",
+    "@nestjs/apollo": "^10.0.19",
+    "@nestjs/axios": "^0.1.0",
+    "@nestjs/common": "^9.0.5",
+    "@nestjs/config": "^2.2.0",
+    "@nestjs/core": "^9.0.5",
+    "@nestjs/graphql": "^10.0.21",
+    "@nestjs/platform-express": "^9.0.5",
+    "apollo-server-express": "^3.10.0",
+    "axios": "^0.27.2",
+    "concurrently": "^7.3.0",
+    "date-fns": "^2.29.1",
+    "express": "^4.18.1",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.0",
+    "graphql": "^16.5.0",
+    "mailgun.js": "^7.0.4",
+    "module-alias": "^2.2.2",
+    "puppeteer": "^15.5.0",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.5.6",
+    "ts-morph": "^15.1.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.3",
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^0.2.0",
+    "typescript": "^4.5.4"
+  },
+  "private": true,
+  "_moduleAliases": {
+    "@graphql-schema": "src/app/graphQL/_definitions/graphql.interface.ts"
+  }
+}

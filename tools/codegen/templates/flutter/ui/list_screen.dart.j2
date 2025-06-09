@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../providers/{{ filename }}_action_providers.dart';
+import '../../data/models/{{ filename }}.dart';
+
+class {{ type_name }}ListScreen extends ConsumerWidget {
+  const {{ type_name }}ListScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final result = ref.watch(query{{ pluralize(type_name) }}Provider);
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('{{ pluralize(type_name) }}')),
+      body: result.when(
+        data: (items) => ListView.builder(
+          itemCount: items.length,
+          itemBuilder: (context, i) {
+            final item = items[i];
+            return ListTile(
+              title: Text(item.title ?? 'Untitled'),
+              subtitle: Text(item.id),
+              onTap: () => context.push('/{{ filename }}/\${item.id}'),
+            );
+          },
+        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (e, _) => Center(child: Text('Error: \$e')),
+      ),
+    );
+  }
+}

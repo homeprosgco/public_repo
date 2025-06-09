@@ -1,0 +1,4 @@
+export declare const authHeader: {
+    Authorization: string;
+};
+export declare const curl = "\ncurl -g -X POST -H \"Content-Type: application/json\" -H \"Authorization: Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJhY2NvdW50SWQiOiJzcmFSNVJCeXdURUs4VTBiMVlGWiIsImVtYWlsIjoiY2FsZWIubWl0Y2hlbGw3N0B5YWhvby5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImF1dGhfdGltZSI6MTY2MDA3NDkzNSwidXNlcl9pZCI6InltaEtCY213V3ZJUHkzMzdVcjE0S3U4QmM1OGIiLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImNhbGViLm1pdGNoZWxsNzdAeWFob28uY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiY3VzdG9tIn0sImlhdCI6MTY2MDI1MzczOSwiZXhwIjoxNjYwMjU3MzM5LCJhdWQiOiJ0ZWNoMS1wcm8taW5mcmFzdHJ1Y3R1cmUiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdGVjaDEtcHJvLWluZnJhc3RydWN0dXJlIiwic3ViIjoieW1oS0JjbXdXdklQeTMzN1VyMTRLdThCYzU4YiJ9.\" -d '{\"query\":\"query account{account {id}}\"}' http://localhost:3250/tech1-pro-infrastructure/us-central1/api/graphql\n";

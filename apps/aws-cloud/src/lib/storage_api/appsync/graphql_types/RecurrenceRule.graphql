@@ -1,0 +1,72 @@
+
+type RecurrenceRule {
+  id: ID!
+  frequency: String
+  interval: Int
+  until: AWSDateTime
+  count: Int
+  daysOfWeek: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateRecurrenceRuleInput {
+  frequency: String
+  interval: Int
+  until: AWSDateTime
+  count: Int
+  daysOfWeek: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateRecurrenceRuleInput {
+  id: ID!
+  frequency: String
+  interval: Int
+  until: AWSDateTime
+  count: Int
+  daysOfWeek: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteRecurrenceRuleInput {
+  id: ID!
+}
+
+type Query {
+    getRecurrenceRule(id: ID!): RecurrenceRule
+    
+    queryRecurrenceRules(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: RecurrenceRuleFilterInput
+    ): [RecurrenceRule]
+    }
+
+    input RecurrenceRuleFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putRecurrenceRule(input: CreateRecurrenceRuleInput!): RecurrenceRule
+    updateRecurrenceRule(input: UpdateRecurrenceRuleInput!): RecurrenceRule
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteRecurrenceRule(input: SoftDeleteRecurrenceRuleInput!): RecurrenceRule
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteRecurrenceRule(id: ID!): RecurrenceRule
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutRecurrenceRule: RecurrenceRule @aws_subscribe(mutations: ["putRecurrenceRule"])
+    onUpdateRecurrenceRule: RecurrenceRule @aws_subscribe(mutations: ["updateRecurrenceRule"])
+    onSoftDeleteRecurrenceRule: RecurrenceRule @aws_subscribe(mutations: ["softDeleteRecurrenceRule"])
+}
+    

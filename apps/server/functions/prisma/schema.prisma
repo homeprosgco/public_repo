@@ -1,0 +1,486 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AuthUser {
+  uid          String   @id @unique
+  email        String   @unique
+  refreshToken String
+  createdAt    DateTime @default(now())
+
+  @@map("auth_users")
+  User User[]
+}
+
+model User {
+  uid              String           @id @unique
+  role             String           @default("USER")
+  jobLeadComments  JobLeadComment[]
+  jobComments      JobComment[]
+  projectComments  ProjectComment[]
+  createdEstimates Estimate[]
+  createdInvoices  Invoice[]
+  profile          UserProfile?
+  authUser         AuthUser         @relation(fields: [uid], references: [uid])
+  accountOwner     AccountOwner?
+  accountUser      AccountUser?
+
+  @@map("users")
+}
+
+model UserProfile {
+  userId           String                @unique
+  firstname        String
+  lastname         String
+  user             User                  @relation(fields: [userId], references: [uid])
+  profileAvatarURL UserProfileAvatarURL?
+
+  @@map("user_profiles")
+}
+
+model UserProfileAvatarURL {
+  userProfileId String      @unique
+  url           String
+  userProfile   UserProfile @relation(fields: [userProfileId], references: [userId])
+
+  @@map("user_profile_urls")
+}
+
+model AccountUser {
+  id        String  @unique @map("uid")
+  accountId String
+  user      User    @relation(fields: [id], references: [uid])
+  account   Account @relation(fields: [accountId], references: [id])
+
+  @@id([id, accountId], map: "account_userId")
+  @@map("account_users")
+}
+
+model AccountOwner {
+  userId    String   @unique
+  accountId String   @unique
+  user      User     @relation(fields: [accountId], references: [uid])
+  account   Account?
+
+  @@unique([userId, accountId], map: "userAccountId")
+}
+
+model Account {
+  id              String          @id @default(cuid()) @map("accountId")
+  createdDateTime DateTime        @default(now())
+  customers       Customer[]
+  beneficiaries   Beneficiary[]
+  jobLeads        JobLead[]
+  jobs            Job[]
+  projects        Project[]
+  items           Item[]
+  services        Service[]
+  estimates       Estimate[]
+  invoices        Invoice[]
+  companyProfile  CompanyProfile?
+  accountOwner    AccountOwner    @relation(fields: [accountOwnerId], references: [userId])
+  accountOwnerId  String          @unique
+  accountUsers    AccountUser[]
+
+  @@map("accounts")
+}
+
+model CompanyProfile {
+  id                 String              @id @default(cuid()) @map("companyProfileId")
+  companyName        String
+  phone              String
+  addressId          String
+  address            Address             @relation(fields: [addressId], references: [id])
+  accountId          String              @unique
+  account            Account             @relation(fields: [accountId], references: [id])
+  companyProfileLogo CompanyProfileLogo?
+  companyContact     CompanyContact[]
+
+  @@map("company_profiles")
+}
+
+model CompanyContact {
+  id               String         @id @default(cuid()) @map("companyContactId")
+  companyProfileId String
+  companyProfile   CompanyProfile @relation(fields: [companyProfileId], references: [id])
+  firstname        String
+  lastname         String
+  email            String
+  phone            String
+
+  @@map("company_contacts")
+}
+
+model CompanyProfileLogo {
+  id             String         @unique @map("companyProfileId")
+  url            String
+  companyProfile CompanyProfile @relation(fields: [id], references: [id])
+
+  @@map("company_logos")
+}
+
+model Customer {
+  id                  String               @id @default(cuid())
+  accountId           String
+  type                CustomerType         @default(INDIVIDUAL)
+  displayName         String
+  beneficiaries       Beneficiary[]
+  customerAddress     CustomerAddress[]
+  customerFullName    CustomerFullName?
+  customerCompanyName CustomerCompanyName?
+  jobLead             JobLead[]
+  Estimate            Estimate[]
+  Invoice             Invoice[]
+  account             Account              @relation(fields: [accountId], references: [id])
+
+  @@map("customers")
+}
+
+model Beneficiary {
+  id                     String                  @id @default(cuid())
+  accountId              String
+  customerId             String
+  beneficiaryAddress     BeneficiaryAddress[]
+  beneficiaryFullName    BeneficiaryFullName?
+  beneficiaryCompanyName BeneficiaryCompanyName?
+  account                Account                 @relation(fields: [accountId], references: [id])
+  customer               Customer                @relation(fields: [customerId], references: [id])
+
+  @@map("beneficiaries")
+}
+
+model CustomerFullName {
+  customerId String   @unique
+  fullnameId String   @unique
+  customer   Customer @relation(fields: [customerId], references: [id])
+  fullname   FullName @relation(fields: [fullnameId], references: [id])
+
+  @@id([customerId, fullnameId], map: "customerFullnameId")
+  @@map("customer_full_names")
+}
+
+model BeneficiaryFullName {
+  beneficiaryId String      @unique
+  fullnameId    String      @unique
+  beneficairy   Beneficiary @relation(fields: [beneficiaryId], references: [id])
+  fullname      FullName    @relation(fields: [fullnameId], references: [id])
+
+  @@id([beneficiaryId, fullnameId], map: "beneficiaryFullnameId")
+  @@map("beneficiary_full_names")
+}
+
+model FullName {
+  id                  String               @id @default(cuid())
+  firstname           String
+  lastname            String
+  customerFullName    CustomerFullName?
+  beneficiaryFullName BeneficiaryFullName?
+
+  @@map("full_names")
+}
+
+model CustomerCompanyName {
+  customerId    String      @unique
+  companyNameId String      @unique
+  customer      Customer    @relation(fields: [customerId], references: [id])
+  companyName   CompanyName @relation(fields: [companyNameId], references: [id])
+
+  @@id([customerId, companyNameId], map: "companyCustomerId")
+  @@map("customer_company_names")
+}
+
+model BeneficiaryCompanyName {
+  beneficiaryId String      @unique
+  companyNameId String      @unique
+  beneficairy   Beneficiary @relation(fields: [beneficiaryId], references: [id])
+  companyName   CompanyName @relation(fields: [companyNameId], references: [id])
+
+  @@id([beneficiaryId, companyNameId], map: "beneficiaryCompanyId")
+  @@map("beneficiaries_company_names")
+}
+
+model CompanyName {
+  id                     String                  @id @default(cuid())
+  companyName            String                  @unique
+  CustomerCompanyName    CustomerCompanyName?
+  BeneficiaryCompanyName BeneficiaryCompanyName?
+
+  @@map("company_names")
+}
+
+model CustomerAddress {
+  customerId String
+  addressId  String   @unique
+  customer   Customer @relation(fields: [customerId], references: [id])
+  address    Address  @relation(fields: [addressId], references: [id])
+
+  @@id([customerId, addressId], map: "customerAddressId")
+  @@map("customer_addresses")
+}
+
+model BeneficiaryAddress {
+  beneficiaryId String
+  addressId     String      @unique
+  beneficiary   Beneficiary @relation(fields: [beneficiaryId], references: [id])
+  address       Address     @relation(fields: [addressId], references: [id])
+
+  @@id([beneficiaryId, addressId], map: "beneficiaryAddressId")
+  @@map("beneficiary_addresses")
+}
+
+model Address {
+  id                 String               @id @default(cuid())
+  streetAddress      String
+  city               String
+  state              String
+  zipcode            String
+  type               AddressType          @default(SERVICE)
+  beneficiaryAddress BeneficiaryAddress[]
+  customerAddress    CustomerAddress[]
+  jobLead            JobLead[]
+  CompanyProfile     CompanyProfile[]
+
+
+  @@map("addresses")
+}
+
+model JobLead {
+  id                 String             @id @default(cuid()) @map("jobLeadId")
+  accountId          String
+  customerId         String
+  addressId          String
+  requestedWorkScope String
+  createdDateTime    DateTime           @default(now())
+  updatedDateTime    DateTime
+  poNumber           String
+  status             String
+  category           String
+  job                Job?
+  jobLeadImageURLs   jobLeadImageURLs[]
+  jobLeadComment     JobLeadComment[]
+  estimate           Estimate[]
+  address            Address            @relation(fields: [addressId], references: [id])
+  customer           Customer           @relation(fields: [customerId], references: [id])
+  account            Account            @relation(fields: [accountId], references: [id])
+
+
+  @@map("job_leads")
+}
+
+model jobLeadImageURLs {
+  id        String  @id @default(cuid()) @map("jobLeadImageId")
+  jobLeadId String
+  jobLead   JobLead @relation(fields: [jobLeadId], references: [id])
+}
+
+model JobLeadComment {
+  jobLeadId       String
+  createdDateTime DateTime @default(now())
+  userId          String
+  jobLead         JobLead  @relation(fields: [jobLeadId], references: [id])
+  user            User     @relation(fields: [userId], references: [uid])
+  comment         String
+
+  @@id([jobLeadId, userId], map: "userJobLeadCommentId")
+  @@map("job_lead_comments")
+}
+
+model Job {
+  id              String        @id @default(cuid())
+  accountId       String
+  jobLeadId       String        @unique
+  status          String
+  createDateTime  DateTime      @default(now())
+  updatedDateTime DateTime
+  imageURLs       String[]
+  projectJobs     ProjectJobs[]
+  jobComment      JobComment[]
+  account         Account       @relation(fields: [accountId], references: [id])
+  jobLead         JobLead       @relation(fields: [jobLeadId], references: [id])
+
+  @@map("jobs")
+}
+
+model JobComment {
+  jobId           String
+  createdDateTime DateTime @default(now())
+  userId          String
+  job             Job      @relation(fields: [jobId], references: [id])
+  user            User     @relation(fields: [userId], references: [uid])
+  comment         String
+
+  @@id([jobId, userId], map: "userJobCommentId")
+  @@map("job_comments")
+}
+
+model Project {
+  id             String           @id @default(cuid())
+  accountId      String
+  projectJobs    ProjectJobs[]
+  projectComment ProjectComment[]
+  account        Account          @relation(fields: [accountId], references: [id])
+
+  @@map("projects")
+}
+
+model ProjectComment {
+  projectId       String
+  createdDateTime DateTime @default(now())
+  userId          String
+  project         Project  @relation(fields: [projectId], references: [id])
+  user            User     @relation(fields: [userId], references: [uid])
+  comment         String
+
+  @@id([projectId, userId], map: "userProjectCommentId")
+  @@map("project_comments")
+}
+
+model ProjectJobs {
+  jobId     String  @unique
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+  job       Job     @relation(fields: [jobId], references: [id])
+
+  @@id([projectId, jobId], map: "projectJobId")
+  @@map("project_jobs")
+}
+
+model Item {
+  id            String         @id @default(cuid()) @map("itemId")
+  accountId     String
+  sku           String
+  purchasePrice String
+  salePrice     String
+  description   String
+  category      String
+  serviceItem   ServiceItem[]
+  estimateItem  EstimateItem[]
+  invoiceItem   InvoiceItem[]
+  account       Account        @relation(fields: [accountId], references: [id])
+
+  @@map("items")
+}
+
+model Service {
+  id              String            @id @default(cuid()) @map("serviceId")
+  accountId       String
+  laborCost       String
+  description     String
+  category        String
+  serviceItem     ServiceItem[]
+  estimateService EstimateService[]
+  invoiceService  InvoiceService[]
+  account         Account           @relation(fields: [accountId], references: [id])
+
+  @@map("services")
+}
+
+model ServiceItem {
+  itemId    String
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+  item      Item    @relation(fields: [itemId], references: [id])
+
+  @@id([serviceId, itemId], map: "serviceItemId")
+  @@map("service_items")
+}
+
+model Estimate {
+  id                   String            @id @default(cuid()) @map("estimateId")
+  accountId            String
+  createdDateTime      DateTime          @default(now())
+  createdById          String
+  updatedDateTime      DateTime
+  customerId           String
+  requestedWorkScope   String
+  workScopeDescription String
+  notes                String
+  jobLeadId            String
+  status               String
+  estimateItems        EstimateItem[]
+  estimateServices     EstimateService[]
+  account              Account           @relation(fields: [accountId], references: [id])
+  customer             Customer          @relation(fields: [customerId], references: [id])
+  jobLead              JobLead           @relation(fields: [jobLeadId], references: [id])
+  user                 User              @relation(fields: [createdById], references: [uid])
+
+  @@map("estimates")
+}
+
+model EstimateItem {
+  estimateId String
+  itemId     String
+  estimate   Estimate @relation(fields: [estimateId], references: [id])
+  item       Item     @relation(fields: [itemId], references: [id])
+
+  @@id([estimateId, itemId], map: "estimateItemId")
+  @@map("estimate_items")
+}
+
+model EstimateService {
+  estimateId String
+  serviceId  String
+  estimate   Estimate @relation(fields: [estimateId], references: [id])
+  service    Service  @relation(fields: [serviceId], references: [id])
+
+  @@id([estimateId, serviceId], map: "estimateServiceId")
+  @@map("estimate_services")
+}
+
+model Invoice {
+  id                   String           @id @default(cuid()) @map("invoiceId")
+  accountId            String
+  createdDateTime      DateTime         @default(now())
+  createdById          String
+  updatedDateTime      DateTime
+  customerId           String
+  requestedWorkScope   String
+  workScopeDescription String
+  notes                String
+  status               String
+  invoiceItem          InvoiceItem[]
+  invoiceService       InvoiceService[]
+  account              Account          @relation(fields: [accountId], references: [id])
+  customer             Customer         @relation(fields: [customerId], references: [id])
+  user                 User             @relation(fields: [createdById], references: [uid])
+
+  @@map("invoices")
+}
+
+model InvoiceItem {
+  invoiceId String
+  itemId    String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+  item      Item    @relation(fields: [itemId], references: [id])
+
+  @@id([invoiceId, itemId], map: "invoiceItemId")
+  @@map("invoice_items")
+}
+
+model InvoiceService {
+  invoiceId String
+  serviceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  @@id([invoiceId, serviceId], map: "invoiceServiceId")
+  @@map("invoice_services")
+}
+
+enum CustomerType {
+  COMPANY
+  INDIVIDUAL
+}
+
+enum AddressType {
+  BILLING
+  SERVICE
+}

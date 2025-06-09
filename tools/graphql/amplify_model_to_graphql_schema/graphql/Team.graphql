@@ -1,0 +1,74 @@
+
+type Team {
+  id: ID!
+  tenant: Tenant @belongsTo
+  members: [TeamMember] @hasMany
+  name: String
+  supportTickets: [SupportTicket] @hasMany
+  projects: [Project] @hasMany
+  jobTasks: [JobTask] @hasMany
+  followUps: [FollowUp] @hasMany
+  feedback: [Feedback] @hasMany
+  created: AWSDateTime
+  updated: AWSDateTime
+  teammember: TeamMember @belongsTo
+  isDeleted: Boolean!
+}
+input CreateTeamInput {
+  tenant: Tenant
+  members: [TeamMember]
+  name: String
+  supportTickets: [SupportTicket]
+  projects: [Project]
+  jobTasks: [JobTask]
+  followUps: [FollowUp]
+  feedback: [Feedback]
+  created: AWSDateTime
+  updated: AWSDateTime
+  teammember: TeamMember
+  isDeleted: Boolean = false
+}
+input UpdateTeamInput {
+  id: ID!
+  tenant: Tenant
+  members: [TeamMember]
+  name: String
+  supportTickets: [SupportTicket]
+  projects: [Project]
+  jobTasks: [JobTask]
+  followUps: [FollowUp]
+  feedback: [Feedback]
+  created: AWSDateTime
+  updated: AWSDateTime
+  teammember: TeamMember
+  isDeleted: Boolean
+}
+input SoftDeleteTeamInput {
+  id: ID!
+}
+
+input TeamFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getTeam(id: ID!): Team
+  queryTeams(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: TeamFilterInput
+  ): [Team]
+}
+type Mutation {
+  putTeam(input: CreateTeamInput!): Team
+  updateTeam(input: UpdateTeamInput!): Team
+  softDeleteTeam(input: SoftDeleteTeamInput!): Team
+  deleteTeam(id: ID!): Team
+}
+type Subscription {
+  onPutTeam: Team @aws_subscribe(mutations: ["putTeam"])
+  onUpdateTeam: Team @aws_subscribe(mutations: ["updateTeam"])
+  onSoftDeleteTeam: Team @aws_subscribe(mutations: ["softDeleteTeam"])
+}

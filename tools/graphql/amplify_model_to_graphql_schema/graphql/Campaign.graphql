@@ -1,0 +1,105 @@
+enum CampaignStatus {
+  Draft
+  Planned
+  Active
+  Paused
+  Completed
+  Cancelled
+}
+type Campaign {
+  id: ID!
+  tenant: Tenant @belongsTo
+  name: String
+  description: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  budget: Float
+  status: CampaignStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  adContents: [AdContent] @hasMany
+  adSchedules: [AdSchedule] @hasMany
+  campaignMetrics: [CampaignMetric] @hasMany
+  campaignAudiences: [CampaignAudience] @hasMany
+  audienceSegments: [AudienceSegment] @hasMany
+  conversionFunnels: [ConversionFunnel] @hasMany
+  marketingContents: [MarketingContent] @hasMany
+  networkProProspects: [NetworkProProspect] @hasMany
+  sharedCustomerPropspects: [SharedCustomerProspect] @hasMany
+  jobLeads: [JobLead] @hasMany
+  isDeleted: Boolean!
+}
+input CreateCampaignInput {
+  tenant: Tenant
+  name: String
+  description: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  budget: Float
+  status: CampaignStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  adContents: [AdContent]
+  adSchedules: [AdSchedule]
+  campaignMetrics: [CampaignMetric]
+  campaignAudiences: [CampaignAudience]
+  audienceSegments: [AudienceSegment]
+  conversionFunnels: [ConversionFunnel]
+  marketingContents: [MarketingContent]
+  networkProProspects: [NetworkProProspect]
+  sharedCustomerPropspects: [SharedCustomerProspect]
+  jobLeads: [JobLead]
+  isDeleted: Boolean = false
+}
+input UpdateCampaignInput {
+  id: ID!
+  tenant: Tenant
+  name: String
+  description: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  budget: Float
+  status: CampaignStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  adContents: [AdContent]
+  adSchedules: [AdSchedule]
+  campaignMetrics: [CampaignMetric]
+  campaignAudiences: [CampaignAudience]
+  audienceSegments: [AudienceSegment]
+  conversionFunnels: [ConversionFunnel]
+  marketingContents: [MarketingContent]
+  networkProProspects: [NetworkProProspect]
+  sharedCustomerPropspects: [SharedCustomerProspect]
+  jobLeads: [JobLead]
+  isDeleted: Boolean
+}
+input SoftDeleteCampaignInput {
+  id: ID!
+}
+
+input CampaignFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getCampaign(id: ID!): Campaign
+  queryCampaigns(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: CampaignFilterInput
+  ): [Campaign]
+}
+type Mutation {
+  putCampaign(input: CreateCampaignInput!): Campaign
+  updateCampaign(input: UpdateCampaignInput!): Campaign
+  softDeleteCampaign(input: SoftDeleteCampaignInput!): Campaign
+  deleteCampaign(id: ID!): Campaign
+}
+type Subscription {
+  onPutCampaign: Campaign @aws_subscribe(mutations: ["putCampaign"])
+  onUpdateCampaign: Campaign @aws_subscribe(mutations: ["updateCampaign"])
+  onSoftDeleteCampaign: Campaign @aws_subscribe(mutations: ["softDeleteCampaign"])
+}

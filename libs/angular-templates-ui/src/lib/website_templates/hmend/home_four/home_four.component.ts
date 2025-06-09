@@ -1,0 +1,11 @@
+import { Component } from '@angular/core';
+import { AlignItemsDirective, BackgroundColorDirective, BackgroundDirective, BorderRadiusDirective, BorderTopDirective, BoxShadowDirective, BoxSizingDirective, ColorDirective, DisplayDirective, FirstChildDirective, FlexDirective, FlexShrinkDirective, FlexWrapDirective, FontDirective, FontFamilyDirective, FontSizeDirective, FontWeightDirective, HeightDirective, LastChildDirective, LeftDirective, LineHeightDirective, ListStyleDirective, MarginDirective, MarginLeftDirective, MarginRightDirective, MarginTopDirective, MaxWidthDirective, NthChildDirective, NthOfTypeDirective, OpacityDirective, OverflowDirective, PaddingBottomDirective, PaddingDirective, PaddingLeftDirective, PaddingRightDirective, PositionDirective, TextAlignDirective, TextDecorationDirective, TextRenderingDirective, TextTransformDirective, TopDirective, TransitionDirective, VerticalAlignDirective, VisibilityDirective, WidthDirective, ZIndexDirective } from '@public-repo/angular_style_directives';
+import { NgStyle } from '@angular/common';
+
+@Component({
+  selector: 'sg-home-four',
+  templateUrl: './home_four.component.html',
+  standalone: true,
+  imports: [AlignItemsDirective, BackgroundColorDirective, BackgroundDirective, BorderRadiusDirective, BorderTopDirective, BoxShadowDirective, BoxSizingDirective, ColorDirective, DisplayDirective, FirstChildDirective, FlexDirective, FlexShrinkDirective, FlexWrapDirective, FontDirective, FontFamilyDirective, FontSizeDirective, FontWeightDirective, HeightDirective, LastChildDirective, LeftDirective, LineHeightDirective, ListStyleDirective, MarginDirective, MarginLeftDirective, MarginRightDirective, MarginTopDirective, MaxWidthDirective, NgStyle, NthChildDirective, NthOfTypeDirective, OpacityDirective, OverflowDirective, PaddingBottomDirective, PaddingDirective, PaddingLeftDirective, PaddingRightDirective, PositionDirective, TextAlignDirective, TextDecorationDirective, TextRenderingDirective, TextTransformDirective, TopDirective, TransitionDirective, VerticalAlignDirective, VisibilityDirective, WidthDirective, ZIndexDirective]
+})
+export class HomeFourComponent {}

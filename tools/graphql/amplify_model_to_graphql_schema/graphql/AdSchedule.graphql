@@ -1,0 +1,72 @@
+enum AdScheduleStatus {
+  Pending
+  Scheduled
+  Running
+  Paused
+  Completed
+  Cancelled
+}
+type AdSchedule {
+  id: ID!
+  campaign: Campaign @belongsTo
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  timeZone: String
+  daysOfWeek: [String]
+  status: AdScheduleStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateAdScheduleInput {
+  campaign: Campaign
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  timeZone: String
+  daysOfWeek: [String]
+  status: AdScheduleStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateAdScheduleInput {
+  id: ID!
+  campaign: Campaign
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  timeZone: String
+  daysOfWeek: [String]
+  status: AdScheduleStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteAdScheduleInput {
+  id: ID!
+}
+
+input AdScheduleFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getAdSchedule(id: ID!): AdSchedule
+  queryAdSchedules(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: AdScheduleFilterInput
+  ): [AdSchedule]
+}
+type Mutation {
+  putAdSchedule(input: CreateAdScheduleInput!): AdSchedule
+  updateAdSchedule(input: UpdateAdScheduleInput!): AdSchedule
+  softDeleteAdSchedule(input: SoftDeleteAdScheduleInput!): AdSchedule
+  deleteAdSchedule(id: ID!): AdSchedule
+}
+type Subscription {
+  onPutAdSchedule: AdSchedule @aws_subscribe(mutations: ["putAdSchedule"])
+  onUpdateAdSchedule: AdSchedule @aws_subscribe(mutations: ["updateAdSchedule"])
+  onSoftDeleteAdSchedule: AdSchedule @aws_subscribe(mutations: ["softDeleteAdSchedule"])
+}

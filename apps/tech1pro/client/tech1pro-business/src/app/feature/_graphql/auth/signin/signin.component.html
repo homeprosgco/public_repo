@@ -1,0 +1,29 @@
+<div class="pb-4">
+  <app-block-head title="Sign-In" description="Access the Tech1-Pro 
+  Business Platform using your email and password.">
+  </app-block-head>
+  <span *ngIf="showServerError" id="server-error" class="invalid">{{ serverErrorMsg }}</span>
+</div>
+
+<form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+  <app-form-group [controlName]="'email'" [form]="authForm" [inputId]="'email'" [label]="'Email'"
+    [placeholder]="'Enter your email address'"></app-form-group>
+  <app-password-control-input [form]="authForm" [errors]="!isSubmitted ? null : password.errors"
+    [showForgotCode]="true"></app-password-control-input>
+  <div class="form-group">
+    <app-primary-button>Sign in</app-primary-button>
+  </div>
+</form>
+<div class="mt-3">
+  <a href="#" class="btn btn-primary" (click)="$event.preventDefault(); seedAuthUsers()">Seed Auth Users</a>
+</div>
+<div class="mt-3">
+  <a href="#" class="btn btn-primary" (click)="$event.preventDefault(); seedTeamMembers()">Seed Team Members</a>
+</div>
+<div class="mt-3">
+  <a href="#" class="btn btn-primary" (click)="$event.preventDefault(); setActiveAccounts()">Set Active Accounts</a>
+</div>
+<div class="mt-3">
+  <a href="#" class="btn btn-primary" (click)="$event.preventDefault(); activeAccounts()">View Active Accounts</a>
+</div>
+<app-form-note plainText="New on our platform?" strongText="Create an account" routerLink="/register"></app-form-note>

@@ -1,0 +1,84 @@
+
+type Expense {
+  id: ID!
+  approvedById: ID!
+  amount: Float
+  category: String
+  description: String
+  notes: String
+  receiptUrls: [String]
+  date: AWSDateTime
+  isRecurring: Boolean
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateExpenseInput {
+  approvedById: ID!
+  amount: Float
+  category: String
+  description: String
+  notes: String
+  receiptUrls: [String]
+  date: AWSDateTime
+  isRecurring: Boolean
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateExpenseInput {
+  id: ID!
+  approvedById: ID!
+  amount: Float
+  category: String
+  description: String
+  notes: String
+  receiptUrls: [String]
+  date: AWSDateTime
+  isRecurring: Boolean
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteExpenseInput {
+  id: ID!
+}
+
+type Query {
+    getExpense(id: ID!): Expense
+    
+    queryExpenses(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: ExpenseFilterInput
+    ): [Expense]
+    }
+
+    input ExpenseFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putExpense(input: CreateExpenseInput!): Expense
+    updateExpense(input: UpdateExpenseInput!): Expense
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteExpense(input: SoftDeleteExpenseInput!): Expense
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteExpense(id: ID!): Expense
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutExpense: Expense @aws_subscribe(mutations: ["putExpense"])
+    onUpdateExpense: Expense @aws_subscribe(mutations: ["updateExpense"])
+    onSoftDeleteExpense: Expense @aws_subscribe(mutations: ["softDeleteExpense"])
+}
+    

@@ -1,0 +1,1 @@
+export { DropzoneFileType } from '../feature/_graphql/_input/form/_upload/_upload-control/directive/type/dropzone-file.type';

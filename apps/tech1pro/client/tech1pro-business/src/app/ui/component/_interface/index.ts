@@ -1,0 +1,1 @@
+export { ITitleDescription } from './title-description.interface';

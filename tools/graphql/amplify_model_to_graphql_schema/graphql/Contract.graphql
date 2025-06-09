@@ -1,0 +1,99 @@
+enum ContractStatus {
+  Draft
+  PendingApproval
+  Active
+  Completed
+  Terminated
+  Cancelled
+}
+type Contract {
+  id: ID!
+  tenant: Tenant @belongsTo
+  job: Job @belongsTo
+  presentedBy: TeamMember @belongsTo
+  title: String
+  partiesInvolved: [String]
+  terms: String
+  contractAmount: Float
+  paymentTerms: String
+  scope: String
+  terminationClause: String
+  signatures: [String]
+  dateEffective: AWSDateTime
+  dateFulfilled: AWSDateTime
+  attachmentUrls: [String]
+  status: ContractStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateContractInput {
+  tenant: Tenant
+  job: Job
+  presentedBy: TeamMember
+  title: String
+  partiesInvolved: [String]
+  terms: String
+  contractAmount: Float
+  paymentTerms: String
+  scope: String
+  terminationClause: String
+  signatures: [String]
+  dateEffective: AWSDateTime
+  dateFulfilled: AWSDateTime
+  attachmentUrls: [String]
+  status: ContractStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateContractInput {
+  id: ID!
+  tenant: Tenant
+  job: Job
+  presentedBy: TeamMember
+  title: String
+  partiesInvolved: [String]
+  terms: String
+  contractAmount: Float
+  paymentTerms: String
+  scope: String
+  terminationClause: String
+  signatures: [String]
+  dateEffective: AWSDateTime
+  dateFulfilled: AWSDateTime
+  attachmentUrls: [String]
+  status: ContractStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteContractInput {
+  id: ID!
+}
+
+input ContractFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getContract(id: ID!): Contract
+  queryContracts(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ContractFilterInput
+  ): [Contract]
+}
+type Mutation {
+  putContract(input: CreateContractInput!): Contract
+  updateContract(input: UpdateContractInput!): Contract
+  softDeleteContract(input: SoftDeleteContractInput!): Contract
+  deleteContract(id: ID!): Contract
+}
+type Subscription {
+  onPutContract: Contract @aws_subscribe(mutations: ["putContract"])
+  onUpdateContract: Contract @aws_subscribe(mutations: ["updateContract"])
+  onSoftDeleteContract: Contract @aws_subscribe(mutations: ["softDeleteContract"])
+}

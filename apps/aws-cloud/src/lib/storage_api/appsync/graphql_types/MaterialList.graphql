@@ -1,0 +1,63 @@
+
+type MaterialList {
+  id: ID!
+  materials: [AWSJSON]
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateMaterialListInput {
+  materials: [AWSJSON]
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateMaterialListInput {
+  id: ID!
+  materials: [AWSJSON]
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteMaterialListInput {
+  id: ID!
+}
+
+type Query {
+    getMaterialList(id: ID!): MaterialList
+    
+    queryMaterialLists(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: MaterialListFilterInput
+    ): [MaterialList]
+    }
+
+    input MaterialListFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putMaterialList(input: CreateMaterialListInput!): MaterialList
+    updateMaterialList(input: UpdateMaterialListInput!): MaterialList
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteMaterialList(input: SoftDeleteMaterialListInput!): MaterialList
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteMaterialList(id: ID!): MaterialList
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutMaterialList: MaterialList @aws_subscribe(mutations: ["putMaterialList"])
+    onUpdateMaterialList: MaterialList @aws_subscribe(mutations: ["updateMaterialList"])
+    onSoftDeleteMaterialList: MaterialList @aws_subscribe(mutations: ["softDeleteMaterialList"])
+}
+    

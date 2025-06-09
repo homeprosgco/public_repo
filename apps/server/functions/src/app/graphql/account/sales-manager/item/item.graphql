@@ -1,0 +1,42 @@
+input ItemInput {
+  category: String!
+  description: String
+  imageURL: String
+  websiteReferences: [String!]
+  name: String!
+  purchasePrice: String!
+  salePrice: String
+  sku: String
+}
+
+input ItemSku {
+  sku: String!
+}
+
+type Item {
+  id: String!
+  category: String!
+  description: String
+  imageURL: String
+  websiteReferences: [String!]
+  name: String!
+  purchasePrice: String!
+  salePrice: String
+  sku: String
+}
+
+type Query {
+  items: [Item!]!
+  itemsByCategory(categoryInput: GetByCategory!): [Item!]!
+  itemById(itemIdInput: GetByID!): Item!
+  itemBySku(itemSkuInput: ItemSku!): Item!
+}
+
+type Mutation {
+  createItem(itemInput: ItemInput!): Item!
+  updateItem(
+    itemIdInput: GetByID!
+    updateItemInput: ItemInput!
+  ): Item!
+  removeItem(itemIdInput: GetByID!): String!
+}

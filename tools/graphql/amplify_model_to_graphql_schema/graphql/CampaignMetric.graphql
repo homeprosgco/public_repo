@@ -1,0 +1,109 @@
+enum CampaignMetricType {
+  Impressions
+  Clicks
+  Conversions
+  CTR
+  CPC
+  CPA
+  CPM
+  ROI
+  EngagementRate
+  BounceRate
+  LeadGeneration
+  SalesRevenue
+  CustomerAcquisitionCost
+  LifetimeValue
+}
+enum CampaignMetricSource {
+  GoogleAnalytics
+  FacebookAds
+  GoogleAds
+  TwitterAds
+  LinkedInAds
+  EmailMarketing
+  CRM
+  CustomTracking
+  Other
+}
+type CampaignMetric {
+  id: ID!
+  campaign: Campaign @belongsTo
+  impressions: Int
+  clicks: Int
+  conversions: Int
+  spend: Float
+  roi: Float
+  value: Float
+  dateRecorded: AWSDateTime
+  targetGoal: Float
+  metricType: CampaignMetricType
+  source: CampaignMetricSource
+  trafficSource: TrafficSource @hasOne
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateCampaignMetricInput {
+  campaign: Campaign
+  impressions: Int
+  clicks: Int
+  conversions: Int
+  spend: Float
+  roi: Float
+  value: Float
+  dateRecorded: AWSDateTime
+  targetGoal: Float
+  metricType: CampaignMetricType
+  source: CampaignMetricSource
+  trafficSource: TrafficSource
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateCampaignMetricInput {
+  id: ID!
+  campaign: Campaign
+  impressions: Int
+  clicks: Int
+  conversions: Int
+  spend: Float
+  roi: Float
+  value: Float
+  dateRecorded: AWSDateTime
+  targetGoal: Float
+  metricType: CampaignMetricType
+  source: CampaignMetricSource
+  trafficSource: TrafficSource
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteCampaignMetricInput {
+  id: ID!
+}
+
+input CampaignMetricFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getCampaignMetric(id: ID!): CampaignMetric
+  queryCampaignMetrics(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: CampaignMetricFilterInput
+  ): [CampaignMetric]
+}
+type Mutation {
+  putCampaignMetric(input: CreateCampaignMetricInput!): CampaignMetric
+  updateCampaignMetric(input: UpdateCampaignMetricInput!): CampaignMetric
+  softDeleteCampaignMetric(input: SoftDeleteCampaignMetricInput!): CampaignMetric
+  deleteCampaignMetric(id: ID!): CampaignMetric
+}
+type Subscription {
+  onPutCampaignMetric: CampaignMetric @aws_subscribe(mutations: ["putCampaignMetric"])
+  onUpdateCampaignMetric: CampaignMetric @aws_subscribe(mutations: ["updateCampaignMetric"])
+  onSoftDeleteCampaignMetric: CampaignMetric @aws_subscribe(mutations: ["softDeleteCampaignMetric"])
+}

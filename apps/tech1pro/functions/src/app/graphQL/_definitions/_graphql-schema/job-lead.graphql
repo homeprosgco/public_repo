@@ -1,0 +1,36 @@
+input JobLeadInput {
+  prospectId: String!
+  leadSource: String!
+  status: String!
+  category: String!
+  requestedWorkScope: String!
+  createdById: String!
+  created: String!
+  address: AddressInput!
+  notes: [NoteInput!]
+  comments: [CommentInput!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activities: [ActivityInput!]
+  referenceId: String
+}
+
+type JobLead {
+  id: String
+  prospectId: String!
+  leadSource: String!
+  status: String!
+  createdById: String!
+  notes: [Note!]
+  comments: [Comment!]
+  imageURLs: [String!]
+  fileURLs: [String!]
+  category: String!
+  activities: [Activity!]
+  address: Address
+  addressId: String
+  requestedWorkScope: String!
+  created: String
+  updated: String
+  referenceId: String
+}

@@ -1,0 +1,49 @@
+input ProposalInput {
+  prospectId: String!
+  status: String!
+  category: String!
+  requestedWorkScope: String!
+  definedWorkScope: String!
+  created: String!
+  createdById: String!
+  address: AddressInput!
+  jobLeadId: String!
+  notes: [NoteInput!]
+  comments: [CommentInput!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activities: [ActivityInput]
+  referenceId: String
+  lineWorkServices: [LineWorkServiceInput!]
+}
+
+type Proposal {
+  id: String
+  prospectId: String!
+  status: String!
+  category: String!
+  requestedWorkScope: String!
+  definedWorkScope: String!
+  createdById: String!
+  address: Address
+  addressId: String
+  jobLeadId: String!
+  notes: [Note!]
+  comments: [Comment!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activities: [Activity!]
+  referenceId: String
+  created: String!
+  updated: String
+  lineWorkServices: [LineWorkService!]
+}
+
+enum ProposalStatus {
+  DRAFT
+  ACCEPTED
+  DENIED
+  EXPIRED
+  SENT
+  VIEWED
+}

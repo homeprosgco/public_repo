@@ -1,0 +1,56 @@
+
+type MaterialList {
+  id: ID!
+  tenant: Tenant @belongsTo
+  materials: [AWSJSON]
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateMaterialListInput {
+  tenant: Tenant
+  materials: [AWSJSON]
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateMaterialListInput {
+  id: ID!
+  tenant: Tenant
+  materials: [AWSJSON]
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteMaterialListInput {
+  id: ID!
+}
+
+input MaterialListFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getMaterialList(id: ID!): MaterialList
+  queryMaterialLists(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: MaterialListFilterInput
+  ): [MaterialList]
+}
+type Mutation {
+  putMaterialList(input: CreateMaterialListInput!): MaterialList
+  updateMaterialList(input: UpdateMaterialListInput!): MaterialList
+  softDeleteMaterialList(input: SoftDeleteMaterialListInput!): MaterialList
+  deleteMaterialList(id: ID!): MaterialList
+}
+type Subscription {
+  onPutMaterialList: MaterialList @aws_subscribe(mutations: ["putMaterialList"])
+  onUpdateMaterialList: MaterialList @aws_subscribe(mutations: ["updateMaterialList"])
+  onSoftDeleteMaterialList: MaterialList @aws_subscribe(mutations: ["softDeleteMaterialList"])
+}

@@ -1,0 +1,84 @@
+
+type TeamMember {
+  id: ID!
+  department: String
+  jobTitle: String
+  skills: [String]
+  certifications: [String]
+  rating: Float
+  servicesOffered: [String]
+  serviceAreas: [String]
+  experienceLevel: String
+  backgroundCheckStatus: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateTeamMemberInput {
+  department: String
+  jobTitle: String
+  skills: [String]
+  certifications: [String]
+  rating: Float
+  servicesOffered: [String]
+  serviceAreas: [String]
+  experienceLevel: String
+  backgroundCheckStatus: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateTeamMemberInput {
+  id: ID!
+  department: String
+  jobTitle: String
+  skills: [String]
+  certifications: [String]
+  rating: Float
+  servicesOffered: [String]
+  serviceAreas: [String]
+  experienceLevel: String
+  backgroundCheckStatus: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteTeamMemberInput {
+  id: ID!
+}
+
+type Query {
+    getTeamMember(id: ID!): TeamMember
+    
+    queryTeamMembers(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: TeamMemberFilterInput
+    ): [TeamMember]
+    }
+
+    input TeamMemberFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putTeamMember(input: CreateTeamMemberInput!): TeamMember
+    updateTeamMember(input: UpdateTeamMemberInput!): TeamMember
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteTeamMember(input: SoftDeleteTeamMemberInput!): TeamMember
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteTeamMember(id: ID!): TeamMember
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutTeamMember: TeamMember @aws_subscribe(mutations: ["putTeamMember"])
+    onUpdateTeamMember: TeamMember @aws_subscribe(mutations: ["updateTeamMember"])
+    onSoftDeleteTeamMember: TeamMember @aws_subscribe(mutations: ["softDeleteTeamMember"])
+}
+    

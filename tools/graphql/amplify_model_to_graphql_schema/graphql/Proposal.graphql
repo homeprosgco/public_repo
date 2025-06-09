@@ -1,0 +1,111 @@
+enum ProposalStatus {
+  Draft
+  PendingReview
+  Submitted
+  UnderConsideration
+  ClientFeedbackRequired
+  Negotiation
+  Accepted
+  Declined
+  Revised
+  Expired
+  Withdrawn
+  Closed
+}
+type Proposal {
+  id: ID!
+  tenant: Tenant @belongsTo
+  customer: Customer @belongsTo
+  workRequest: WorkRequest @belongsTo
+  job: Job @belongsTo
+  createdBy: TeamMember @hasOne
+  files: [File] @hasMany
+  number: String
+  paymentTerms: String
+  title: String
+  scope: String
+  timeline: String
+  qualifications: String
+  approvalDate: AWSDateTime
+  budget: Float
+  lineItems: [AWSJSON]
+  status: ProposalStatus
+  date: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateProposalInput {
+  tenant: Tenant
+  customer: Customer
+  workRequest: WorkRequest
+  job: Job
+  createdBy: TeamMember
+  files: [File]
+  number: String
+  paymentTerms: String
+  title: String
+  scope: String
+  timeline: String
+  qualifications: String
+  approvalDate: AWSDateTime
+  budget: Float
+  lineItems: [AWSJSON]
+  status: ProposalStatus
+  date: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateProposalInput {
+  id: ID!
+  tenant: Tenant
+  customer: Customer
+  workRequest: WorkRequest
+  job: Job
+  createdBy: TeamMember
+  files: [File]
+  number: String
+  paymentTerms: String
+  title: String
+  scope: String
+  timeline: String
+  qualifications: String
+  approvalDate: AWSDateTime
+  budget: Float
+  lineItems: [AWSJSON]
+  status: ProposalStatus
+  date: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteProposalInput {
+  id: ID!
+}
+
+input ProposalFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getProposal(id: ID!): Proposal
+  queryProposals(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ProposalFilterInput
+  ): [Proposal]
+}
+type Mutation {
+  putProposal(input: CreateProposalInput!): Proposal
+  updateProposal(input: UpdateProposalInput!): Proposal
+  softDeleteProposal(input: SoftDeleteProposalInput!): Proposal
+  deleteProposal(id: ID!): Proposal
+}
+type Subscription {
+  onPutProposal: Proposal @aws_subscribe(mutations: ["putProposal"])
+  onUpdateProposal: Proposal @aws_subscribe(mutations: ["updateProposal"])
+  onSoftDeleteProposal: Proposal @aws_subscribe(mutations: ["softDeleteProposal"])
+}

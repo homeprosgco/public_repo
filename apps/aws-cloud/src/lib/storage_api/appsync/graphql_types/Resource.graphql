@@ -1,0 +1,72 @@
+
+type Resource {
+  id: ID!
+  title: String
+  category: String
+  url: String
+  description: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateResourceInput {
+  title: String
+  category: String
+  url: String
+  description: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateResourceInput {
+  id: ID!
+  title: String
+  category: String
+  url: String
+  description: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteResourceInput {
+  id: ID!
+}
+
+type Query {
+    getResource(id: ID!): Resource
+    
+    queryResources(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: ResourceFilterInput
+    ): [Resource]
+    }
+
+    input ResourceFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putResource(input: CreateResourceInput!): Resource
+    updateResource(input: UpdateResourceInput!): Resource
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteResource(input: SoftDeleteResourceInput!): Resource
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteResource(id: ID!): Resource
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutResource: Resource @aws_subscribe(mutations: ["putResource"])
+    onUpdateResource: Resource @aws_subscribe(mutations: ["updateResource"])
+    onSoftDeleteResource: Resource @aws_subscribe(mutations: ["softDeleteResource"])
+}
+    

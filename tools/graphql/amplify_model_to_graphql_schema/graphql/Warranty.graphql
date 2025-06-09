@@ -1,0 +1,86 @@
+
+type Warranty {
+  id: ID!
+  startDate: AWSDate
+  endDate: AWSDate
+  coveredItems: String
+  exclusions: String
+  maintenanceRequirements: String
+  warrantyClaims: [WarrantyClaim] @hasMany
+  maintenanceLogs: [MaintenanceLog] @hasMany
+  followUps: [FollowUp] @hasMany
+  isExtended: Boolean
+  extensionFeePaid: Boolean
+  extensionPaymentLink: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  customer: Customer @belongsTo
+  job: Job @belongsTo
+  isDeleted: Boolean!
+}
+input CreateWarrantyInput {
+  startDate: AWSDate
+  endDate: AWSDate
+  coveredItems: String
+  exclusions: String
+  maintenanceRequirements: String
+  warrantyClaims: [WarrantyClaim]
+  maintenanceLogs: [MaintenanceLog]
+  followUps: [FollowUp]
+  isExtended: Boolean
+  extensionFeePaid: Boolean
+  extensionPaymentLink: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  customer: Customer
+  job: Job
+  isDeleted: Boolean = false
+}
+input UpdateWarrantyInput {
+  id: ID!
+  startDate: AWSDate
+  endDate: AWSDate
+  coveredItems: String
+  exclusions: String
+  maintenanceRequirements: String
+  warrantyClaims: [WarrantyClaim]
+  maintenanceLogs: [MaintenanceLog]
+  followUps: [FollowUp]
+  isExtended: Boolean
+  extensionFeePaid: Boolean
+  extensionPaymentLink: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  customer: Customer
+  job: Job
+  isDeleted: Boolean
+}
+input SoftDeleteWarrantyInput {
+  id: ID!
+}
+
+input WarrantyFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getWarranty(id: ID!): Warranty
+  queryWarranties(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: WarrantyFilterInput
+  ): [Warranty]
+}
+type Mutation {
+  putWarranty(input: CreateWarrantyInput!): Warranty
+  updateWarranty(input: UpdateWarrantyInput!): Warranty
+  softDeleteWarranty(input: SoftDeleteWarrantyInput!): Warranty
+  deleteWarranty(id: ID!): Warranty
+}
+type Subscription {
+  onPutWarranty: Warranty @aws_subscribe(mutations: ["putWarranty"])
+  onUpdateWarranty: Warranty @aws_subscribe(mutations: ["updateWarranty"])
+  onSoftDeleteWarranty: Warranty @aws_subscribe(mutations: ["softDeleteWarranty"])
+}

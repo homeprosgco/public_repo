@@ -1,0 +1,75 @@
+
+type ConversionFunnel {
+  id: ID!
+  visitorsAtStep: Int
+  conversionsAtStep: Int
+  dropOffRate: Float
+  dateRecorded: AWSDateTime
+  notes: String
+  stepName: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateConversionFunnelInput {
+  visitorsAtStep: Int
+  conversionsAtStep: Int
+  dropOffRate: Float
+  dateRecorded: AWSDateTime
+  notes: String
+  stepName: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateConversionFunnelInput {
+  id: ID!
+  visitorsAtStep: Int
+  conversionsAtStep: Int
+  dropOffRate: Float
+  dateRecorded: AWSDateTime
+  notes: String
+  stepName: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteConversionFunnelInput {
+  id: ID!
+}
+
+type Query {
+    getConversionFunnel(id: ID!): ConversionFunnel
+    
+    queryConversionFunnels(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: ConversionFunnelFilterInput
+    ): [ConversionFunnel]
+    }
+
+    input ConversionFunnelFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putConversionFunnel(input: CreateConversionFunnelInput!): ConversionFunnel
+    updateConversionFunnel(input: UpdateConversionFunnelInput!): ConversionFunnel
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteConversionFunnel(input: SoftDeleteConversionFunnelInput!): ConversionFunnel
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteConversionFunnel(id: ID!): ConversionFunnel
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutConversionFunnel: ConversionFunnel @aws_subscribe(mutations: ["putConversionFunnel"])
+    onUpdateConversionFunnel: ConversionFunnel @aws_subscribe(mutations: ["updateConversionFunnel"])
+    onSoftDeleteConversionFunnel: ConversionFunnel @aws_subscribe(mutations: ["softDeleteConversionFunnel"])
+}
+    

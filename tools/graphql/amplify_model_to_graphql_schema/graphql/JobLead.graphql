@@ -1,0 +1,98 @@
+
+type JobLead {
+  id: ID!
+  tenant: Tenant @belongsTo
+  email: String
+  phone: String
+  conversionFunnel: ConversionFunnel @hasOne
+  adContent: AdContent @hasOne
+  audienceSegment: AudienceSegment @hasOne
+  trafficSource: TrafficSource @hasOne
+  name: String
+  serviceRequested: String
+  description: String
+  dateLastContacted: AWSDateTime
+  conversionRate: Float
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  campaign: Campaign @belongsTo
+  isDeleted: Boolean!
+}
+input CreateJobLeadInput {
+  tenant: Tenant
+  email: String
+  phone: String
+  conversionFunnel: ConversionFunnel
+  adContent: AdContent
+  audienceSegment: AudienceSegment
+  trafficSource: TrafficSource
+  name: String
+  serviceRequested: String
+  description: String
+  dateLastContacted: AWSDateTime
+  conversionRate: Float
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  campaign: Campaign
+  isDeleted: Boolean = false
+}
+input UpdateJobLeadInput {
+  id: ID!
+  tenant: Tenant
+  email: String
+  phone: String
+  conversionFunnel: ConversionFunnel
+  adContent: AdContent
+  audienceSegment: AudienceSegment
+  trafficSource: TrafficSource
+  name: String
+  serviceRequested: String
+  description: String
+  dateLastContacted: AWSDateTime
+  conversionRate: Float
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  campaign: Campaign
+  isDeleted: Boolean
+}
+input SoftDeleteJobLeadInput {
+  id: ID!
+}
+
+input JobLeadFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getJobLead(id: ID!): JobLead
+  queryJobLeads(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: JobLeadFilterInput
+  ): [JobLead]
+}
+type Mutation {
+  putJobLead(input: CreateJobLeadInput!): JobLead
+  updateJobLead(input: UpdateJobLeadInput!): JobLead
+  softDeleteJobLead(input: SoftDeleteJobLeadInput!): JobLead
+  deleteJobLead(id: ID!): JobLead
+}
+type Subscription {
+  onPutJobLead: JobLead @aws_subscribe(mutations: ["putJobLead"])
+  onUpdateJobLead: JobLead @aws_subscribe(mutations: ["updateJobLead"])
+  onSoftDeleteJobLead: JobLead @aws_subscribe(mutations: ["softDeleteJobLead"])
+}

@@ -1,0 +1,84 @@
+
+type Invoice {
+  id: ID!
+  invoiceNumber: String
+  dueDate: AWSDateTime
+  paymentTerms: String
+  notes: String
+  lineItems: [AWSJSON]
+  jobTasks: [AWSJSON]
+  status: String
+  paymentStatus: String
+  paymentMethod: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateInvoiceInput {
+  invoiceNumber: String
+  dueDate: AWSDateTime
+  paymentTerms: String
+  notes: String
+  lineItems: [AWSJSON]
+  jobTasks: [AWSJSON]
+  status: String
+  paymentStatus: String
+  paymentMethod: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateInvoiceInput {
+  id: ID!
+  invoiceNumber: String
+  dueDate: AWSDateTime
+  paymentTerms: String
+  notes: String
+  lineItems: [AWSJSON]
+  jobTasks: [AWSJSON]
+  status: String
+  paymentStatus: String
+  paymentMethod: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteInvoiceInput {
+  id: ID!
+}
+
+type Query {
+    getInvoice(id: ID!): Invoice
+    
+    queryInvoices(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: InvoiceFilterInput
+    ): [Invoice]
+    }
+
+    input InvoiceFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putInvoice(input: CreateInvoiceInput!): Invoice
+    updateInvoice(input: UpdateInvoiceInput!): Invoice
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteInvoice(input: SoftDeleteInvoiceInput!): Invoice
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteInvoice(id: ID!): Invoice
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutInvoice: Invoice @aws_subscribe(mutations: ["putInvoice"])
+    onUpdateInvoice: Invoice @aws_subscribe(mutations: ["updateInvoice"])
+    onSoftDeleteInvoice: Invoice @aws_subscribe(mutations: ["softDeleteInvoice"])
+}
+    

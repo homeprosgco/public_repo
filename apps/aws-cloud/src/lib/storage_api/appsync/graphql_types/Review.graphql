@@ -1,0 +1,72 @@
+
+type Review {
+  id: ID!
+  reviewerName: String
+  rating: Float
+  comment: String
+  response: String
+  visibility: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateReviewInput {
+  reviewerName: String
+  rating: Float
+  comment: String
+  response: String
+  visibility: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateReviewInput {
+  id: ID!
+  reviewerName: String
+  rating: Float
+  comment: String
+  response: String
+  visibility: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteReviewInput {
+  id: ID!
+}
+
+type Query {
+    getReview(id: ID!): Review
+    
+    queryReviews(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: ReviewFilterInput
+    ): [Review]
+    }
+
+    input ReviewFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putReview(input: CreateReviewInput!): Review
+    updateReview(input: UpdateReviewInput!): Review
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteReview(input: SoftDeleteReviewInput!): Review
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteReview(id: ID!): Review
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutReview: Review @aws_subscribe(mutations: ["putReview"])
+    onUpdateReview: Review @aws_subscribe(mutations: ["updateReview"])
+    onSoftDeleteReview: Review @aws_subscribe(mutations: ["softDeleteReview"])
+}
+    

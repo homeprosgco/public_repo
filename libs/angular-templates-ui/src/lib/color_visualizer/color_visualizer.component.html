@@ -1,0 +1,34 @@
+<!-- Theme Name Input -->
+<div class="theme-name-input">
+  <label for="themeName">📝 Theme Name:</label>
+  <input id="themeName" type="text" [(ngModel)]="themeName" />
+</div>
+
+<!-- Reactive Form Starts -->
+<form [formGroup]="themeForm">
+  <h2 class="mb-8">🎨 Color Swatches</h2>
+  <div class="swatch-grid">
+    <div class="swatch" *ngFor="let color of colorData">
+      <div class="color-box" [style.background]="color.color">{{ color.count }}</div>
+      <div class="my-4">
+        <code>{{ color.color }}</code>
+      </div>
+      <select [formControlName]="color.color" multiple>
+        <option *ngFor="let key of themeKeys" [value]="key">{{ key }}</option>
+      </select>
+
+      <div *ngIf="color.properties?.length">
+        <small>Used in:</small>
+        <ul>
+          <li *ngFor="let p of color.properties">{{ p }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Action Buttons -->
+<div class="actions">
+  <button (click)="exportTheme()">✅ Export to Console</button>
+  <button (click)="downloadThemeAsJson()">💾 Download as JSON</button>
+</div>

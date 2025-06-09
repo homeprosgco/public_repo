@@ -1,0 +1,81 @@
+
+type UserProfile {
+  id: String
+  name: String
+  email: String
+  phoneNumber: String
+  address: String
+  status: String
+  profilePictureUrl: String
+  lastLogin: AWSDateTime
+  accountType: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateUserProfileInput {
+  name: String
+  email: String
+  phoneNumber: String
+  address: String
+  status: String
+  profilePictureUrl: String
+  lastLogin: AWSDateTime
+  accountType: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateUserProfileInput {
+  id: ID!
+  name: String
+  email: String
+  phoneNumber: String
+  address: String
+  status: String
+  profilePictureUrl: String
+  lastLogin: AWSDateTime
+  accountType: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteUserProfileInput {
+  id: ID!
+}
+
+type Query {
+    getUserProfile(id: ID!): UserProfile
+    
+    queryUserProfiles(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: UserProfileFilterInput
+    ): [UserProfile]
+    }
+
+    input UserProfileFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putUserProfile(input: CreateUserProfileInput!): UserProfile
+    updateUserProfile(input: UpdateUserProfileInput!): UserProfile
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteUserProfile(input: SoftDeleteUserProfileInput!): UserProfile
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteUserProfile(id: ID!): UserProfile
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutUserProfile: UserProfile @aws_subscribe(mutations: ["putUserProfile"])
+    onUpdateUserProfile: UserProfile @aws_subscribe(mutations: ["updateUserProfile"])
+    onSoftDeleteUserProfile: UserProfile @aws_subscribe(mutations: ["softDeleteUserProfile"])
+}
+    

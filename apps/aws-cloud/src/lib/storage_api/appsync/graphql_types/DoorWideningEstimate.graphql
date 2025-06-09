@@ -1,0 +1,86 @@
+
+type DoorWideningEstimate {
+  doorMeasurements: [String]
+  electricalNeedsRelocation: Boolean
+  electricalRelocationDoors: String
+  needPocketDoorSwingObstruction: Boolean
+  pocketDoorSwingObstructionDoors: String
+  needPocketDoorUnmovableWalls: Boolean
+  pocketDoorUnmovableWallsDoors: String
+  wheelchairOrWalkerWidth: Float
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreateDoorWideningEstimateInput {
+  doorMeasurements: [String]
+  electricalNeedsRelocation: Boolean
+  electricalRelocationDoors: String
+  needPocketDoorSwingObstruction: Boolean
+  pocketDoorSwingObstructionDoors: String
+  needPocketDoorUnmovableWalls: Boolean
+  pocketDoorUnmovableWallsDoors: String
+  wheelchairOrWalkerWidth: Float
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdateDoorWideningEstimateInput {
+  id: ID!
+  doorMeasurements: [String]
+  electricalNeedsRelocation: Boolean
+  electricalRelocationDoors: String
+  needPocketDoorSwingObstruction: Boolean
+  pocketDoorSwingObstructionDoors: String
+  needPocketDoorUnmovableWalls: Boolean
+  pocketDoorUnmovableWallsDoors: String
+  wheelchairOrWalkerWidth: Float
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeleteDoorWideningEstimateInput {
+  id: ID!
+}
+
+type Query {
+    getDoorWideningEstimate(id: ID!): DoorWideningEstimate
+    
+    queryDoorWideningEstimates(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: DoorWideningEstimateFilterInput
+    ): [DoorWideningEstimate]
+    }
+
+    input DoorWideningEstimateFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putDoorWideningEstimate(input: CreateDoorWideningEstimateInput!): DoorWideningEstimate
+    updateDoorWideningEstimate(input: UpdateDoorWideningEstimateInput!): DoorWideningEstimate
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteDoorWideningEstimate(input: SoftDeleteDoorWideningEstimateInput!): DoorWideningEstimate
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteDoorWideningEstimate(id: ID!): DoorWideningEstimate
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutDoorWideningEstimate: DoorWideningEstimate @aws_subscribe(mutations: ["putDoorWideningEstimate"])
+    onUpdateDoorWideningEstimate: DoorWideningEstimate @aws_subscribe(mutations: ["updateDoorWideningEstimate"])
+    onSoftDeleteDoorWideningEstimate: DoorWideningEstimate @aws_subscribe(mutations: ["softDeleteDoorWideningEstimate"])
+}
+    

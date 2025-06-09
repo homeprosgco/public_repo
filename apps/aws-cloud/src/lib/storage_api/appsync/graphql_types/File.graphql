@@ -1,0 +1,72 @@
+
+type File {
+  id: ID!
+  name: String
+  url: String
+  notes: String
+  type: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateFileInput {
+  name: String
+  url: String
+  notes: String
+  type: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateFileInput {
+  id: ID!
+  name: String
+  url: String
+  notes: String
+  type: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteFileInput {
+  id: ID!
+}
+
+type Query {
+    getFile(id: ID!): File
+    
+    queryFiles(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: FileFilterInput
+    ): [File]
+    }
+
+    input FileFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putFile(input: CreateFileInput!): File
+    updateFile(input: UpdateFileInput!): File
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteFile(input: SoftDeleteFileInput!): File
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteFile(id: ID!): File
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutFile: File @aws_subscribe(mutations: ["putFile"])
+    onUpdateFile: File @aws_subscribe(mutations: ["updateFile"])
+    onSoftDeleteFile: File @aws_subscribe(mutations: ["softDeleteFile"])
+}
+    

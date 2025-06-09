@@ -1,0 +1,36 @@
+import { Component, inject, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { input } from '@angular/core';
+import { SgFormControlComponent } from '@shared/ui'; // ✅ Shared field component
+import { {{ type_name }} } from '../../data/models/{{ split_and_hyphenate(type_name) }}.interface';
+
+@Component({
+  selector: 'sg-{{ split_and_hyphenate(type_name) }}-form',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, SgFormControlComponent],
+  templateUrl: './{{ split_and_hyphenate(type_name) }}-form.component.html',
+})
+export class {{ type_name }}FormComponent {
+  model = input<Partial<{{ type_name }}> | null>(null); // ✅ Optional input
+  @Output() submitForm = new EventEmitter<{{ type_name }}>();
+
+  fb = inject(FormBuilder);
+  form = this.fb.group({
+    {% for field, field_type in fields.items() if field not in ['id', 'isDeleted', 'created', 'updated'] -%}
+    {{ field }}: [''],
+    {% endfor %}
+  });
+
+  constructor() {
+    if (this.model()) {
+      this.form.patchValue(this.model()!);
+    }
+  }
+
+  onSubmit() {
+    if (this.form.valid) {
+      this.submitForm.emit(this.form.value as {{ type_name }});
+    }
+  }
+}

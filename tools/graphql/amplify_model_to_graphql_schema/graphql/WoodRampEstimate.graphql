@@ -1,0 +1,124 @@
+enum RampType {
+  Permanent
+  Portable
+}
+enum RampRunType {
+  Straight
+  WithTurns
+}
+enum HandRailLocation {
+  Interior
+  Exterior
+}
+enum HandRailMaterial {
+  Metal
+  Wood
+}
+type WoodRampEstimate {
+  totalRiseInInches: Float
+  rampLocation: String
+  rampType: RampType
+  portableRampAcknowledgment: Boolean
+  doorHasOutwardSwing: Boolean
+  rampRunType: RampRunType
+  numberOfTurns: Int
+  rampTieInLocation: String
+  requiresPaverLanding: Boolean
+  requiresConcreteLanding: Boolean
+  memberUnderstandsLayout: Boolean
+  handrailsNeeded: Boolean
+  handrailLengthInFeet: Float
+  handrailTieInLocation: String
+  handrailLocation: HandRailLocation
+  handrailMaterialPreference: HandRailMaterial
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreateWoodRampEstimateInput {
+  totalRiseInInches: Float
+  rampLocation: String
+  rampType: RampType
+  portableRampAcknowledgment: Boolean
+  doorHasOutwardSwing: Boolean
+  rampRunType: RampRunType
+  numberOfTurns: Int
+  rampTieInLocation: String
+  requiresPaverLanding: Boolean
+  requiresConcreteLanding: Boolean
+  memberUnderstandsLayout: Boolean
+  handrailsNeeded: Boolean
+  handrailLengthInFeet: Float
+  handrailTieInLocation: String
+  handrailLocation: HandRailLocation
+  handrailMaterialPreference: HandRailMaterial
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdateWoodRampEstimateInput {
+  id: ID!
+  totalRiseInInches: Float
+  rampLocation: String
+  rampType: RampType
+  portableRampAcknowledgment: Boolean
+  doorHasOutwardSwing: Boolean
+  rampRunType: RampRunType
+  numberOfTurns: Int
+  rampTieInLocation: String
+  requiresPaverLanding: Boolean
+  requiresConcreteLanding: Boolean
+  memberUnderstandsLayout: Boolean
+  handrailsNeeded: Boolean
+  handrailLengthInFeet: Float
+  handrailTieInLocation: String
+  handrailLocation: HandRailLocation
+  handrailMaterialPreference: HandRailMaterial
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeleteWoodRampEstimateInput {
+  id: ID!
+}
+
+input WoodRampEstimateFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getWoodRampEstimate(id: ID!): WoodRampEstimate
+  queryWoodRampEstimates(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: WoodRampEstimateFilterInput
+  ): [WoodRampEstimate]
+}
+type Mutation {
+  putWoodRampEstimate(input: CreateWoodRampEstimateInput!): WoodRampEstimate
+  updateWoodRampEstimate(input: UpdateWoodRampEstimateInput!): WoodRampEstimate
+  softDeleteWoodRampEstimate(input: SoftDeleteWoodRampEstimateInput!): WoodRampEstimate
+  deleteWoodRampEstimate(id: ID!): WoodRampEstimate
+}
+type Subscription {
+  onPutWoodRampEstimate: WoodRampEstimate @aws_subscribe(mutations: ["putWoodRampEstimate"])
+  onUpdateWoodRampEstimate: WoodRampEstimate @aws_subscribe(mutations: ["updateWoodRampEstimate"])
+  onSoftDeleteWoodRampEstimate: WoodRampEstimate @aws_subscribe(mutations: ["softDeleteWoodRampEstimate"])
+}

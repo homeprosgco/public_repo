@@ -1,0 +1,17 @@
+import { gql } from 'apollo-angular';
+
+export const ON_SOFT_DELETE_{{ type_name.upper() }} = gql`
+  subscription OnSoftDelete{{ type_name }} {
+    onSoftDelete{{ type_name }} {
+      id
+      {% for scalar in scalars %}
+      {{ scalar }}
+      {% endfor %}
+      {% for rel in relations %}
+      {{ rel | lower }} {
+        id
+      }
+      {% endfor %}
+    }
+  }
+`;

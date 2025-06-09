@@ -1,0 +1,89 @@
+
+type WorkRequest {
+  id: ID!
+  createdBy: TeamMember @belongsTo
+  assignedPro: Tenant @belongsTo
+  assignedPersonnel: TeamMember @belongsTo
+  proposal: Proposal @hasOne
+  estimate: Estimate @hasOne
+  title: String
+  category: String
+  description: String
+  notes: String
+  status: String
+  priority: String
+  workScope: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  customer: Customer @belongsTo
+  isDeleted: Boolean!
+}
+input CreateWorkRequestInput {
+  createdBy: TeamMember
+  assignedPro: Tenant
+  assignedPersonnel: TeamMember
+  proposal: Proposal
+  estimate: Estimate
+  title: String
+  category: String
+  description: String
+  notes: String
+  status: String
+  priority: String
+  workScope: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  customer: Customer
+  isDeleted: Boolean = false
+}
+input UpdateWorkRequestInput {
+  id: ID!
+  createdBy: TeamMember
+  assignedPro: Tenant
+  assignedPersonnel: TeamMember
+  proposal: Proposal
+  estimate: Estimate
+  title: String
+  category: String
+  description: String
+  notes: String
+  status: String
+  priority: String
+  workScope: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  customer: Customer
+  isDeleted: Boolean
+}
+input SoftDeleteWorkRequestInput {
+  id: ID!
+}
+
+input WorkRequestFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getWorkRequest(id: ID!): WorkRequest
+  queryWorkRequests(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: WorkRequestFilterInput
+  ): [WorkRequest]
+}
+type Mutation {
+  putWorkRequest(input: CreateWorkRequestInput!): WorkRequest
+  updateWorkRequest(input: UpdateWorkRequestInput!): WorkRequest
+  softDeleteWorkRequest(input: SoftDeleteWorkRequestInput!): WorkRequest
+  deleteWorkRequest(id: ID!): WorkRequest
+}
+type Subscription {
+  onPutWorkRequest: WorkRequest @aws_subscribe(mutations: ["putWorkRequest"])
+  onUpdateWorkRequest: WorkRequest @aws_subscribe(mutations: ["updateWorkRequest"])
+  onSoftDeleteWorkRequest: WorkRequest @aws_subscribe(mutations: ["softDeleteWorkRequest"])
+}

@@ -1,0 +1,96 @@
+
+type Contract {
+  id: ID!
+  presentedById: ID!
+  title: String
+  partiesInvolved: [String]
+  terms: String
+  contractAmount: Float
+  paymentTerms: String
+  scope: String
+  terminationClause: String
+  signatures: [String]
+  dateEffective: AWSDateTime
+  dateFulfilled: AWSDateTime
+  attachmentUrls: [String]
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateContractInput {
+  presentedById: ID!
+  title: String
+  partiesInvolved: [String]
+  terms: String
+  contractAmount: Float
+  paymentTerms: String
+  scope: String
+  terminationClause: String
+  signatures: [String]
+  dateEffective: AWSDateTime
+  dateFulfilled: AWSDateTime
+  attachmentUrls: [String]
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateContractInput {
+  id: ID!
+  presentedById: ID!
+  title: String
+  partiesInvolved: [String]
+  terms: String
+  contractAmount: Float
+  paymentTerms: String
+  scope: String
+  terminationClause: String
+  signatures: [String]
+  dateEffective: AWSDateTime
+  dateFulfilled: AWSDateTime
+  attachmentUrls: [String]
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteContractInput {
+  id: ID!
+}
+
+type Query {
+    getContract(id: ID!): Contract
+    
+    queryContracts(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: ContractFilterInput
+    ): [Contract]
+    }
+
+    input ContractFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putContract(input: CreateContractInput!): Contract
+    updateContract(input: UpdateContractInput!): Contract
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteContract(input: SoftDeleteContractInput!): Contract
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteContract(id: ID!): Contract
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutContract: Contract @aws_subscribe(mutations: ["putContract"])
+    onUpdateContract: Contract @aws_subscribe(mutations: ["updateContract"])
+    onSoftDeleteContract: Contract @aws_subscribe(mutations: ["softDeleteContract"])
+}
+    

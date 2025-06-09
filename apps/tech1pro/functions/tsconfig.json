@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "removeComments": true,
+    "baseUrl": "./",
+    "incremental": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@graphql-schema/*": ["src/app/graphQL/_definitions/graphql.interface.ts"]
+    }
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+, "_faker/_test"  ],
+"exclude": ["_faker/query-graphql.ts"]
+}

@@ -1,0 +1,134 @@
+enum WoodRampEstimateRamptypeEnum {
+  Permanent
+  Portable
+}
+enum WoodRampEstimateRampruntypeEnum {
+  Straight
+  WithTurns
+}
+enum WoodRampEstimateHandraillocationEnum {
+  Interior
+  Exterior
+}
+enum WoodRampEstimateHandrailmaterialpreferenceEnum {
+  Metal
+  Wood
+}
+type WoodRampEstimate {
+  totalRiseInInches: Float
+  rampLocation: String
+  rampType: WoodRampEstimateRamptypeEnum
+  portableRampAcknowledgment: Boolean
+  doorHasOutwardSwing: Boolean
+  rampRunType: WoodRampEstimateRampruntypeEnum
+  numberOfTurns: Int
+  rampTieInLocation: String
+  requiresPaverLanding: Boolean
+  requiresConcreteLanding: Boolean
+  memberUnderstandsLayout: Boolean
+  handrailsNeeded: Boolean
+  handrailLengthInFeet: Float
+  handrailTieInLocation: String
+  handrailLocation: WoodRampEstimateHandraillocationEnum
+  handrailMaterialPreference: WoodRampEstimateHandrailmaterialpreferenceEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreateWoodRampEstimateInput {
+  totalRiseInInches: Float
+  rampLocation: String
+  rampType: WoodRampEstimateRamptypeEnum
+  portableRampAcknowledgment: Boolean
+  doorHasOutwardSwing: Boolean
+  rampRunType: WoodRampEstimateRampruntypeEnum
+  numberOfTurns: Int
+  rampTieInLocation: String
+  requiresPaverLanding: Boolean
+  requiresConcreteLanding: Boolean
+  memberUnderstandsLayout: Boolean
+  handrailsNeeded: Boolean
+  handrailLengthInFeet: Float
+  handrailTieInLocation: String
+  handrailLocation: WoodRampEstimateHandraillocationEnum
+  handrailMaterialPreference: WoodRampEstimateHandrailmaterialpreferenceEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdateWoodRampEstimateInput {
+  id: ID!
+  totalRiseInInches: Float
+  rampLocation: String
+  rampType: WoodRampEstimateRamptypeEnum
+  portableRampAcknowledgment: Boolean
+  doorHasOutwardSwing: Boolean
+  rampRunType: WoodRampEstimateRampruntypeEnum
+  numberOfTurns: Int
+  rampTieInLocation: String
+  requiresPaverLanding: Boolean
+  requiresConcreteLanding: Boolean
+  memberUnderstandsLayout: Boolean
+  handrailsNeeded: Boolean
+  handrailLengthInFeet: Float
+  handrailTieInLocation: String
+  handrailLocation: WoodRampEstimateHandraillocationEnum
+  handrailMaterialPreference: WoodRampEstimateHandrailmaterialpreferenceEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeleteWoodRampEstimateInput {
+  id: ID!
+}
+
+type Query {
+    getWoodRampEstimate(id: ID!): WoodRampEstimate
+    
+    queryWoodRampEstimates(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: WoodRampEstimateFilterInput
+    ): [WoodRampEstimate]
+    }
+
+    input WoodRampEstimateFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putWoodRampEstimate(input: CreateWoodRampEstimateInput!): WoodRampEstimate
+    updateWoodRampEstimate(input: UpdateWoodRampEstimateInput!): WoodRampEstimate
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteWoodRampEstimate(input: SoftDeleteWoodRampEstimateInput!): WoodRampEstimate
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteWoodRampEstimate(id: ID!): WoodRampEstimate
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutWoodRampEstimate: WoodRampEstimate @aws_subscribe(mutations: ["putWoodRampEstimate"])
+    onUpdateWoodRampEstimate: WoodRampEstimate @aws_subscribe(mutations: ["updateWoodRampEstimate"])
+    onSoftDeleteWoodRampEstimate: WoodRampEstimate @aws_subscribe(mutations: ["softDeleteWoodRampEstimate"])
+}
+    

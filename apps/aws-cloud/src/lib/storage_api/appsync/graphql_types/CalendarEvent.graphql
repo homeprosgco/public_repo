@@ -1,0 +1,78 @@
+
+type CalendarEvent {
+  id: ID!
+  title: String
+  description: String
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  attendees: [String]
+  recurrence: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateCalendarEventInput {
+  title: String
+  description: String
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  attendees: [String]
+  recurrence: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateCalendarEventInput {
+  id: ID!
+  title: String
+  description: String
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  attendees: [String]
+  recurrence: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteCalendarEventInput {
+  id: ID!
+}
+
+type Query {
+    getCalendarEvent(id: ID!): CalendarEvent
+    
+    queryCalendarEvents(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: CalendarEventFilterInput
+    ): [CalendarEvent]
+    }
+
+    input CalendarEventFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putCalendarEvent(input: CreateCalendarEventInput!): CalendarEvent
+    updateCalendarEvent(input: UpdateCalendarEventInput!): CalendarEvent
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteCalendarEvent(input: SoftDeleteCalendarEventInput!): CalendarEvent
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteCalendarEvent(id: ID!): CalendarEvent
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutCalendarEvent: CalendarEvent @aws_subscribe(mutations: ["putCalendarEvent"])
+    onUpdateCalendarEvent: CalendarEvent @aws_subscribe(mutations: ["updateCalendarEvent"])
+    onSoftDeleteCalendarEvent: CalendarEvent @aws_subscribe(mutations: ["softDeleteCalendarEvent"])
+}
+    

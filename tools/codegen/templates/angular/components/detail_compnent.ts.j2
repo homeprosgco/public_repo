@@ -1,0 +1,40 @@
+import { Component, TemplateRef, ViewChild, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DynamicTemplateLoaderComponent } from '@shared/ui/dynamic-template-loader';
+import { ActivatedRoute } from '@angular/router';
+import { Get{{ type_name }}UseCase } from '../../domain/usecases/get-{{ filename }}.usecase';
+import { {{ type_name }} } from '../../data/models/{{ filename }}.interface';
+
+@Component({
+  selector: 'sg-{{ filename }}-detail',
+  standalone: true,
+  imports: [CommonModule, DynamicTemplateLoaderComponent],
+  template: `
+    <sg-dynamic-template-loader [data$]="data$" [template]="detailTemplate">
+    </sg-dynamic-template-loader>
+
+    <ng-template #detailTemplate let-data>
+      <div class="detail-wrapper">
+        {% for field in fields.keys() %}
+        <p><strong>{{ field | capitalize }}:</strong> {{ '{{' }} data.{{ field }} {{ '}}' }}</p>
+        {% endfor %}
+      </div>
+    </ng-template>
+  `,
+  styles: [`
+    .detail-wrapper {
+      padding: 1rem;
+    }
+    .detail-wrapper p {
+      margin: 0.5rem 0;
+    }
+  `]
+})
+export class {{ type_name }}DetailComponent {
+  private route = inject(ActivatedRoute);
+  private getUseCase = inject(Get{{ type_name }}UseCase);
+  id = this.route.snapshot.paramMap.get('id')!;
+  data$ = this.getUseCase.execute(this.id);
+
+  @ViewChild('detailTemplate', { static: true }) detailTemplateRef!: TemplateRef<any>;
+}

@@ -1,0 +1,13 @@
+// GENERATED QUERY {{ pluralize(type_name).upper() }} USE CASE
+import '../repositories/i_{{ filename }}_repository.dart';
+import '../../data/models/{{ filename }}.dart';
+
+class Query{{ pluralize(type_name) }}UseCase {
+  final I{{ type_name }}Repository repository;
+
+  Query{{ pluralize(type_name) }}UseCase(this.repository);
+
+  Future<List<{{ type_name }}Model>> execute() {
+    return repository.query{{ pluralize(type_name) }}();
+  }
+}

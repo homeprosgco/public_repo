@@ -1,0 +1,140 @@
+enum ShowerConversionEstimateShowertypeEnum {
+  RollIn
+  WalkIn
+}
+enum ShowerConversionEstimateExistingwallmaterialEnum {
+  Fiberglass
+  Tile
+}
+enum ShowerConversionEstimateExistingtileconditionEnum {
+  Good
+  Bad
+}
+enum ShowerConversionEstimateWatercontroltypeEnum {
+  Knobs
+  Lever
+}
+enum ShowerConversionEstimateBathroomflooringtypeEnum {
+  Tile
+  Vinyl
+  Wood
+  Carpet
+}
+enum ShowerConversionEstimateBathroomfloorconditionEnum {
+  Good
+  Bad
+}
+enum ShowerConversionEstimateSubflooringconditionEnum {
+  Good
+  Bad
+}
+type ShowerConversionEstimate {
+  id: ID!
+  description: String
+  showerType: ShowerConversionEstimateShowertypeEnum
+  existingWallMaterial: ShowerConversionEstimateExistingwallmaterialEnum
+  existingTileCondition: ShowerConversionEstimateExistingtileconditionEnum
+  tileReplacementNeeded: Boolean
+  waterControlType: ShowerConversionEstimateWatercontroltypeEnum
+  showerHeadReplacementNeeded: Boolean
+  rollInShowerDoorWidth: Float
+  wheelchairWidth: Float
+  bathroomDoorWidth: Float
+  bathroomFlooringType: ShowerConversionEstimateBathroomflooringtypeEnum
+  bathroomFloorCondition: ShowerConversionEstimateBathroomfloorconditionEnum
+  subFlooringCondition: ShowerConversionEstimateSubflooringconditionEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreateShowerConversionEstimateInput {
+  description: String
+  showerType: ShowerConversionEstimateShowertypeEnum
+  existingWallMaterial: ShowerConversionEstimateExistingwallmaterialEnum
+  existingTileCondition: ShowerConversionEstimateExistingtileconditionEnum
+  tileReplacementNeeded: Boolean
+  waterControlType: ShowerConversionEstimateWatercontroltypeEnum
+  showerHeadReplacementNeeded: Boolean
+  rollInShowerDoorWidth: Float
+  wheelchairWidth: Float
+  bathroomDoorWidth: Float
+  bathroomFlooringType: ShowerConversionEstimateBathroomflooringtypeEnum
+  bathroomFloorCondition: ShowerConversionEstimateBathroomfloorconditionEnum
+  subFlooringCondition: ShowerConversionEstimateSubflooringconditionEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdateShowerConversionEstimateInput {
+  id: ID!
+  description: String
+  showerType: ShowerConversionEstimateShowertypeEnum
+  existingWallMaterial: ShowerConversionEstimateExistingwallmaterialEnum
+  existingTileCondition: ShowerConversionEstimateExistingtileconditionEnum
+  tileReplacementNeeded: Boolean
+  waterControlType: ShowerConversionEstimateWatercontroltypeEnum
+  showerHeadReplacementNeeded: Boolean
+  rollInShowerDoorWidth: Float
+  wheelchairWidth: Float
+  bathroomDoorWidth: Float
+  bathroomFlooringType: ShowerConversionEstimateBathroomflooringtypeEnum
+  bathroomFloorCondition: ShowerConversionEstimateBathroomfloorconditionEnum
+  subFlooringCondition: ShowerConversionEstimateSubflooringconditionEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeleteShowerConversionEstimateInput {
+  id: ID!
+}
+
+type Query {
+    getShowerConversionEstimate(id: ID!): ShowerConversionEstimate
+    
+    queryShowerConversionEstimates(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: ShowerConversionEstimateFilterInput
+    ): [ShowerConversionEstimate]
+    }
+
+    input ShowerConversionEstimateFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putShowerConversionEstimate(input: CreateShowerConversionEstimateInput!): ShowerConversionEstimate
+    updateShowerConversionEstimate(input: UpdateShowerConversionEstimateInput!): ShowerConversionEstimate
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteShowerConversionEstimate(input: SoftDeleteShowerConversionEstimateInput!): ShowerConversionEstimate
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteShowerConversionEstimate(id: ID!): ShowerConversionEstimate
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutShowerConversionEstimate: ShowerConversionEstimate @aws_subscribe(mutations: ["putShowerConversionEstimate"])
+    onUpdateShowerConversionEstimate: ShowerConversionEstimate @aws_subscribe(mutations: ["updateShowerConversionEstimate"])
+    onSoftDeleteShowerConversionEstimate: ShowerConversionEstimate @aws_subscribe(mutations: ["softDeleteShowerConversionEstimate"])
+}
+    

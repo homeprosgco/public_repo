@@ -1,0 +1,15 @@
+import { Observable } from 'rxjs';
+import { {{ type_name }} } from '../../data/models/{{ split_and_hyphenate(type_name) }}.interface';
+
+export abstract class I{{ type_name }}Repository {
+  abstract get{{ type_name }}(id: string): Observable<{{ type_name }}>;
+  abstract put{{ type_name }}(input: {{ type_name }}): Observable<{{ type_name }}>;
+  abstract update{{ type_name }}(input: Partial<{{ type_name }}>): Observable<{{ type_name }}>;
+  abstract delete{{ type_name }}(id: string): Observable<string>;
+  abstract softDelete{{ type_name }}(input: { id: string }): Observable<{{ type_name }}>;
+  abstract query{{ pluralize(type_name) }}(): Observable<{{ type_name }}[]>;
+
+  abstract onPut{{ type_name }}(): Observable<{{ type_name }}>;
+  abstract onUpdate{{ type_name }}(): Observable<{{ type_name }}>;
+  abstract onSoftDelete{{ type_name }}(): Observable<{{ type_name }}>;
+}

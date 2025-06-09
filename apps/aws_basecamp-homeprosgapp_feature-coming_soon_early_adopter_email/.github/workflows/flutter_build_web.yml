@@ -1,0 +1,78 @@
+name: Flutter Build Homeprosgapp
+
+on:
+  push:
+    # branches-ignore:
+    #   - '**'
+    branches:
+      - homeprosgapp
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Ensure the workflow has write permissions
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+        flutter-version: '3.24.4'
+
+    - name: Install Melos
+      uses: bluefireteam/melos-action@v3
+      with:
+        melos-version: '6.2.0'
+
+    - name: Run Flutter Web Build
+      run: |
+        melos exec -c 1 --scope="*homeprosgapp*" -- flutter build web
+
+    - name: List Contents of build/web in Homeprosgapp
+      run: |
+        melos exec --scope="*homeprosgapp*" -- ls -al build/web/
+
+    - name: Clean and Prepare Artifacts Directory
+      run: |
+        melos exec --scope="*homeprosgapp*" -- bash -c '
+          ARTIFACTS_DIR="artifacts/web"
+          echo "Cleaning artifacts directory at $ARTIFACTS_DIR..."
+          rm -rf $ARTIFACTS_DIR
+          mkdir -p $ARTIFACTS_DIR
+        '
+
+    - name: Copy Build Artifacts
+      run: |
+        melos exec --scope="*homeprosgapp*" -- bash -c '
+          BUILD_DIR="build/web"
+          ARTIFACTS_DIR="artifacts/web"
+
+          if [ ! -d "$BUILD_DIR" ]; then
+            echo "Error: Build directory $BUILD_DIR does not exist."
+            exit 1
+          fi
+          
+          echo "Copying build artifacts from $BUILD_DIR to $ARTIFACTS_DIR..."
+          cp -r $BUILD_DIR/* $ARTIFACTS_DIR/
+
+          echo "Artifacts successfully copied to $ARTIFACTS_DIR."
+        '
+
+    - name: Commit and Push Changes
+      if: success()
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add .
+        git commit -m "Build Flutter web projects"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      

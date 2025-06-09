@@ -1,0 +1,28 @@
+// GENERATED ENUM: {{ enum_name }}
+enum {{ enum_name }} {
+  {% for value in enum_values -%}
+  {{ value | lower | replace(' ', '_') }},
+  {% endfor %}
+}
+
+extension {{ enum_name }}X on {{ enum_name }} {
+  String get value {
+    switch (this) {
+      {% for value in enum_values -%}
+      case {{ enum_name }}.{{ value | lower | replace(' ', '_') }}:
+        return '{{ value }}';
+      {% endfor %}
+    }
+  }
+
+  static {{ enum_name }}? fromString(String? val) {
+    switch (val) {
+      {% for value in enum_values -%}
+      case '{{ value }}':
+        return {{ enum_name }}.{{ value | lower | replace(' ', '_') }};
+      {% endfor %}
+      default:
+        return null;
+    }
+  }
+}

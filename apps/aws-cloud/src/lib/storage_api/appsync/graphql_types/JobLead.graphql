@@ -1,0 +1,96 @@
+
+type JobLead {
+  id: ID!
+  conversionFunnelId: ID!
+  adContentId: ID!
+  audienceSegmentId: ID!
+  trafficSourceId: ID!
+  name: String
+  serviceRequested: String
+  description: String
+  dateLastContacted: AWSDateTime
+  conversionRate: Float
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateJobLeadInput {
+  conversionFunnelId: ID!
+  adContentId: ID!
+  audienceSegmentId: ID!
+  trafficSourceId: ID!
+  name: String
+  serviceRequested: String
+  description: String
+  dateLastContacted: AWSDateTime
+  conversionRate: Float
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateJobLeadInput {
+  id: ID!
+  conversionFunnelId: ID!
+  adContentId: ID!
+  audienceSegmentId: ID!
+  trafficSourceId: ID!
+  name: String
+  serviceRequested: String
+  description: String
+  dateLastContacted: AWSDateTime
+  conversionRate: Float
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteJobLeadInput {
+  id: ID!
+}
+
+type Query {
+    getJobLead(id: ID!): JobLead
+    
+    queryJobLeads(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: JobLeadFilterInput
+    ): [JobLead]
+    }
+
+    input JobLeadFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putJobLead(input: CreateJobLeadInput!): JobLead
+    updateJobLead(input: UpdateJobLeadInput!): JobLead
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteJobLead(input: SoftDeleteJobLeadInput!): JobLead
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteJobLead(id: ID!): JobLead
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutJobLead: JobLead @aws_subscribe(mutations: ["putJobLead"])
+    onUpdateJobLead: JobLead @aws_subscribe(mutations: ["updateJobLead"])
+    onSoftDeleteJobLead: JobLead @aws_subscribe(mutations: ["softDeleteJobLead"])
+}
+    

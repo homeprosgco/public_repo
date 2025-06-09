@@ -1,0 +1,18 @@
+type User {
+  disabled: Boolean
+  email: String
+  emailVerified: Boolean
+  id: String!
+  idToken: String
+  refreshToken: String
+  created: String!
+}
+
+type UserProfile {
+  firstname: String!
+  lastname: String!
+  jobTitle: String
+  jobType: String
+  jobDescription: String
+  jobArea: String
+}

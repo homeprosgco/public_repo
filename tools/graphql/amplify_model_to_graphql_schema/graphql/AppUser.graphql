@@ -1,0 +1,88 @@
+enum AppUserStatus {
+  Active
+  Suspended
+  Terminated
+}
+enum OnlineStatus {
+  Online
+  Offline
+  Away
+  Busy
+  Invisible
+}
+type AppUser {
+  id: ID!
+  chats: [ChatMessage] @hasMany
+  name: String
+  email: String
+  phoneNumber: String
+  address: String
+  status: AppUserStatus
+  profilePictureUrl: String
+  lastLoginStatus: AWSDateTime
+  onlineStatus: OnlineStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  tenant: Tenant @belongsTo
+  isDeleted: Boolean!
+}
+input CreateAppUserInput {
+  chats: [ChatMessage]
+  name: String
+  email: String
+  phoneNumber: String
+  address: String
+  status: AppUserStatus
+  profilePictureUrl: String
+  lastLoginStatus: AWSDateTime
+  onlineStatus: OnlineStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  tenant: Tenant
+  isDeleted: Boolean = false
+}
+input UpdateAppUserInput {
+  id: ID!
+  chats: [ChatMessage]
+  name: String
+  email: String
+  phoneNumber: String
+  address: String
+  status: AppUserStatus
+  profilePictureUrl: String
+  lastLoginStatus: AWSDateTime
+  onlineStatus: OnlineStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  tenant: Tenant
+  isDeleted: Boolean
+}
+input SoftDeleteAppUserInput {
+  id: ID!
+}
+
+input AppUserFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getAppUser(id: ID!): AppUser
+  queryAppUsers(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: AppUserFilterInput
+  ): [AppUser]
+}
+type Mutation {
+  putAppUser(input: CreateAppUserInput!): AppUser
+  updateAppUser(input: UpdateAppUserInput!): AppUser
+  softDeleteAppUser(input: SoftDeleteAppUserInput!): AppUser
+  deleteAppUser(id: ID!): AppUser
+}
+type Subscription {
+  onPutAppUser: AppUser @aws_subscribe(mutations: ["putAppUser"])
+  onUpdateAppUser: AppUser @aws_subscribe(mutations: ["updateAppUser"])
+  onSoftDeleteAppUser: AppUser @aws_subscribe(mutations: ["softDeleteAppUser"])
+}

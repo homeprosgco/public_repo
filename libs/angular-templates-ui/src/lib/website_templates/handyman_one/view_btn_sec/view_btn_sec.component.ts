@@ -1,0 +1,10 @@
+import { Component } from '@angular/core';
+import { ColorOrangeDirective, TextDecorationLineDirective, PaddingLeftDirective, WidthDirective, TransitionPropertyDirective, PaddingBottomDirective, HeightDirective, BackgroundZincColorDirective, FontSizeDirective, MaxWScreenDirective, MarginLeftDirective, AlignItemsDirective, FontFamilyDirective, BackgroundOrangeColorDirective, TopDirective, JustifyContentDirective, PositionDirective, LineHeightDirective, TextAlignDirective, FontStyleDirective, TransitionTimingFunctionDirective, PaddingTopDirective, VerticalAlignDirective, MaxWidthDirective, MarginTopDirective, TransitionDurationDirective, RightDirective, RotateDirective, ZIndexDirective, PaddingRightDirective, DisplayDirective, LeftDirective, MarginRightDirective, CursorDirective, BackgroundColorDirective, FontWeightDirective } from '@public-repo/tailwindcss';
+
+@Component({
+  selector: 'sg-view_btn_sec',
+  templateUrl: './view_btn_sec.component.html',
+  standalone: true,
+  imports: [ColorOrangeDirective, TextDecorationLineDirective, PaddingLeftDirective, WidthDirective, TransitionPropertyDirective, PaddingBottomDirective, HeightDirective, BackgroundZincColorDirective, FontSizeDirective, MaxWScreenDirective, MarginLeftDirective, AlignItemsDirective, FontFamilyDirective, BackgroundOrangeColorDirective, TopDirective, JustifyContentDirective, PositionDirective, LineHeightDirective, TextAlignDirective, FontStyleDirective, TransitionTimingFunctionDirective, PaddingTopDirective, VerticalAlignDirective, MaxWidthDirective, MarginTopDirective, TransitionDurationDirective, RightDirective, RotateDirective, ZIndexDirective, PaddingRightDirective, DisplayDirective, LeftDirective, MarginRightDirective, CursorDirective, BackgroundColorDirective, FontWeightDirective]
+})
+export class ViewBtnSecComponent {}

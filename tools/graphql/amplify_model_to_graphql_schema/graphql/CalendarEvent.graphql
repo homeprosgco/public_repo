@@ -1,0 +1,71 @@
+
+type CalendarEvent {
+  id: ID!
+  tenant: Tenant @belongsTo
+  title: String
+  description: String
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  attendees: [Attendee] @hasMany
+  recurrence: [RecurrenceRule] @hasMany
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateCalendarEventInput {
+  tenant: Tenant
+  title: String
+  description: String
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  attendees: [Attendee]
+  recurrence: [RecurrenceRule]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateCalendarEventInput {
+  id: ID!
+  tenant: Tenant
+  title: String
+  description: String
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  attendees: [Attendee]
+  recurrence: [RecurrenceRule]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteCalendarEventInput {
+  id: ID!
+}
+
+input CalendarEventFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getCalendarEvent(id: ID!): CalendarEvent
+  queryCalendarEvents(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: CalendarEventFilterInput
+  ): [CalendarEvent]
+}
+type Mutation {
+  putCalendarEvent(input: CreateCalendarEventInput!): CalendarEvent
+  updateCalendarEvent(input: UpdateCalendarEventInput!): CalendarEvent
+  softDeleteCalendarEvent(input: SoftDeleteCalendarEventInput!): CalendarEvent
+  deleteCalendarEvent(id: ID!): CalendarEvent
+}
+type Subscription {
+  onPutCalendarEvent: CalendarEvent @aws_subscribe(mutations: ["putCalendarEvent"])
+  onUpdateCalendarEvent: CalendarEvent @aws_subscribe(mutations: ["updateCalendarEvent"])
+  onSoftDeleteCalendarEvent: CalendarEvent @aws_subscribe(mutations: ["softDeleteCalendarEvent"])
+}

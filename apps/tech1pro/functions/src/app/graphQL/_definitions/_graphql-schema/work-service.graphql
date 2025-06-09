@@ -1,0 +1,30 @@
+input WorkServiceInput {
+  category: String!
+  description: String
+  name: String!
+  notes: [NoteInput!]
+  salePrice: String!
+  lineItems: [LineItemInput!]
+  costGuides: [String!]
+  timeToComplete: Int
+  created: String
+  updated: String
+}
+
+input WorkServiceNameInput {
+  name: String!
+}
+
+type WorkService {
+  category: String!
+  costGuides: [String!]
+  created: String
+  description: String
+  id: String
+  lineItems: [LineItem!]
+  name: String!
+  notes: [Note!]
+  salePrice: String!
+  timeToComplete: Int
+  updated: String
+}

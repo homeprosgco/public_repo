@@ -1,0 +1,60 @@
+
+type Invite {
+  id: ID!
+  email: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateInviteInput {
+  email: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateInviteInput {
+  id: ID!
+  email: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteInviteInput {
+  id: ID!
+}
+
+type Query {
+    getInvite(id: ID!): Invite
+    
+    queryInvites(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: InviteFilterInput
+    ): [Invite]
+    }
+
+    input InviteFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putInvite(input: CreateInviteInput!): Invite
+    updateInvite(input: UpdateInviteInput!): Invite
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteInvite(input: SoftDeleteInviteInput!): Invite
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteInvite(id: ID!): Invite
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutInvite: Invite @aws_subscribe(mutations: ["putInvite"])
+    onUpdateInvite: Invite @aws_subscribe(mutations: ["updateInvite"])
+    onSoftDeleteInvite: Invite @aws_subscribe(mutations: ["softDeleteInvite"])
+}
+    

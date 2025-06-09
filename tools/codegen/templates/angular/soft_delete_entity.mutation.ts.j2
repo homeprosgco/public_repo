@@ -1,0 +1,17 @@
+import { gql } from 'apollo-angular';
+
+export const SOFT_DELETE_{{ type_name.upper() }} = gql`
+  mutation SoftDelete{{ type_name }}($input: SoftDelete{{ type_name }}Input!) {
+    softDelete{{ type_name }}(input: $input) {
+      id
+      {% for scalar in scalars %}
+      {{ scalar }}
+      {% endfor %}
+      {% for rel in relations %}
+      {{ rel | lower }} {
+        id
+      }
+      {% endfor %}
+    }
+  }
+`;

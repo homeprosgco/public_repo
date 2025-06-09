@@ -1,0 +1,22 @@
+// GENERATED ENUM: {{ enum_name }}
+export enum {{ enum_name }} {
+  {% for value in enum_values -%}
+  {{ value | replace(' ', '') }} = '{{ value }}',
+  {% endfor %}
+}
+
+export namespace {{ enum_name }} {
+  export const values: {{ enum_name }}[] = [
+    {% for value in enum_values -%}
+    {{ enum_name }}.{{ value | replace(' ', '') }},
+    {% endfor %}
+  ];
+
+  export function fromString(value: string): {{ enum_name }} | undefined {
+    return values.find(v => v === value);
+  }
+
+  export function toString(value: {{ enum_name }}): string {
+    return value;
+  }
+}

@@ -1,0 +1,84 @@
+
+type Estimate {
+  id: ID!
+  createdById: ID!
+  estimateNumber: String
+  paymentTerms: String
+  description: String
+  status: String
+  lineItems: [AWSJSON]
+  jobTasks: [AWSJSON]
+  tags: [String]
+  date: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateEstimateInput {
+  createdById: ID!
+  estimateNumber: String
+  paymentTerms: String
+  description: String
+  status: String
+  lineItems: [AWSJSON]
+  jobTasks: [AWSJSON]
+  tags: [String]
+  date: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateEstimateInput {
+  id: ID!
+  createdById: ID!
+  estimateNumber: String
+  paymentTerms: String
+  description: String
+  status: String
+  lineItems: [AWSJSON]
+  jobTasks: [AWSJSON]
+  tags: [String]
+  date: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteEstimateInput {
+  id: ID!
+}
+
+type Query {
+    getEstimate(id: ID!): Estimate
+    
+    queryEstimates(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: EstimateFilterInput
+    ): [Estimate]
+    }
+
+    input EstimateFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putEstimate(input: CreateEstimateInput!): Estimate
+    updateEstimate(input: UpdateEstimateInput!): Estimate
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteEstimate(input: SoftDeleteEstimateInput!): Estimate
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteEstimate(id: ID!): Estimate
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutEstimate: Estimate @aws_subscribe(mutations: ["putEstimate"])
+    onUpdateEstimate: Estimate @aws_subscribe(mutations: ["updateEstimate"])
+    onSoftDeleteEstimate: Estimate @aws_subscribe(mutations: ["softDeleteEstimate"])
+}
+    

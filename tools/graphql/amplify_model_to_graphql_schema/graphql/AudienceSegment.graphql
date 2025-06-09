@@ -1,0 +1,62 @@
+
+type AudienceSegment {
+  id: ID!
+  campaign: Campaign @belongsTo
+  name: String
+  criteria: String
+  segmentSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  joblead: JobLead @belongsTo
+  isDeleted: Boolean!
+}
+input CreateAudienceSegmentInput {
+  campaign: Campaign
+  name: String
+  criteria: String
+  segmentSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  joblead: JobLead
+  isDeleted: Boolean = false
+}
+input UpdateAudienceSegmentInput {
+  id: ID!
+  campaign: Campaign
+  name: String
+  criteria: String
+  segmentSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  joblead: JobLead
+  isDeleted: Boolean
+}
+input SoftDeleteAudienceSegmentInput {
+  id: ID!
+}
+
+input AudienceSegmentFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getAudienceSegment(id: ID!): AudienceSegment
+  queryAudienceSegments(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: AudienceSegmentFilterInput
+  ): [AudienceSegment]
+}
+type Mutation {
+  putAudienceSegment(input: CreateAudienceSegmentInput!): AudienceSegment
+  updateAudienceSegment(input: UpdateAudienceSegmentInput!): AudienceSegment
+  softDeleteAudienceSegment(input: SoftDeleteAudienceSegmentInput!): AudienceSegment
+  deleteAudienceSegment(id: ID!): AudienceSegment
+}
+type Subscription {
+  onPutAudienceSegment: AudienceSegment @aws_subscribe(mutations: ["putAudienceSegment"])
+  onUpdateAudienceSegment: AudienceSegment @aws_subscribe(mutations: ["updateAudienceSegment"])
+  onSoftDeleteAudienceSegment: AudienceSegment @aws_subscribe(mutations: ["softDeleteAudienceSegment"])
+}

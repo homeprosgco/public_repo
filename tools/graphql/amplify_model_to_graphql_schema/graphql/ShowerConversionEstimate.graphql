@@ -1,0 +1,120 @@
+enum ShowerType {
+  RollIn
+  WalkIn
+}
+enum ShowerWallType {
+  Tile
+  Fiberglass
+}
+enum ShowerWallCondition {
+  Good
+  Bad
+}
+enum ShowerWaterControlType {
+  Knobs
+  Lever
+}
+enum BathroomFloorCondition {
+  Good
+  Bad
+}
+type ShowerConversionEstimate {
+  id: ID!
+  description: String
+  showerType: ShowerType
+  existingWallMaterial: ShowerWallType
+  existingTileCondition: ShowerWallCondition
+  tileReplacementNeeded: Boolean
+  waterControlType: ShowerWaterControlType
+  showerHeadReplacementNeeded: Boolean
+  rollInShowerDoorWidth: Float
+  wheelchairWidth: Float
+  bathroomDoorWidth: Float
+  bathroomFlooringType: BathroomFloorType
+  bathroomFloorCondition: BathroomFloorCondition
+  subFlooringCondition: BathroomFloorCondition
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreateShowerConversionEstimateInput {
+  description: String
+  showerType: ShowerType
+  existingWallMaterial: ShowerWallType
+  existingTileCondition: ShowerWallCondition
+  tileReplacementNeeded: Boolean
+  waterControlType: ShowerWaterControlType
+  showerHeadReplacementNeeded: Boolean
+  rollInShowerDoorWidth: Float
+  wheelchairWidth: Float
+  bathroomDoorWidth: Float
+  bathroomFlooringType: BathroomFloorType
+  bathroomFloorCondition: BathroomFloorCondition
+  subFlooringCondition: BathroomFloorCondition
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdateShowerConversionEstimateInput {
+  id: ID!
+  description: String
+  showerType: ShowerType
+  existingWallMaterial: ShowerWallType
+  existingTileCondition: ShowerWallCondition
+  tileReplacementNeeded: Boolean
+  waterControlType: ShowerWaterControlType
+  showerHeadReplacementNeeded: Boolean
+  rollInShowerDoorWidth: Float
+  wheelchairWidth: Float
+  bathroomDoorWidth: Float
+  bathroomFlooringType: BathroomFloorType
+  bathroomFloorCondition: BathroomFloorCondition
+  subFlooringCondition: BathroomFloorCondition
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeleteShowerConversionEstimateInput {
+  id: ID!
+}
+
+input ShowerConversionEstimateFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getShowerConversionEstimate(id: ID!): ShowerConversionEstimate
+  queryShowerConversionEstimates(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ShowerConversionEstimateFilterInput
+  ): [ShowerConversionEstimate]
+}
+type Mutation {
+  putShowerConversionEstimate(input: CreateShowerConversionEstimateInput!): ShowerConversionEstimate
+  updateShowerConversionEstimate(input: UpdateShowerConversionEstimateInput!): ShowerConversionEstimate
+  softDeleteShowerConversionEstimate(input: SoftDeleteShowerConversionEstimateInput!): ShowerConversionEstimate
+  deleteShowerConversionEstimate(id: ID!): ShowerConversionEstimate
+}
+type Subscription {
+  onPutShowerConversionEstimate: ShowerConversionEstimate @aws_subscribe(mutations: ["putShowerConversionEstimate"])
+  onUpdateShowerConversionEstimate: ShowerConversionEstimate @aws_subscribe(mutations: ["updateShowerConversionEstimate"])
+  onSoftDeleteShowerConversionEstimate: ShowerConversionEstimate @aws_subscribe(mutations: ["softDeleteShowerConversionEstimate"])
+}

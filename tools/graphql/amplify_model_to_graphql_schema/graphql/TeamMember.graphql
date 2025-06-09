@@ -1,0 +1,128 @@
+enum TeamMemberType {
+  Office
+  ServicePersonnel
+  Manager
+  Owner
+}
+enum BackgroundCheckStatus {
+  NotInitiated
+  InProgress
+  Clear
+  Flagged
+  Failed
+}
+type TeamMember {
+  id: ID!
+  teams: [Team] @hasMany
+  type: TeamMemberType
+  contractsPresented: [Contract] @hasMany
+  claimsHandled: [WarrantyClaim] @hasMany
+  workRequests: [WorkRequest] @hasMany
+  maintenancePerformed: [MaintenanceLog] @hasMany
+  workScheduleEvent: [WorkScheduleEvent] @hasMany
+  department: String
+  jobTitle: String
+  skills: [String]
+  certifications: [String]
+  rating: Float
+  servicesOffered: [String]
+  serviceAreas: [String]
+  experienceLevel: String
+  backgroundCheckStatus: BackgroundCheckStatus
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+  job: Job @belongsTo
+  marketingcontent: MarketingContent @belongsTo
+  payment: Payment @belongsTo
+  proposal: Proposal @belongsTo
+  team: Team @belongsTo
+  tenant: Tenant @belongsTo
+  workscheduleevent: WorkScheduleEvent @belongsTo
+}
+input CreateTeamMemberInput {
+  teams: [Team]
+  type: TeamMemberType
+  contractsPresented: [Contract]
+  claimsHandled: [WarrantyClaim]
+  workRequests: [WorkRequest]
+  maintenancePerformed: [MaintenanceLog]
+  workScheduleEvent: [WorkScheduleEvent]
+  department: String
+  jobTitle: String
+  skills: [String]
+  certifications: [String]
+  rating: Float
+  servicesOffered: [String]
+  serviceAreas: [String]
+  experienceLevel: String
+  backgroundCheckStatus: BackgroundCheckStatus
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+  job: Job
+  marketingcontent: MarketingContent
+  payment: Payment
+  proposal: Proposal
+  team: Team
+  tenant: Tenant
+  workscheduleevent: WorkScheduleEvent
+}
+input UpdateTeamMemberInput {
+  id: ID!
+  teams: [Team]
+  type: TeamMemberType
+  contractsPresented: [Contract]
+  claimsHandled: [WarrantyClaim]
+  workRequests: [WorkRequest]
+  maintenancePerformed: [MaintenanceLog]
+  workScheduleEvent: [WorkScheduleEvent]
+  department: String
+  jobTitle: String
+  skills: [String]
+  certifications: [String]
+  rating: Float
+  servicesOffered: [String]
+  serviceAreas: [String]
+  experienceLevel: String
+  backgroundCheckStatus: BackgroundCheckStatus
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+  job: Job
+  marketingcontent: MarketingContent
+  payment: Payment
+  proposal: Proposal
+  team: Team
+  tenant: Tenant
+  workscheduleevent: WorkScheduleEvent
+}
+input SoftDeleteTeamMemberInput {
+  id: ID!
+}
+
+input TeamMemberFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getTeamMember(id: ID!): TeamMember
+  queryTeamMembers(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: TeamMemberFilterInput
+  ): [TeamMember]
+}
+type Mutation {
+  putTeamMember(input: CreateTeamMemberInput!): TeamMember
+  updateTeamMember(input: UpdateTeamMemberInput!): TeamMember
+  softDeleteTeamMember(input: SoftDeleteTeamMemberInput!): TeamMember
+  deleteTeamMember(id: ID!): TeamMember
+}
+type Subscription {
+  onPutTeamMember: TeamMember @aws_subscribe(mutations: ["putTeamMember"])
+  onUpdateTeamMember: TeamMember @aws_subscribe(mutations: ["updateTeamMember"])
+  onSoftDeleteTeamMember: TeamMember @aws_subscribe(mutations: ["softDeleteTeamMember"])
+}

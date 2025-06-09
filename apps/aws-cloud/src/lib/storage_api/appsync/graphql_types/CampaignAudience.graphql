@@ -1,0 +1,66 @@
+
+type CampaignAudience {
+  id: ID!
+  demographics: [String]
+  targetingCriteria: String
+  audienceSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateCampaignAudienceInput {
+  demographics: [String]
+  targetingCriteria: String
+  audienceSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateCampaignAudienceInput {
+  id: ID!
+  demographics: [String]
+  targetingCriteria: String
+  audienceSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteCampaignAudienceInput {
+  id: ID!
+}
+
+type Query {
+    getCampaignAudience(id: ID!): CampaignAudience
+    
+    queryCampaignAudiences(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: CampaignAudienceFilterInput
+    ): [CampaignAudience]
+    }
+
+    input CampaignAudienceFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putCampaignAudience(input: CreateCampaignAudienceInput!): CampaignAudience
+    updateCampaignAudience(input: UpdateCampaignAudienceInput!): CampaignAudience
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteCampaignAudience(input: SoftDeleteCampaignAudienceInput!): CampaignAudience
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteCampaignAudience(id: ID!): CampaignAudience
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutCampaignAudience: CampaignAudience @aws_subscribe(mutations: ["putCampaignAudience"])
+    onUpdateCampaignAudience: CampaignAudience @aws_subscribe(mutations: ["updateCampaignAudience"])
+    onSoftDeleteCampaignAudience: CampaignAudience @aws_subscribe(mutations: ["softDeleteCampaignAudience"])
+}
+    

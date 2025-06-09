@@ -1,0 +1,123 @@
+<sg-dynamic-template-loader
+  [data$]="appUserForm$"
+  [template]="appUserFormTemplate"
+  [loadingTemplate]="loadingTemplate"
+  [errorTemplate]="errorTemplate"
+>
+</sg-dynamic-template-loader>
+
+<!-- Form Template -->
+<ng-template #appUserFormTemplate let-data>
+  <form [formGroup]="appUserForm" (ngSubmit)="submit()">
+    <label>Id:</label>
+    <p-inputText formControlName="id" />
+    <div *ngIf="appUserForm.get('id')?.invalid && appUserForm.get('id')?.touched" @fadeInOut>
+      Invalid Id.
+    </div>
+
+    <label>Chats:</label>
+    <p-inputText formControlName="chats" />
+    <div *ngIf="appUserForm.get('chats')?.invalid && appUserForm.get('chats')?.touched" @fadeInOut>
+      Invalid Chats.
+    </div>
+
+    <label>Name:</label>
+    <p-inputText formControlName="name" />
+    <div *ngIf="appUserForm.get('name')?.invalid && appUserForm.get('name')?.touched" @fadeInOut>
+      Invalid Name.
+    </div>
+
+    <label>Email:</label>
+    <p-inputText type="email" formControlName="{field}" />
+    <div *ngIf="appUserForm.get('email')?.invalid && appUserForm.get('email')?.touched" @fadeInOut>
+      Invalid Email.
+    </div>
+
+    <label>Phone Number:</label>
+    <p-inputMask mask="(999) 999-9999" formControlName="{field}" />
+    <div *ngIf="appUserForm.get('phoneNumber')?.invalid && appUserForm.get('phoneNumber')?.touched" @fadeInOut>
+      Invalid Phone Number.
+    </div>
+
+    <label>Address:</label>
+    <p-inputText formControlName="address" />
+    <div *ngIf="appUserForm.get('address')?.invalid && appUserForm.get('address')?.touched" @fadeInOut>
+      Invalid Address.
+    </div>
+
+    <label>Status:</label>
+    <p-inputText formControlName="status" />
+    <div *ngIf="appUserForm.get('status')?.invalid && appUserForm.get('status')?.touched" @fadeInOut>
+      Invalid Status.
+    </div>
+
+    <label>Profile Picture Url:</label>
+    <p-inputText formControlName="profilePictureUrl" />
+    <div *ngIf="appUserForm.get('profilePictureUrl')?.invalid && appUserForm.get('profilePictureUrl')?.touched" @fadeInOut>
+      Invalid Profile Picture Url.
+    </div>
+
+    <label>Last Login:</label>
+    <p-inputText formControlName="lastLogin" />
+    <div *ngIf="appUserForm.get('lastLogin')?.invalid && appUserForm.get('lastLogin')?.touched" @fadeInOut>
+      Invalid Last Login.
+    </div>
+
+    <label>Online Status:</label>
+    <p-inputText formControlName="onlineStatus" />
+    <div *ngIf="appUserForm.get('onlineStatus')?.invalid && appUserForm.get('onlineStatus')?.touched" @fadeInOut>
+      Invalid Online Status.
+    </div>
+
+    <label>Created:</label>
+    <p-inputText formControlName="created" />
+    <div *ngIf="appUserForm.get('created')?.invalid && appUserForm.get('created')?.touched" @fadeInOut>
+      Invalid Created.
+    </div>
+
+    <label>Updated:</label>
+    <p-calendar formControlName="{field}" showIcon="true" />
+    <div *ngIf="appUserForm.get('updated')?.invalid && appUserForm.get('updated')?.touched" @fadeInOut>
+      Invalid Updated.
+    </div>
+
+    <label>Tenant:</label>
+    <p-inputText formControlName="tenant" />
+    <div *ngIf="appUserForm.get('tenant')?.invalid && appUserForm.get('tenant')?.touched" @fadeInOut>
+      Invalid Tenant.
+    </div>
+
+    <label>Is Deleted:</label>
+    <p-inputText formControlName="isDeleted" />
+    <div *ngIf="appUserForm.get('isDeleted')?.invalid && appUserForm.get('isDeleted')?.touched" @fadeInOut>
+      Invalid Is Deleted.
+    </div>
+
+    <p-button
+      type="submit"
+      label="Submit"
+      [disabled]="appUserForm.invalid || isSubmitting"
+    >
+      <ng-container *ngIf="isSubmitting; else buttonText">
+        🔄 Submitting...
+      </ng-container>
+      <ng-template #buttonText> Submit </ng-template>
+    </p-button>
+  </form>
+</ng-template>
+
+<!-- Loading Template -->
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <p-progressSpinner></p-progressSpinner>
+    <p>Updating data...</p>
+  </div>
+</ng-template>
+
+<!-- Error Template with Retry -->
+<ng-template #errorTemplate>
+  <div class="error-container">
+    <p class="error" @fadeInOut>⚠️ Error updating data. Please try again.</p>
+    <button class="retry-button" (click)="retry()">🔄 Retry</button>
+  </div>
+</ng-template>

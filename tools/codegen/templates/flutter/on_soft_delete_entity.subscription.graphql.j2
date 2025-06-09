@@ -1,0 +1,14 @@
+# GENERATED ON_SOFT_DELETE {{ type_name.upper() }} SUBSCRIPTION
+subscription OnSoftDelete{{ type_name }} {
+  onSoftDelete{{ type_name }} {
+    id
+    {% for scalar in scalars %}
+    {{ scalar }}
+    {% endfor %}
+    {% for rel in relations %}
+    {{ rel | lower }} {
+      id
+    }
+    {% endfor %}
+  }
+}

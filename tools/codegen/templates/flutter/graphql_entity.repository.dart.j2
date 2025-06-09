@@ -1,0 +1,48 @@
+// GENERATED REPOSITORY IMPLEMENTATION FOR {{ type_name.upper() }}
+import '../../data/models/{{ filename }}.dart';
+import 'i_{{ filename }}_repository.dart';
+import '../models/i_{{ filename }}_graphql_datasource.dart';
+
+class GraphQL{{ type_name }}Repository implements I{{ type_name }}Repository {
+  final I{{ type_name }}GraphQLDatasource datasource;
+
+  GraphQL{{ type_name }}Repository(this.datasource);
+
+  @override
+  Future<{{ type_name }}Model> get{{ type_name }}(String id) {
+    return datasource.get{{ type_name }}(id);
+  }
+
+  @override
+  Future<{{ type_name }}Model> put{{ type_name }}({{ type_name }}Model input) {
+    return datasource.put{{ type_name }}(input);
+  }
+
+  @override
+  Future<{{ type_name }}Model> update{{ type_name }}({{ type_name }}Model input) {
+    return datasource.update{{ type_name }}(input);
+  }
+
+  @override
+  Future<String> delete{{ type_name }}(String id) async {
+    final result = await datasource.delete{{ type_name }}(id);
+    return result.id;
+  }
+
+  @override
+  Future<{{ type_name }}Model> softDelete{{ type_name }}({{ type_name }}Model input) {
+    return datasource.softDelete{{ type_name }}(input);
+  }
+
+  @override
+  Future<List<{{ type_name }}Model>> query{{ pluralize(type_name) }}() {
+    return datasource.query{{ pluralize(type_name) }}();
+  }
+
+  @override
+  Stream<{{ type_name }}Model> onPut{{ type_name }}() {
+    return datasource.onPut{{ type_name }}();
+  }
+
+  @override
+  Stream<{{ type_name }}Model> on_

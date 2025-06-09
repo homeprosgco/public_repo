@@ -1,0 +1,65 @@
+enum AttendeeStatus {
+  Invited
+  Confirmed
+  Declined
+  CheckedIn
+  Cancelled
+}
+type Attendee {
+  id: ID!
+  event: CalendarEvent @belongsTo
+  name: String
+  email: String
+  status: AttendeeStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateAttendeeInput {
+  event: CalendarEvent
+  name: String
+  email: String
+  status: AttendeeStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateAttendeeInput {
+  id: ID!
+  event: CalendarEvent
+  name: String
+  email: String
+  status: AttendeeStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteAttendeeInput {
+  id: ID!
+}
+
+input AttendeeFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getAttendee(id: ID!): Attendee
+  queryAttendees(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: AttendeeFilterInput
+  ): [Attendee]
+}
+type Mutation {
+  putAttendee(input: CreateAttendeeInput!): Attendee
+  updateAttendee(input: UpdateAttendeeInput!): Attendee
+  softDeleteAttendee(input: SoftDeleteAttendeeInput!): Attendee
+  deleteAttendee(id: ID!): Attendee
+}
+type Subscription {
+  onPutAttendee: Attendee @aws_subscribe(mutations: ["putAttendee"])
+  onUpdateAttendee: Attendee @aws_subscribe(mutations: ["updateAttendee"])
+  onSoftDeleteAttendee: Attendee @aws_subscribe(mutations: ["softDeleteAttendee"])
+}

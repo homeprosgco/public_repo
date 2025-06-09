@@ -1,0 +1,16 @@
+// GENERATED INTERFACE FOR {{ type_name }} GRAPHQL DATASOURCE
+// ----------------------------------------------
+import '../../models/{{ filename }}.dart';
+
+abstract class I{{ type_name }}GraphQLDatasource {
+  Future<{{ type_name }}Model> get{{ type_name }}(String id);
+  Future<List<{{ type_name }}Model>> query{{ pluralize(type_name) }}();
+  Future<{{ type_name }}Model> put{{ type_name }}({{ type_name }}Model input);
+  Future<{{ type_name }}Model> update{{ type_name }}({{ type_name }}Model input);
+  Future<{{ type_name }}Model> delete{{ type_name }}(String id);
+  Future<{{ type_name }}Model> softDelete{{ type_name }}({{ type_name }}Model input);
+
+  Stream<{{ type_name }}Model> onPut{{ type_name }}();
+  Stream<{{ type_name }}Model> onUpdate{{ type_name }}();
+  Stream<{{ type_name }}Model> onSoftDelete{{ type_name }}();
+}

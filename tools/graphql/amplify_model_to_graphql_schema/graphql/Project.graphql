@@ -1,0 +1,109 @@
+enum ProjectStatus {
+  Pending
+  InProgress
+  OnHold
+  Completed
+  Cancelled
+  AwaitingReview
+  Scheduled
+}
+type Project {
+  id: ID!
+  customer: Customer @belongsTo
+  tenant: Tenant @belongsTo
+  team: Team @belongsTo
+  manager: TeamMember @belongsTo
+  jobs: [Job] @hasMany
+  followUp: [FollowUp] @hasMany
+  review: Review @hasOne
+  feedback: Feedback @hasOne
+  name: String
+  scope: String
+  goal: String
+  status: ProjectStatus
+  deadline: AWSDateTime
+  budget: Float
+  notes: String
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  completionDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateProjectInput {
+  customer: Customer
+  tenant: Tenant
+  team: Team
+  manager: TeamMember
+  jobs: [Job]
+  followUp: [FollowUp]
+  review: Review
+  feedback: Feedback
+  name: String
+  scope: String
+  goal: String
+  status: ProjectStatus
+  deadline: AWSDateTime
+  budget: Float
+  notes: String
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  completionDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateProjectInput {
+  id: ID!
+  customer: Customer
+  tenant: Tenant
+  team: Team
+  manager: TeamMember
+  jobs: [Job]
+  followUp: [FollowUp]
+  review: Review
+  feedback: Feedback
+  name: String
+  scope: String
+  goal: String
+  status: ProjectStatus
+  deadline: AWSDateTime
+  budget: Float
+  notes: String
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  completionDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteProjectInput {
+  id: ID!
+}
+
+input ProjectFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getProject(id: ID!): Project
+  queryProjects(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ProjectFilterInput
+  ): [Project]
+}
+type Mutation {
+  putProject(input: CreateProjectInput!): Project
+  updateProject(input: UpdateProjectInput!): Project
+  softDeleteProject(input: SoftDeleteProjectInput!): Project
+  deleteProject(id: ID!): Project
+}
+type Subscription {
+  onPutProject: Project @aws_subscribe(mutations: ["putProject"])
+  onUpdateProject: Project @aws_subscribe(mutations: ["updateProject"])
+  onSoftDeleteProject: Project @aws_subscribe(mutations: ["softDeleteProject"])
+}

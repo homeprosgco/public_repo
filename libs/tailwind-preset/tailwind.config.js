@@ -1,71 +1,104 @@
-import PrimeUI from 'tailwindcss-primeui';
 
-/** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   theme: {
     extend: {
       screens: {
         'xs': '320px'
       },
-      colors: {
-        primary: 'var(--p-colors-primary)',
-        onPrimary: 'var(--p-colors-on-primary)',
-        primaryContainer: 'var(--p-colors-primary-container)',
-        onPrimaryContainer: 'var(--p-colors-on-primary-container)',
-
-        secondary: 'var(--p-colors-secondary)',
-        onSecondary: 'var(--p-colors-on-secondary)',
-        secondaryContainer: 'var(--p-colors-secondary-container)',
-        onSecondaryContainer: 'var(--p-colors-on-secondary-container)',
-
-        tertiary: 'var(--p-colors-tertiary)',
-        onTertiary: 'var(--p-colors-on-tertiary)',
-        tertiaryContainer: 'var(--p-colors-tertiary-container)',
-        onTertiaryContainer: 'var(--p-colors-on-tertiary-container)',
-
-        error: 'var(--p-colors-error)',
-        onError: 'var(--p-colors-on-error)',
-        errorContainer: 'var(--p-colors-error-container)',
-        onErrorContainer: 'var(--p-colors-on-error-container)',
-
-        primaryFixed: 'var(--p-colors-primary-fixed)',
-        primaryFixedDim: 'var(--p-colors-primary-fixed-dim)',
-        onPrimaryFixed: 'var(--p-colors-on-primary-fixed)',
-        onPrimaryFixedVariant: 'var(--p-colors-on-primary-fixed-variant)',
-
-        secondaryFixed: 'var(--p-colors-secondary-fixed)',
-        secondaryFixedDim: 'var(--p-colors-secondary-fixed-dim)',
-        onSecondaryFixed: 'var(--p-colors-on-secondary-fixed)',
-        onSecondaryFixedVariant: 'var(--p-colors-on-secondary-fixed-variant)',
-
-        tertiaryFixed: 'var(--p-colors-tertiary-fixed)',
-        tertiaryFixedDim: 'var(--p-colors-tertiary-fixed-dim)',
-        onTertiaryFixed: 'var(--p-colors-on-tertiary-fixed)',
-        onTertiaryFixedVariant: 'var(--p-colors-on-tertiary-fixed-variant)',
-
-        surface: 'var(--p-colors-surface)',
-        surfaceDim: 'var(--p-colors-surface-dim)',
-        surfaceBright: 'var(--p-colors-surface-bright)',
-        surfaceContainerLowest: 'var(--p-colors-surface-container-lowest)',
-        surfaceContainerLow: 'var(--p-colors-surface-container-low)',
-        surfaceContainer: 'var(--p-colors-surface-container)',
-        surfaceContainerHigh: 'var(--p-colors-surface-container-high)',
-        surfaceContainerHighest: 'var(--p-colors-surface-container-highest)',
-
-        onSurface: 'var(--p-colors-on-surface)',
-        onSurfaceVariant: 'var(--p-colors-on-surface-variant)',
-
-        outline: 'var(--p-colors-outline)',
-        outlineVariant: 'var(--p-colors-outline-variant)',
-
-        inverseSurface: 'var(--p-colors-inverse-surface)',
-        inverseOnSurface: 'var(--p-colors-inverse-on-surface)',
-        inversePrimary: 'var(--p-colors-inverse-primary)',
-
-        scrim: 'var(--p-colors-scrim)',
-        shadow: 'var(--p-colors-shadow)',
+      width: {
+        'md': '28rem',   // 448px
+        'lg': '32rem',   // 512px
+        'xl': '36rem',   // 576px
+        '2xl': '42rem',  // 672px
+        '3xl': '48rem',  // 768px
+        '4xl': '56rem',  // 896px
+        '5xl': '64rem',  // 1024px
+        '6xl': '72rem',  // 1152px
+        '7xl': '80rem',  // 1280px
       },
-
+      height: {
+        'md': '28rem',   // 448px
+        'lg': '32rem',   // 512px
+        'xl': '36rem',   // 576px
+        '2xl': '42rem',  // 672px
+        '3xl': '48rem',  // 768px
+        '4xl': '56rem',  // 896px
+        '5xl': '64rem',  // 1024px
+        '6xl': '72rem',  // 1152px
+        '7xl': '80rem',  // 1280px
+      },
+      zIndex: {
+        '1': '1',
+        '5': '5',
+        '100': '100',
+        '200': '200',
+        '300': '300',
+        '400': '400',
+        '500': '500',
+        '600': '600',
+        '700': '700',
+        '800': '800',
+        '900': '900',
+        '1000': '1000',
+      },
+      colors: {
+        'primary': 'var(--p-colors-primary)',
+        'on-primary': 'var(--p-colors-on-primary)',
+        'primary-container': 'var(--p-colors-primary-container)',
+        'on-primary-container': 'var(--p-colors-on-primary-container)',
+      
+        'secondary': 'var(--p-colors-secondary)',
+        'on-secondary': 'var(--p-colors-on-secondary)',
+        'secondary-container': 'var(--p-colors-secondary-container)',
+        'on-secondary-container': 'var(--p-colors-on-secondary-container)',
+      
+        'tertiary': 'var(--p-colors-tertiary)',
+        'on-tertiary': 'var(--p-colors-on-tertiary)',
+        'tertiary-container': 'var(--p-colors-tertiary-container)',
+        'on-tertiary-container': 'var(--p-colors-on-tertiary-container)',
+      
+        'error': 'var(--p-colors-error)',
+        'on-error': 'var(--p-colors-on-error)',
+        'error-container': 'var(--p-colors-error-container)',
+        'on-error-container': 'var(--p-colors-on-error-container)',
+      
+        'primary-fixed': 'var(--p-colors-primary-fixed)',
+        'primary-fixed-dim': 'var(--p-colors-primary-fixed-dim)',
+        'on-primary-fixed': 'var(--p-colors-on-primary-fixed)',
+        'on-primary-fixed-variant': 'var(--p-colors-on-primary-fixed-variant)',
+      
+        'secondary-fixed': 'var(--p-colors-secondary-fixed)',
+        'secondary-fixed-dim': 'var(--p-colors-secondary-fixed-dim)',
+        'on-secondary-fixed': 'var(--p-colors-on-secondary-fixed)',
+        'on-secondary-fixed-variant': 'var(--p-colors-on-secondary-fixed-variant)',
+      
+        'tertiary-fixed': 'var(--p-colors-tertiary-fixed)',
+        'tertiary-fixed-dim': 'var(--p-colors-tertiary-fixed-dim)',
+        'on-tertiary-fixed': 'var(--p-colors-on-tertiary-fixed)',
+        'on-tertiary-fixed-variant': 'var(--p-colors-on-tertiary-fixed-variant)',
+      
+        'surface': 'var(--p-colors-surface)',
+        'surface-dim': 'var(--p-colors-surface-dim)',
+        'surface-bright': 'var(--p-colors-surface-bright)',
+        'surface-container-lowest': 'var(--p-colors-surface-container-lowest)',
+        'surface-container-low': 'var(--p-colors-surface-container-low)',
+        'surface-container': 'var(--p-colors-surface-container)',
+        'surface-container-high': 'var(--p-colors-surface-container-high)',
+        'surface-container-highest': 'var(--p-colors-surface-container-highest)',
+      
+        'on-surface': 'var(--p-colors-on-surface)',
+        'on-surface-variant': 'var(--p-colors-on-surface-variant)',
+      
+        'outline': 'var(--p-colors-outline)',
+        'outline-variant': 'var(--p-colors-outline-variant)',
+      
+        'inverse-surface': 'var(--p-colors-inverse-surface)',
+        'inverse-on-surface': 'var(--p-colors-inverse-on-surface)',
+        'inverse-primary': 'var(--p-colors-inverse-primary)',
+      
+        'scrim': 'var(--p-colors-scrim)',
+        'shadow': 'var(--p-colors-shadow)',
+      },
       fontFamily: {
         primary: ['Inter', 'sans-serif'],
         secondary: ['Playfair Display', 'serif'],
@@ -190,7 +223,4 @@ export default {
       },
     },
   },
-  plugins: [
-    PrimeUI,
-  ],
 };

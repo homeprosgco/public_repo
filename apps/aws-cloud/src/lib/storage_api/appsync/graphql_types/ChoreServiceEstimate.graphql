@@ -1,0 +1,92 @@
+
+type ChoreServiceEstimate {
+  serviceType: String
+  description: String
+  numberOfRoomsCleaned: Int
+  numberOfGarbageBags: Int
+  estimatedHoursToClean: Float
+  numberOfCarpetShampooedRooms: Int
+  additionalNotes: String
+  memberRequestAdditionalServices: Boolean
+  additionalRequests: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreateChoreServiceEstimateInput {
+  serviceType: String
+  description: String
+  numberOfRoomsCleaned: Int
+  numberOfGarbageBags: Int
+  estimatedHoursToClean: Float
+  numberOfCarpetShampooedRooms: Int
+  additionalNotes: String
+  memberRequestAdditionalServices: Boolean
+  additionalRequests: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdateChoreServiceEstimateInput {
+  id: ID!
+  serviceType: String
+  description: String
+  numberOfRoomsCleaned: Int
+  numberOfGarbageBags: Int
+  estimatedHoursToClean: Float
+  numberOfCarpetShampooedRooms: Int
+  additionalNotes: String
+  memberRequestAdditionalServices: Boolean
+  additionalRequests: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeleteChoreServiceEstimateInput {
+  id: ID!
+}
+
+type Query {
+    getChoreServiceEstimate(id: ID!): ChoreServiceEstimate
+    
+    queryChoreServiceEstimates(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: ChoreServiceEstimateFilterInput
+    ): [ChoreServiceEstimate]
+    }
+
+    input ChoreServiceEstimateFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putChoreServiceEstimate(input: CreateChoreServiceEstimateInput!): ChoreServiceEstimate
+    updateChoreServiceEstimate(input: UpdateChoreServiceEstimateInput!): ChoreServiceEstimate
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteChoreServiceEstimate(input: SoftDeleteChoreServiceEstimateInput!): ChoreServiceEstimate
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteChoreServiceEstimate(id: ID!): ChoreServiceEstimate
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutChoreServiceEstimate: ChoreServiceEstimate @aws_subscribe(mutations: ["putChoreServiceEstimate"])
+    onUpdateChoreServiceEstimate: ChoreServiceEstimate @aws_subscribe(mutations: ["updateChoreServiceEstimate"])
+    onSoftDeleteChoreServiceEstimate: ChoreServiceEstimate @aws_subscribe(mutations: ["softDeleteChoreServiceEstimate"])
+}
+    

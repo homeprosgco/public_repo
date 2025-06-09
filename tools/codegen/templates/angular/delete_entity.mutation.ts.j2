@@ -1,0 +1,9 @@
+import { gql } from 'apollo-angular';
+
+export const DELETE_{{ type_name.upper() }} = gql`
+  mutation Delete{{ type_name }}($id: ID!) {
+    delete{{ type_name }}(id: $id) {
+      id
+    }
+  }
+`;

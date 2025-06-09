@@ -1,0 +1,13 @@
+// GENERATED GET {{ type_name.upper() }} USE CASE
+import '../repositories/i_{{ filename }}_repository.dart';
+import '../../data/models/{{ filename }}.dart';
+
+class Get{{ type_name }}UseCase {
+  final I{{ type_name }}Repository repository;
+
+  Get{{ type_name }}UseCase(this.repository);
+
+  Future<{{ type_name }}Model> execute(String id) {
+    return repository.get{{ type_name }}(id);
+  }
+}

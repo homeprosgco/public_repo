@@ -1,4 +1,5 @@
-@theme {
+/* eslint-disable */
+@theme { 
     --breakpoint-xs: 20rem;
 
     /* ✨ Custom Fonts */

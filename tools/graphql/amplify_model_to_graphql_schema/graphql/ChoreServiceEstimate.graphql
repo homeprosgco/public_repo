@@ -1,0 +1,82 @@
+
+type ChoreServiceEstimate {
+  serviceType: String
+  description: String
+  numberOfRoomsCleaned: Int
+  numberOfGarbageBags: Int
+  estimatedHoursToClean: Float
+  numberOfCarpetShampooedRooms: Int
+  additionalNotes: String
+  memberRequestAdditionalServices: Boolean
+  additionalRequests: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreateChoreServiceEstimateInput {
+  serviceType: String
+  description: String
+  numberOfRoomsCleaned: Int
+  numberOfGarbageBags: Int
+  estimatedHoursToClean: Float
+  numberOfCarpetShampooedRooms: Int
+  additionalNotes: String
+  memberRequestAdditionalServices: Boolean
+  additionalRequests: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdateChoreServiceEstimateInput {
+  id: ID!
+  serviceType: String
+  description: String
+  numberOfRoomsCleaned: Int
+  numberOfGarbageBags: Int
+  estimatedHoursToClean: Float
+  numberOfCarpetShampooedRooms: Int
+  additionalNotes: String
+  memberRequestAdditionalServices: Boolean
+  additionalRequests: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeleteChoreServiceEstimateInput {
+  id: ID!
+}
+
+input ChoreServiceEstimateFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getChoreServiceEstimate(id: ID!): ChoreServiceEstimate
+  queryChoreServiceEstimates(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ChoreServiceEstimateFilterInput
+  ): [ChoreServiceEstimate]
+}
+type Mutation {
+  putChoreServiceEstimate(input: CreateChoreServiceEstimateInput!): ChoreServiceEstimate
+  updateChoreServiceEstimate(input: UpdateChoreServiceEstimateInput!): ChoreServiceEstimate
+  softDeleteChoreServiceEstimate(input: SoftDeleteChoreServiceEstimateInput!): ChoreServiceEstimate
+  deleteChoreServiceEstimate(id: ID!): ChoreServiceEstimate
+}
+type Subscription {
+  onPutChoreServiceEstimate: ChoreServiceEstimate @aws_subscribe(mutations: ["putChoreServiceEstimate"])
+  onUpdateChoreServiceEstimate: ChoreServiceEstimate @aws_subscribe(mutations: ["updateChoreServiceEstimate"])
+  onSoftDeleteChoreServiceEstimate: ChoreServiceEstimate @aws_subscribe(mutations: ["softDeleteChoreServiceEstimate"])
+}

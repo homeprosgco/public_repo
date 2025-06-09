@@ -1,0 +1,13 @@
+import { Activity, Address, Comment } from '../../app/graphql.schema.interface';
+export { faker } from '@faker-js/faker';
+export declare const NextStepHomeRepairAccountsPath = "app/nextstephomerepair/accounts";
+export declare const NextStepHomeRepairUsersPath = "app/nextstephomerepair/users";
+export declare const randomArrayAmount: (min: number, max: number) => unknown[];
+export declare const selectRandom: <T>(arr: T[]) => T;
+export declare const address: () => Address;
+export declare const createdDate: () => string;
+export declare const email: () => string;
+export declare const phone: () => string;
+export declare const imageURLs: () => string[];
+export declare const fakecomments: (userIds: string[]) => Comment[];
+export declare const fakeactivities: (userIds: string[]) => Activity[];

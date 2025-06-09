@@ -1,0 +1,14 @@
+# GENERATED UPDATE {{ type_name.upper() }} MUTATION
+mutation Update{{ type_name }}($input: Update{{ type_name }}Input!) {
+  update{{ type_name }}(input: $input) {
+    id
+    {% for scalar in scalars %}
+    {{ scalar }}
+    {% endfor %}
+    {% for rel in relations %}
+    {{ rel | lower }} {
+      id
+    }
+    {% endfor %}
+  }
+}

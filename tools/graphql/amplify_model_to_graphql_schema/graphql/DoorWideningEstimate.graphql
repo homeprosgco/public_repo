@@ -1,0 +1,76 @@
+
+type DoorWideningEstimate {
+  doorMeasurements: [AWSJSON]
+  electricalNeedsRelocation: Boolean
+  electricalRelocationDoors: String
+  needPocketDoorSwingObstruction: Boolean
+  pocketDoorSwingObstructionDoors: String
+  needPocketDoorUnmovableWalls: Boolean
+  pocketDoorUnmovableWallsDoors: String
+  wheelchairOrWalkerWidth: Float
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreateDoorWideningEstimateInput {
+  doorMeasurements: [AWSJSON]
+  electricalNeedsRelocation: Boolean
+  electricalRelocationDoors: String
+  needPocketDoorSwingObstruction: Boolean
+  pocketDoorSwingObstructionDoors: String
+  needPocketDoorUnmovableWalls: Boolean
+  pocketDoorUnmovableWallsDoors: String
+  wheelchairOrWalkerWidth: Float
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdateDoorWideningEstimateInput {
+  id: ID!
+  doorMeasurements: [AWSJSON]
+  electricalNeedsRelocation: Boolean
+  electricalRelocationDoors: String
+  needPocketDoorSwingObstruction: Boolean
+  pocketDoorSwingObstructionDoors: String
+  needPocketDoorUnmovableWalls: Boolean
+  pocketDoorUnmovableWallsDoors: String
+  wheelchairOrWalkerWidth: Float
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeleteDoorWideningEstimateInput {
+  id: ID!
+}
+
+input DoorWideningEstimateFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getDoorWideningEstimate(id: ID!): DoorWideningEstimate
+  queryDoorWideningEstimates(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: DoorWideningEstimateFilterInput
+  ): [DoorWideningEstimate]
+}
+type Mutation {
+  putDoorWideningEstimate(input: CreateDoorWideningEstimateInput!): DoorWideningEstimate
+  updateDoorWideningEstimate(input: UpdateDoorWideningEstimateInput!): DoorWideningEstimate
+  softDeleteDoorWideningEstimate(input: SoftDeleteDoorWideningEstimateInput!): DoorWideningEstimate
+  deleteDoorWideningEstimate(id: ID!): DoorWideningEstimate
+}
+type Subscription {
+  onPutDoorWideningEstimate: DoorWideningEstimate @aws_subscribe(mutations: ["putDoorWideningEstimate"])
+  onUpdateDoorWideningEstimate: DoorWideningEstimate @aws_subscribe(mutations: ["updateDoorWideningEstimate"])
+  onSoftDeleteDoorWideningEstimate: DoorWideningEstimate @aws_subscribe(mutations: ["softDeleteDoorWideningEstimate"])
+}

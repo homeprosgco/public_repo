@@ -1,0 +1,28 @@
+input ProspectInput {
+  firstname: String
+  lastname: String
+  displayName: String!
+  email: String
+  phone: String
+  address: AddressInput
+  type: String!
+}
+
+type Prospect implements Contact {
+  id: String
+  firstname: String
+  lastname: String
+  displayName: String!
+  email: String
+  phone: String
+  address: Address
+  addressId: String
+  type: String!
+  created: String
+  updated: String
+}
+
+enum ProspectType {
+  INDIVIDUAL
+  COMPANY
+}

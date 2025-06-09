@@ -1,0 +1,82 @@
+enum NetworkProProspectStatus {
+  New
+  Contacted
+  InProcess
+  Approved
+  Rejected
+  Hired
+  Declined
+}
+type NetworkProProspect {
+  id: ID!
+  campaign: Campaign @belongsTo
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: NetworkProProspectStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateNetworkProProspectInput {
+  campaign: Campaign
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: NetworkProProspectStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateNetworkProProspectInput {
+  id: ID!
+  campaign: Campaign
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: NetworkProProspectStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteNetworkProProspectInput {
+  id: ID!
+}
+
+input NetworkProProspectFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getNetworkProProspect(id: ID!): NetworkProProspect
+  queryNetworkProProspects(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: NetworkProProspectFilterInput
+  ): [NetworkProProspect]
+}
+type Mutation {
+  putNetworkProProspect(input: CreateNetworkProProspectInput!): NetworkProProspect
+  updateNetworkProProspect(input: UpdateNetworkProProspectInput!): NetworkProProspect
+  softDeleteNetworkProProspect(input: SoftDeleteNetworkProProspectInput!): NetworkProProspect
+  deleteNetworkProProspect(id: ID!): NetworkProProspect
+}
+type Subscription {
+  onPutNetworkProProspect: NetworkProProspect @aws_subscribe(mutations: ["putNetworkProProspect"])
+  onUpdateNetworkProProspect: NetworkProProspect @aws_subscribe(mutations: ["updateNetworkProProspect"])
+  onSoftDeleteNetworkProProspect: NetworkProProspect @aws_subscribe(mutations: ["softDeleteNetworkProProspect"])
+}

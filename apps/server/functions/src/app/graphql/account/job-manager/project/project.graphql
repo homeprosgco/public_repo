@@ -1,0 +1,72 @@
+input ProjectInput {
+  customerId: String!
+  status: ProjectStatus!
+  category: String!
+  requestedWorkScope: String!
+  definedWorkScope: String!
+  createdById: String!
+  address: AddressInput!
+  jobLeadId: String
+  jobIds: [String!]
+  notes: String
+  comments: [CommentInput!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activity: [ActivityInput!]
+  projectManagerId: String!
+  officeTeamMemberIds: [String!]
+  fieldTeamMemeberIds: [String!]
+  startDate: String
+  estimateIds: [String!]
+  referenceNumber: Int
+}
+
+type Project {
+  customerId: String!
+  status: ProjectStatus!
+  category: String!
+  requestedWorkScope: String!
+  definedWorkScope: String!
+  createdById: String!
+  created: String!
+  address: Address
+  jobLeadId: String
+  jobIds: [String!]
+  notes: String
+  comments: [Comment!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activity: [Activity!]
+  projectManagerId: String!
+  officeTeamMemberIds: [String!]
+  fieldTeamMemeberIds: [String!]
+  startDate: String
+  estimateIds: [String!]
+  referenceNumber: Int
+  completedDate: String
+}
+
+type Query {
+  projects: [Project!]!
+  projectById(projectIdInput: GetByID!): Project!
+}
+
+type Mutation {
+  createProject(projectInput: ProjectInput!): Project!
+  updateProject(
+    projectIdInput: GetByID!
+    updateProjectInput: ProjectInput!
+  ): Project!
+  removeProject(projectIdInput: GetByID!): String!
+}
+
+enum ProjectStatus {
+  NEW
+  SCHEDULED
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETE
+  INVOICED
+  INVOICE_PAID
+  PENDING
+}

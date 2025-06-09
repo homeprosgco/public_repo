@@ -1,0 +1,5 @@
+export const {{ type_name.upper() }}_FILTER_KEYS = new Set<string>([
+  {% for key in filter_fields.keys() %}
+  '{{ key }}',
+  {% endfor %}
+]);

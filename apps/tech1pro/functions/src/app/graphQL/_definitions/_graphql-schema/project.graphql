@@ -1,0 +1,62 @@
+input ProjectInput {
+  activities: [ActivityInput!]
+  address: AddressInput!
+  addressId: String
+  category: String!
+  comments: [CommentInput!]
+  created: String
+  createdById: String!
+  customerId: String!
+  definedWorkScope: String!
+  estimateIds: [String!]
+  fieldTeamMemeberIds: [String!]
+  fileURLs: [String]
+  imageURLs: [String]
+  jobIds: [String!]
+  jobLeadId: String
+  notes: [NoteInput!]
+  officeTeamMemberIds: [String!]
+  projectManagerId: String
+  referenceId: String
+  requestedWorkScope: String!
+  startDate: String
+  status: String!
+  updated: String
+}
+
+type Project {
+  activities: [Activity!]
+  address: Address
+  addressId: String
+  category: String!
+  comments: [Comment!]
+  created: String
+  createdById: String!
+  customerId: String!
+  definedWorkScope: String!
+  estimateIds: [String!]
+  fieldTeamMemeberIds: [String!]
+  fileURLs: [String]
+  id: String
+  imageURLs: [String]
+  jobIds: [String!]
+  jobLeadId: String
+  notes: [Note!]
+  officeTeamMemberIds: [String!]
+  projectManagerId: String
+  referenceId: String
+  requestedWorkScope: String!
+  startDate: String
+  status: String!
+  updated: String
+  completedDate: String
+}
+
+enum ProjectStatus {
+  NEW
+  SCHEDULED
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETE
+  INVOICED
+}

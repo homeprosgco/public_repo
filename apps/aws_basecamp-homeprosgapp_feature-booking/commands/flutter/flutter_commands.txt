@@ -1,0 +1,9 @@
+chromedriver --port=4444
+flutter run -d web-server --release --web-renderer html
+flutter run -d chrome 
+flutter drive --driver=test_driver/integration_test.dart --target=integration_test/feature/coming_soon_early_adopter_email_e2e_test/coming_soon_early_adopter_email_e2e_test.dart -d web-server
+flutter drive --driver=test_driver/integration_test.dart --target=integration_test/feature/coming_soon_early_adopter_email_e2e_test/coming_soon_early_adopter_email_e2e_test.dart -d chrome
+
+flutter pub run build_runner build
+flutter pub run build_runner watch
+flutter pub run build_runner build --delete-conflicting-outputs

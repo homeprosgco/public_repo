@@ -1,0 +1,80 @@
+enum LeaseStatus {
+  Pending
+  Active
+  Terminated
+  Completed
+  Cancelled
+}
+type Lease {
+  id: ID!
+  tenant: Tenant @belongsTo
+  unit: Unit @hasOne
+  rentTenants: [Recipient] @hasMany
+  startDate: AWSDate
+  endDate: AWSDate
+  monthlyRent: Float
+  depositAmount: Float
+  documentUrl: String
+  status: LeaseStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateLeaseInput {
+  tenant: Tenant
+  unit: Unit
+  rentTenants: [Recipient]
+  startDate: AWSDate
+  endDate: AWSDate
+  monthlyRent: Float
+  depositAmount: Float
+  documentUrl: String
+  status: LeaseStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateLeaseInput {
+  id: ID!
+  tenant: Tenant
+  unit: Unit
+  rentTenants: [Recipient]
+  startDate: AWSDate
+  endDate: AWSDate
+  monthlyRent: Float
+  depositAmount: Float
+  documentUrl: String
+  status: LeaseStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteLeaseInput {
+  id: ID!
+}
+
+input LeaseFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getLease(id: ID!): Lease
+  queryLeases(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: LeaseFilterInput
+  ): [Lease]
+}
+type Mutation {
+  putLease(input: CreateLeaseInput!): Lease
+  updateLease(input: UpdateLeaseInput!): Lease
+  softDeleteLease(input: SoftDeleteLeaseInput!): Lease
+  deleteLease(id: ID!): Lease
+}
+type Subscription {
+  onPutLease: Lease @aws_subscribe(mutations: ["putLease"])
+  onUpdateLease: Lease @aws_subscribe(mutations: ["updateLease"])
+  onSoftDeleteLease: Lease @aws_subscribe(mutations: ["softDeleteLease"])
+}

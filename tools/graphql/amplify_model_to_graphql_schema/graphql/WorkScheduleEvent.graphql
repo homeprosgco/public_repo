@@ -1,0 +1,77 @@
+
+type WorkScheduleEvent {
+  id: ID!
+  teamMember: TeamMember @hasOne
+  jobType: String
+  customer: Customer @hasOne
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  status: String
+  recurrence: String
+  notes: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  teammember: TeamMember @belongsTo
+  isDeleted: Boolean!
+}
+input CreateWorkScheduleEventInput {
+  teamMember: TeamMember
+  jobType: String
+  customer: Customer
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  status: String
+  recurrence: String
+  notes: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  teammember: TeamMember
+  isDeleted: Boolean = false
+}
+input UpdateWorkScheduleEventInput {
+  id: ID!
+  teamMember: TeamMember
+  jobType: String
+  customer: Customer
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  status: String
+  recurrence: String
+  notes: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  teammember: TeamMember
+  isDeleted: Boolean
+}
+input SoftDeleteWorkScheduleEventInput {
+  id: ID!
+}
+
+input WorkScheduleEventFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getWorkScheduleEvent(id: ID!): WorkScheduleEvent
+  queryWorkScheduleEvents(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: WorkScheduleEventFilterInput
+  ): [WorkScheduleEvent]
+}
+type Mutation {
+  putWorkScheduleEvent(input: CreateWorkScheduleEventInput!): WorkScheduleEvent
+  updateWorkScheduleEvent(input: UpdateWorkScheduleEventInput!): WorkScheduleEvent
+  softDeleteWorkScheduleEvent(input: SoftDeleteWorkScheduleEventInput!): WorkScheduleEvent
+  deleteWorkScheduleEvent(id: ID!): WorkScheduleEvent
+}
+type Subscription {
+  onPutWorkScheduleEvent: WorkScheduleEvent @aws_subscribe(mutations: ["putWorkScheduleEvent"])
+  onUpdateWorkScheduleEvent: WorkScheduleEvent @aws_subscribe(mutations: ["updateWorkScheduleEvent"])
+  onSoftDeleteWorkScheduleEvent: WorkScheduleEvent @aws_subscribe(mutations: ["softDeleteWorkScheduleEvent"])
+}

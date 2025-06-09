@@ -1,0 +1,24 @@
+import { Observable } from 'rxjs';
+import {
+  Get{{ type_name }}Response,
+  Put{{ type_name }}Response,
+  Update{{ type_name }}Response,
+  Delete{{ type_name }}Response,
+  Query{{ pluralize(type_name) }}Response,
+  OnPut{{ type_name }}Response,
+  SoftDelete{{ type_name }}Response
+} from '../../models/{{ split_and_hyphenate(type_name) }}-responses.interface';
+import { {{ type_name }} } from '../../models/{{ split_and_hyphenate(type_name) }}.interface';
+
+export abstract class I{{ type_name }}DataSource {
+  abstract get{{ type_name }}(id: string): Observable<Get{{ type_name }}Response>;
+  abstract put{{ type_name }}(input: {{ type_name }}): Observable<Put{{ type_name }}Response>;
+  abstract update{{ type_name }}(input: Partial<{{ type_name }}>): Observable<Update{{ type_name }}Response>;
+  abstract delete{{ type_name }}(id: string): Observable<Delete{{ type_name }}Response>;
+  abstract query{{ pluralize(type_name) }}(): Observable<Query{{ pluralize(type_name) }}Response>;
+  abstract onPut{{ type_name }}(): Observable<OnPut{{ type_name }}Response>;
+  abstract softDelete{{ type_name }}(input: Partial<{{ type_name }}>): Observable<Update{{ type_name }}Response>;
+  abstract onPutJob(): Observable<OnPutJobResponse>;
+  abstract onUpdateJob(): Observable<OnUpdateJobResponse>;
+  abstract onSoftDeleteJob(): Observable<OnSoftDeleteJobResponse>;
+}

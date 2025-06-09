@@ -1,0 +1,202 @@
+{
+ "Resources": {
+  "IdentityPool": {
+   "Type": "AWS::Cognito::IdentityPool",
+   "Properties": {
+    "AllowUnauthenticatedIdentities": false,
+    "CognitoIdentityProviders": [
+     {
+      "ClientId": {
+       "Fn::ImportValue": "HomeProSGCO-Staging-UserPoolUserPoolClient3E901C04:ExportsOutputRefUserPoolClient2F5918F753847A55"
+      },
+      "ProviderName": {
+       "Fn::ImportValue": "HomeProSGCO-Staging-UserPool:ExportsOutputFnGetAttUserPool6BA7E5F2ProviderNameA3E1F80D"
+      }
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPool"
+   }
+  },
+  "IdentityPoolAuthenticatedRole881F2CC7": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRoleWithWebIdentity",
+       "Condition": {
+        "StringEquals": {
+         "cognito-identity.amazonaws.com:aud": {
+          "Ref": "IdentityPool"
+         }
+        },
+        "ForAnyValue:StringLike": {
+         "cognito-identity.amazonaws.com:amr": "authenticated"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Federated": "cognito-identity.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonCognitoPowerUser"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPoolAuthenticatedRole/Resource"
+   }
+  },
+  "IdentityPoolUnauthenticatedRoleA7547A1B": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRoleWithWebIdentity",
+       "Condition": {
+        "StringEquals": {
+         "cognito-identity.amazonaws.com:aud": {
+          "Ref": "IdentityPool"
+         }
+        },
+        "ForAnyValue:StringLike": {
+         "cognito-identity.amazonaws.com:amr": "unauthenticated"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Federated": "cognito-identity.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonCognitoReadOnly"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPoolUnauthenticatedRole/Resource"
+   }
+  },
+  "IdentityPoolRoleAttachment": {
+   "Type": "AWS::Cognito::IdentityPoolRoleAttachment",
+   "Properties": {
+    "IdentityPoolId": {
+     "Ref": "IdentityPool"
+    },
+    "Roles": {
+     "authenticated": {
+      "Fn::GetAtt": [
+       "IdentityPoolAuthenticatedRole881F2CC7",
+       "Arn"
+      ]
+     },
+     "unauthenticated": {
+      "Fn::GetAtt": [
+       "IdentityPoolUnauthenticatedRoleA7547A1B",
+       "Arn"
+      ]
+     }
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPoolRoleAttachment"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/72PwU7DMAyGn2U5TmnYKg6ot8KJE1M5VhMKbhjeErtqHKYqyrujll3gAThZ/v5fn+Xa7B9qs9vYa6xguFQe301+FQsXba/xLQOfCIVNfvqg58GRoMwHZq//7B1714pY+AyOpGi0weQF9lnZGFNww+OsmqzGCQlwtL4F4ESiGrVV+tZZLSDItOKiVbBkT244sEdAF1XT519sbqdb91j0/506Lv8vilJ05yKnCVy/2rdqzV6SjEmKJh6cOce7r7o2+3uz25wjYjUlEgzOdD/zG7W1wLmFAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/IdentityPool/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "IdentityPoolId": {
+   "Value": {
+    "Ref": "IdentityPool"
+   }
+  },
+  "AuthenticatedRoleArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "IdentityPoolAuthenticatedRole881F2CC7",
+     "Arn"
+    ]
+   }
+  },
+  "UnauthenticatedRoleArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "IdentityPoolUnauthenticatedRoleA7547A1B",
+     "Arn"
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

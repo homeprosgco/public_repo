@@ -1,0 +1,62 @@
+
+type ChatRoomUser {
+  userId: ID!
+  chatRoomId: ID!
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateChatRoomUserInput {
+  userId: ID!
+  chatRoomId: ID!
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateChatRoomUserInput {
+  id: ID!
+  userId: ID!
+  chatRoomId: ID!
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteChatRoomUserInput {
+  id: ID!
+}
+
+type Query {
+    getChatRoomUser(id: ID!): ChatRoomUser
+    
+    queryChatRoomUsers(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: ChatRoomUserFilterInput
+    ): [ChatRoomUser]
+    }
+
+    input ChatRoomUserFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putChatRoomUser(input: CreateChatRoomUserInput!): ChatRoomUser
+    updateChatRoomUser(input: UpdateChatRoomUserInput!): ChatRoomUser
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteChatRoomUser(input: SoftDeleteChatRoomUserInput!): ChatRoomUser
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteChatRoomUser(id: ID!): ChatRoomUser
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutChatRoomUser: ChatRoomUser @aws_subscribe(mutations: ["putChatRoomUser"])
+    onUpdateChatRoomUser: ChatRoomUser @aws_subscribe(mutations: ["updateChatRoomUser"])
+    onSoftDeleteChatRoomUser: ChatRoomUser @aws_subscribe(mutations: ["softDeleteChatRoomUser"])
+}
+    

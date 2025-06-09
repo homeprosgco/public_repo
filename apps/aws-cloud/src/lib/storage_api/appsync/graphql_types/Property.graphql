@@ -1,0 +1,107 @@
+enum PropertyPropertytypeEnum {
+  SingleFamily
+  MultiFamily
+  Apartment
+  Commercial
+}
+enum PropertyStatusEnum {
+  Active
+  Pending
+  Rented
+  Sold
+}
+type Property {
+  id: ID!
+  ownerId: ID!
+  address: String
+  city: String
+  state: String
+  zipCode: String
+  country: String
+  propertyType: PropertyPropertytypeEnum
+  numberOfUnits: Int
+  squareFeet: Float
+  amenities: [String]
+  assignedManagerId: ID!
+  status: PropertyStatusEnum
+  photos: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreatePropertyInput {
+  ownerId: ID!
+  address: String
+  city: String
+  state: String
+  zipCode: String
+  country: String
+  propertyType: PropertyPropertytypeEnum
+  numberOfUnits: Int
+  squareFeet: Float
+  amenities: [String]
+  assignedManagerId: ID!
+  status: PropertyStatusEnum
+  photos: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdatePropertyInput {
+  id: ID!
+  ownerId: ID!
+  address: String
+  city: String
+  state: String
+  zipCode: String
+  country: String
+  propertyType: PropertyPropertytypeEnum
+  numberOfUnits: Int
+  squareFeet: Float
+  amenities: [String]
+  assignedManagerId: ID!
+  status: PropertyStatusEnum
+  photos: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeletePropertyInput {
+  id: ID!
+}
+
+type Query {
+    getProperty(id: ID!): Property
+    
+    queryPropertys(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: PropertyFilterInput
+    ): [Property]
+    }
+
+    input PropertyFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putProperty(input: CreatePropertyInput!): Property
+    updateProperty(input: UpdatePropertyInput!): Property
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteProperty(input: SoftDeletePropertyInput!): Property
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteProperty(id: ID!): Property
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutProperty: Property @aws_subscribe(mutations: ["putProperty"])
+    onUpdateProperty: Property @aws_subscribe(mutations: ["updateProperty"])
+    onSoftDeleteProperty: Property @aws_subscribe(mutations: ["softDeleteProperty"])
+}
+    

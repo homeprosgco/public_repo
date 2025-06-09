@@ -1,0 +1,16 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part '{{ filename }}.freezed.dart';
+part '{{ filename }}.g.dart';
+
+@freezed
+class {{ type_name }} with _${{ type_name }} {
+  const factory {{ type_name }}({
+    required String id,
+    {% for field, field_type in fields.items() if field != 'id' %}
+    {{ 'required ' if '!' in field_type }}{{ dart_type(field_type) }}? {{ field }},
+    {% endfor %}
+  }) = _{{ type_name }};
+
+  factory {{ type_name }}.fromJson(Map<String, dynamic> json) => _$ {{ type_name }}FromJson(json);
+}

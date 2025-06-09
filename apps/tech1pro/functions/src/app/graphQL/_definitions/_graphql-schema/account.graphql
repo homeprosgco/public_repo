@@ -1,0 +1,262 @@
+type AccountProfile {
+  accountOwnerId: String!
+  activeAccount: Boolean
+  created: String
+  id: String
+  userIds: [String!]
+}
+
+input AccountProfileInput {
+  accountOwnerId: String!
+  userIds: [String!]
+}
+
+type AccountId {
+  id: String!
+}
+
+type Account {
+  beneficiaries: [Beneficiary!]
+  beneficiariesByCustomerId(customerId: String!): [Beneficiary!]
+  beneficiaryLastAdded: Beneficiary
+  beneficiaryLastUpdated: Beneficiary
+
+  companyProfile: CompanyProfile
+
+  customers: [Customer!]
+  customerById(customerId: String!): Customer
+  customerByEmail(customerEmails: [String!]!): Customer
+  customerByPhoneNumbers(customerPhoneNumbers: [String!]!): Customer
+  customersByType(customerType: String!): [Customer!]
+  customerLastAdded: Customer
+  customerLastUpdated: Customer
+
+  estimates: [Estimate!]
+  estimateById(estimateId: String!): Estimate
+  estimatesCreatedBy: [Estimate!]
+  estimatesByDate(after: String!, before: String): [Estimate!]
+  estimatesByProspectId(prospectId: String!): [Estimate!]
+  estimatesByJobLeadId(jobLeadId: String!): [Estimate!]
+  estimateByProposalId(proposalId: String!): Estimate
+  estimateByNumber(number: Int!): Estimate
+  estimatesByStatus(estimateStatus: String!): [Estimate!]
+  estimateByReferenceId(referenceId: String!): Estimate
+  estimatesByCategory(category: String!): [Estimate!]
+  estimateLastAdded: Estimate
+  estimateLastUpdated: Estimate
+
+  expenses: [Expense!]
+  expenseById(expenseId: String): Expense
+  expensesByCategory(category: String!): [Expense!]
+  expensesByDate(after: String!, before: String): [Expense!]
+  expensesCreatedBy(userId: String!): [Expense!]
+  expenseLastAdded: Expense
+  expenseLastUpdated: Expense
+
+  id: String!
+
+  items: [Item!]
+  itemById(itemId: String!): Item
+  itemsByCategory(category: String!): [Item!]
+  itemBySku(sku: String!): Item
+  itemLastAdded: Item
+  itemLastUpdated: Item
+
+  invoices: [Invoice!]
+  invoicesByCategory(category: String!): [Invoice!]
+  invoicesByCustomerId(customerId: String!): [Invoice!]
+  invoicesCreatedBy(userId: String!): [Invoice!]
+  invoicesByDate(after: String!, before: String): [Invoice!]
+  invoicesByEstimateId(estimateId: String!): [Invoice!]
+  invoiceById(invoiceId: String!): Invoice
+  invoicesByJobId(jobId: String!): [Invoice!]
+  invoicesByJobLeadId(jobLeadId: String!): [Invoice!]
+  invoiceByNumber(number: Int!): Invoice
+  invoicesByProjectId(projectId: String!): [Invoice!]
+  invoicesByProposalId(proposalId: String!): [Invoice!]
+  invoicesByProspectId(prospectId: String!): [Invoice!]
+  invoicesByReferenceId(referenceId: String!): [Invoice!]
+  invoicesByStatus(invoiceStatus: String!): [Invoice!]
+  invoiceLastAdded: Invoice
+  invoiceLastUpdated: Invoice
+
+  jobs: [Job!]
+  jobsByCategory(category: String!): [Job!]
+  jobsByCustomerId(customerId: String!): [Job!]
+  jobsByDate(after: String!, before: String): [Job!]
+  jobsByEstimateId(estimateId: String!): [Job!]
+  jobById(jobId: String!): Job
+  jobsByStatus(jobStatus: String!): [Job!]
+  jobsCreatedBy(userId: String!): [Job]
+  jobsByJobLeadId(jobLeadId: String!): [Job!]
+  jobsByJobManager(userId: String!): [Job!]
+  jobByPONumber(poNumber: String!): Job
+  jobLastAdded: Job
+  jobLastUpdated: Job
+
+  jobLeads: [JobLead!]
+  jobLeadById(jobLeadId: String!): JobLead
+  jobLeadsByDate(after: String!, before: String): [JobLead!]
+  jobLeadsByStatus(status: String!): [JobLead!]
+  jobLeadsByLeadSource(leadSource: String!): [JobLead!]
+  jobLeadsCreatedBy(userId: String!): [JobLead!]
+  jobLeadsByCategory(category: String!): [JobLead!]
+  jobLeadLastAdded: JobLead
+  jobLeadLastUpdated: JobLead
+
+  owner: UserProfile
+
+  payments: [Payment!]
+  paymentById(paymentId: String!): Payment
+  paymentsByDate(after: String!, before: String): [Payment!]
+  paymentsByDirection(direction: String!): [Payment!]
+  paymentsByReferenceId(referenceId: String!): [Payment!]
+  paymentsByReferenceType(referenceType: String!): [Payment!]
+  paymentsCreatedBy(userId: String!): [Payment!]
+  paymentsFor(category: String!): [Payment!]
+  paymentsTo(entityName: String!): [Payment!]
+  paymentLastAdded: Payment
+  paymentLastUpdated: Payment
+
+  profile: AccountProfile
+
+  projects: [Project!]
+  projectsByCategory(category: String!): [Project!]
+  projectsByCustomerId(customerId: String!): [Project!]
+  projectsCreatedBy(userId: String!): [Project!]
+  projectsByDate(after: String!, before: String): [Project!]
+  projectById(projectId: String!): Project
+  projectsByJobLeadId(jobLeadId: String!): [Project!]
+  projectsByProjectManager(userId: String!): [Project!]
+  projectsByReferenceId(referenceId: String!): Project
+  projectsWithTeamMember(userId: String!): [Project!]
+  projectsWithFieldTeamMember(userId: String!): [Project!]
+  projectLastAdded: Project
+  projectLastUpdated: Project
+
+  proposals: [Proposal!]
+  proposalById(proposalId: String!): Proposal
+  proposalsByJobLeadId(jobLeadId: String!): Proposal
+  proposalsByStatus(proposalStatus: String!): [Proposal!]
+  proposalsCreatedBy(userId: String!): [Proposal!]
+  proposalsByReferenceId(referenceId: String!): Proposal
+  proposalsByDate(after: String!, before: String): [Proposal!]
+  proposalLastAdded: Proposal
+  proposalLastUpdated: Proposal
+
+  prospects: [Prospect!]
+  prospectById(prospectId: String!): Prospect
+  prospectLastAdded: Prospect
+  prospectLastUpdated: Prospect
+
+  workServices: [WorkService!]
+  workServiceById(workServiceId: String!): WorkService
+  workServicesByCategory(category: String!): [WorkService!]
+  workServiceLastAdded: WorkService
+  workServiceLastUpdated: WorkService
+}
+
+type Query {
+  account: Account!
+
+  accountProfile: AccountProfile!
+  accountId: AccountId!
+  accountsWithUsersGreaterThan(usersCountInput: Int!): [AccountProfile!]!
+  activeAccounts: [AccountProfile!]!
+  allAccounts: [AccountProfile!]
+}
+
+type Mutation {
+  addBeneficiary(beneficiaryInput: BeneficiaryInput!): Account!
+  addCustomer(customerInput: CustomerInput!): Account!
+  addEstimate(estimateInput: EstimateInput!): Account!
+  addInvoice(invoiceInput: InvoiceInput!): Account!
+  addProspect(prospectInput: ProspectInput!): Account!
+  addTeamMember(userId: String!): AccountProfile!
+
+  createCompanyProfile(companyProfileInput: CompanyProfileInput!): Account!
+  createExpense(expenseInput: ExpenseInput!): Account!
+  createItem(itemInput: ItemInput!): Account!
+  createJob(jobInput: JobInput!): Account!
+  createJobLead(jobLeadInput: JobLeadInput!): Account!
+  createPayment(paymentInput: PaymentInput!): Account!
+  createProject(projectInput: ProjectInput!): Account!
+  createProposal(proposalInput: ProposalInput!): Account!
+  createWorkService(workServiceInput: WorkServiceInput!): Account!
+
+  removeBeneficiary(beneficiaryIdInput: String!): Account!
+  removeCompanyProfile(companyIdInput: String!): Account!
+  removeCustomer(customerIdInput: String!): Account!
+  removeEstimate(estimateIdInput: String!): Account!
+  removeExpense(expenseIdInput: String!): Account!
+  removeInvoice(invoiceIdInput: String!): Account!
+  removeItem(itemIdInput: String!): Account!
+  removeJob(jobIdInput: String!): Account!
+  removeJobLead(jobLeadIdInput: String!): Account!
+  removePayment(paymentIdInput: String!): Account!
+  removeProject(projectIdInput: String!): Account!
+  removeProposal(proposalIdInput: String!): Account!
+  removeProspect(prospectIdInput: String!): Account!
+  removeWorkService(workServiceIdInput: String!): Account!
+
+  seedTeamMembers: [AccountProfile!]!
+
+  setActiveAccounts: [AccountProfile!]
+
+  updateBeneficiary(
+    beneficiaryIdInput: String!
+    updateBeneficiaryInput: BeneficiaryInput!
+  ): Account!
+  updateCompanyProfile(
+    companyIdInput: String!
+    updateCompanyProfileInput: CompanyProfileInput!
+  ): Account!
+  updateCustomer(
+    customerIdInput: String!
+    updateCustomerInput: CustomerInput!
+  ): Account!
+  updateEstimate(
+    estimateIdInput: String!
+    updateEstimateInput: EstimateInput!
+  ): Account!
+  updateExpense(
+    expenseIdInput: String!
+    updateExpenseInput: ExpenseInput!
+  ): Account!
+  updateInvoice(
+    invoiceIdInput: String!
+    updateInvoiceInput: InvoiceInput!
+  ): Account!
+  updateItem(itemIdInput: String!, updateItemInput: ItemInput!): Account!
+  updateJob(jobIdInput: String!, updateJobInput: JobInput!): Account!
+  updateJobLead(
+    jobLeadIdInput: String!
+    updateJobLeadInput: JobLeadInput!
+  ): Account!
+  updatePayment(
+    paymentIdInput: String!
+    updatePaymentInput: PaymentInput!
+  ): Account!
+  updateProject(
+    projectIdInput: String!
+    updateProjectInput: ProjectInput!
+  ): Account!
+  updateProposal(
+    proposalIdInput: String!
+    updateProposalInput: ProposalInput!
+  ): Account!
+  updateProspect(
+    prospectIdInput: String!
+    updateProspectInput: ProspectInput!
+  ): Account!
+  updateWorkService(
+    workServiceIdInput: String!
+    updateWorkServiceInput: WorkServiceInput!
+  ): Account!
+
+  convertProspectToCustomer(prospectIdInput: String!): Account!
+  convertJobLeadToJob(jobLeadIdInput: String!): Account!
+  convertEstimateToInvoice(estimateIdInput: String!): Account!
+  convertProposalToInvoice(proposalIdInput: String!): Account!
+  addJobToProject(jobInput: JobInput!): Account!
+}

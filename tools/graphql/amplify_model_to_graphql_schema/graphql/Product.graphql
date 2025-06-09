@@ -1,0 +1,77 @@
+
+type Product {
+  id: ID!
+  tenant: Tenant @belongsTo
+  name: String
+  purchasePrice: Float
+  category: String
+  description: String
+  supplier: String
+  salePrice: Float
+  sku: String
+  notes: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateProductInput {
+  tenant: Tenant
+  name: String
+  purchasePrice: Float
+  category: String
+  description: String
+  supplier: String
+  salePrice: Float
+  sku: String
+  notes: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateProductInput {
+  id: ID!
+  tenant: Tenant
+  name: String
+  purchasePrice: Float
+  category: String
+  description: String
+  supplier: String
+  salePrice: Float
+  sku: String
+  notes: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteProductInput {
+  id: ID!
+}
+
+input ProductFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getProduct(id: ID!): Product
+  queryProducts(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: ProductFilterInput
+  ): [Product]
+}
+type Mutation {
+  putProduct(input: CreateProductInput!): Product
+  updateProduct(input: UpdateProductInput!): Product
+  softDeleteProduct(input: SoftDeleteProductInput!): Product
+  deleteProduct(id: ID!): Product
+}
+type Subscription {
+  onPutProduct: Product @aws_subscribe(mutations: ["putProduct"])
+  onUpdateProduct: Product @aws_subscribe(mutations: ["updateProduct"])
+  onSoftDeleteProduct: Product @aws_subscribe(mutations: ["softDeleteProduct"])
+}

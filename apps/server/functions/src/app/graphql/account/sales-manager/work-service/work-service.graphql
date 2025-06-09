@@ -1,0 +1,38 @@
+input WorkServiceInput {
+  category: String!
+  description: String
+  name: String!
+  notes: String
+  salePrice: String!
+  lineItems: [LineItemInput!]
+}
+
+input WorkServiceNameInput {
+  name: String!
+}
+
+type WorkService {
+  id: String!
+  category: String!
+  description: String
+  name: String!
+  notes: String
+  salePrice: String!
+  lineItems: [LineItem!]
+}
+
+type Query {
+  workServices: [WorkService!]!
+  workServicesByCategory(categoryInput: GetByCategory!): [WorkService!]!
+  workServiceById(workServiceIdInput: GetByID!): WorkService!
+  workServiceByName(workServiceNameInput: WorkServiceNameInput!): WorkService!
+}
+
+type Mutation {
+  createWorkService(workServiceInput: WorkServiceInput!): WorkService!
+  updateWorkService(
+    workServiceIdInput: GetByID!
+    updateWorkServiceInput: WorkServiceInput!
+  ): WorkService!
+  removeWorkService(workServiceIdInput: GetByID!): String!
+}

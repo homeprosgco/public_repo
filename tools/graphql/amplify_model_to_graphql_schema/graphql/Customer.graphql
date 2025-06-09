@@ -1,0 +1,105 @@
+enum CustomerType {
+  Homeowner
+  JobProvider
+  PropertyOwner
+}
+type Customer {
+  id: ID!
+  tenant: Tenant @belongsTo
+  proposals: [Proposal] @hasMany
+  estimates: [Estimate] @hasMany
+  projects: [Project] @hasMany
+  properties: [Property] @hasMany
+  expenses: [Expense] @hasMany
+  followUps: [FollowUp] @hasMany
+  recipients: [Recipient] @hasMany
+  warranties: [Warranty] @hasMany
+  warrantyClaims: [WarrantyClaim] @hasMany
+  workRequests: [WorkRequest] @hasMany
+  customerType: CustomerType
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  additionalInfo: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  workscheduleevent: WorkScheduleEvent @belongsTo
+  isDeleted: Boolean!
+}
+input CreateCustomerInput {
+  tenant: Tenant
+  proposals: [Proposal]
+  estimates: [Estimate]
+  projects: [Project]
+  properties: [Property]
+  expenses: [Expense]
+  followUps: [FollowUp]
+  recipients: [Recipient]
+  warranties: [Warranty]
+  warrantyClaims: [WarrantyClaim]
+  workRequests: [WorkRequest]
+  customerType: CustomerType
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  additionalInfo: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  workscheduleevent: WorkScheduleEvent
+  isDeleted: Boolean = false
+}
+input UpdateCustomerInput {
+  id: ID!
+  tenant: Tenant
+  proposals: [Proposal]
+  estimates: [Estimate]
+  projects: [Project]
+  properties: [Property]
+  expenses: [Expense]
+  followUps: [FollowUp]
+  recipients: [Recipient]
+  warranties: [Warranty]
+  warrantyClaims: [WarrantyClaim]
+  workRequests: [WorkRequest]
+  customerType: CustomerType
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  additionalInfo: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  workscheduleevent: WorkScheduleEvent
+  isDeleted: Boolean
+}
+input SoftDeleteCustomerInput {
+  id: ID!
+}
+
+input CustomerFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getCustomer(id: ID!): Customer
+  queryCustomers(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: CustomerFilterInput
+  ): [Customer]
+}
+type Mutation {
+  putCustomer(input: CreateCustomerInput!): Customer
+  updateCustomer(input: UpdateCustomerInput!): Customer
+  softDeleteCustomer(input: SoftDeleteCustomerInput!): Customer
+  deleteCustomer(id: ID!): Customer
+}
+type Subscription {
+  onPutCustomer: Customer @aws_subscribe(mutations: ["putCustomer"])
+  onUpdateCustomer: Customer @aws_subscribe(mutations: ["updateCustomer"])
+  onSoftDeleteCustomer: Customer @aws_subscribe(mutations: ["softDeleteCustomer"])
+}

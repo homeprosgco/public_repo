@@ -1,0 +1,40 @@
+input CustomerInput {
+  firstname: String
+  lastname: String
+  displayName: String!
+  email: String
+  phone: String
+  address: AddressInput
+  type: CustomerType!
+}
+
+type Customer {
+  id: String
+  firstname: String
+  lastname: String
+  displayName: String!
+  email: String
+  phone: String
+  address: Address
+  type: CustomerType!
+  created: String
+}
+
+type Query {
+  customers: [Customer!]!
+  customerById(customerIdInput: GetByID!): Customer!
+}
+
+type Mutation {
+  createCustomer(customerInput: CustomerInput!): Customer!
+  updateCustomer(
+    customerIdInput: GetByID!
+    updateCustomerInput: CustomerInput!
+  ): Customer!
+  removeCustomer(customerIdInput: GetByID!): String!
+}
+
+enum CustomerType {
+  INDIVIDUAL
+  COMPANY
+}

@@ -1,0 +1,10 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid gap-4">
+  {% for field in fields.keys() if field not in ['id', 'isDeleted', 'created', 'updated'] %}
+  <sg-form-control
+    formControlName="{{ field }}"
+    label="{{ field | replace('_', ' ') | title }}"
+  ></sg-form-control>
+  {% endfor %}
+
+  <button type="submit" pButton label="Submit" [disabled]="form.invalid"></button>
+</form>

@@ -15,7 +15,22 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@public-repo/primeng-ui": ["libs/primeng-ui/src/index.ts"]
+      "@public-repo/angular-templates-ui": [
+        "libs/angular-templates-ui/src/index.ts"
+      ],
+      "@public-repo/angular-utils": ["libs/angular-utils/src/index.ts"],
+      "@public-repo/angular_style_directives": [
+        "libs/angular_style_directives/src/index.ts"
+      ],
+      "@public-repo/aws-cloud": ["libs/aws-cloud/src/index.ts"],
+      "@public-repo/primeng-ui": ["libs/primeng-ui/src/index.ts"],
+      "@public-repo/react-ui-components": [
+        "libs/react/react-ui-components/src/index.ts"
+      ],
+      "@public-repo/react-website-templates": [
+        "libs/react/react-website-templates/src/index.ts"
+      ],
+      "@public-repo/tailwindcss": ["libs/tailwindcss/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

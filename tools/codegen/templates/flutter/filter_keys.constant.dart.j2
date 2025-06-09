@@ -1,0 +1,6 @@
+// GENERATED FILTER KEYS FOR {{ type_name.upper() }}
+const {{ filename }}FilterKeys = <String>{
+  {% for key in filter_fields %}
+  '{{ key }}',
+  {% endfor %}
+};

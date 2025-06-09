@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+.invalid {
+  color: #e85347;
+  font-size: 11px;
+  font-style: italic;
+  position: absolute
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.dropzone .dz-preview .dz-progress .dz-upload {
+  background: linear-gradient(to bottom, #5AFF15, #00B712) !important;
+}
+
+
+.modal-body .title {
+  line-height: 1.65;
+}
+
+.primary-shadow {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}

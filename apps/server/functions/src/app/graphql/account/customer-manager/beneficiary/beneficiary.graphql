@@ -1,0 +1,37 @@
+input BeneficiaryInput {
+  customerId: String!
+  firstname: String
+  lastname: String
+  displayName: String!
+  email: String
+  phone: String
+  address: AddressInput
+  type: String!
+}
+
+type Beneficiary {
+  customerId: String
+  id: String
+  firstname: String
+  lastname: String
+  displayName: String!
+  email: String
+  phone: String
+  address: Address
+  type: String!
+  created: String
+}
+
+type Query {
+  beneficiaries: [Beneficiary!]!
+  beneficiaryById(beneficiaryIdInput: GetByID!): Beneficiary!
+}
+
+type Mutation {
+  createBeneficiary(beneficiaryInput: BeneficiaryInput!): Beneficiary!
+  updateBeneficiary(
+    beneficiaryIdInput: GetByID!
+    updateBeneficiaryInput: BeneficiaryInput!
+  ): Beneficiary!
+  removeBeneficiary(beneficiaryIdInput: GetByID!): String!
+}

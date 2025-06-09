@@ -1,0 +1,65 @@
+
+type MaintenanceLog {
+  id: ID!
+  description: String
+  tenant: Tenant @belongsTo
+  teamMember: TeamMember @belongsTo
+  serviceDate: AWSDate
+  notes: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  warranty: Warranty @belongsTo
+  isDeleted: Boolean!
+}
+input CreateMaintenanceLogInput {
+  description: String
+  tenant: Tenant
+  teamMember: TeamMember
+  serviceDate: AWSDate
+  notes: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  warranty: Warranty
+  isDeleted: Boolean = false
+}
+input UpdateMaintenanceLogInput {
+  id: ID!
+  description: String
+  tenant: Tenant
+  teamMember: TeamMember
+  serviceDate: AWSDate
+  notes: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  warranty: Warranty
+  isDeleted: Boolean
+}
+input SoftDeleteMaintenanceLogInput {
+  id: ID!
+}
+
+input MaintenanceLogFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getMaintenanceLog(id: ID!): MaintenanceLog
+  queryMaintenanceLogs(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: MaintenanceLogFilterInput
+  ): [MaintenanceLog]
+}
+type Mutation {
+  putMaintenanceLog(input: CreateMaintenanceLogInput!): MaintenanceLog
+  updateMaintenanceLog(input: UpdateMaintenanceLogInput!): MaintenanceLog
+  softDeleteMaintenanceLog(input: SoftDeleteMaintenanceLogInput!): MaintenanceLog
+  deleteMaintenanceLog(id: ID!): MaintenanceLog
+}
+type Subscription {
+  onPutMaintenanceLog: MaintenanceLog @aws_subscribe(mutations: ["putMaintenanceLog"])
+  onUpdateMaintenanceLog: MaintenanceLog @aws_subscribe(mutations: ["updateMaintenanceLog"])
+  onSoftDeleteMaintenanceLog: MaintenanceLog @aws_subscribe(mutations: ["softDeleteMaintenanceLog"])
+}

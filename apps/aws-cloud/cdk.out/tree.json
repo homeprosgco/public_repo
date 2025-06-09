@@ -1,0 +1,1285 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "HomeProSGCO-Staging": {
+        "id": "HomeProSGCO-Staging",
+        "path": "HomeProSGCO-Staging",
+        "children": {
+          "DynamoDBTableStack": {
+            "id": "DynamoDBTableStack",
+            "path": "HomeProSGCO-Staging/DynamoDBTableStack",
+            "children": {
+              "DynamoDBTable": {
+                "id": "DynamoDBTable",
+                "path": "HomeProSGCO-Staging/DynamoDBTableStack/DynamoDBTable",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "HomeProSGCO-Staging/DynamoDBTableStack/DynamoDBTable/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                      "aws:cdk:cloudformation:props": {
+                        "attributeDefinitions": [
+                          {
+                            "attributeName": "PK",
+                            "attributeType": "S"
+                          },
+                          {
+                            "attributeName": "SK",
+                            "attributeType": "S"
+                          },
+                          {
+                            "attributeName": "EntityType",
+                            "attributeType": "S"
+                          },
+                          {
+                            "attributeName": "TenantId",
+                            "attributeType": "S"
+                          }
+                        ],
+                        "billingMode": "PAY_PER_REQUEST",
+                        "globalSecondaryIndexes": [
+                          {
+                            "indexName": "EntityTypeAccountIndex",
+                            "keySchema": [
+                              {
+                                "attributeName": "EntityType",
+                                "keyType": "HASH"
+                              },
+                              {
+                                "attributeName": "TenantId",
+                                "keyType": "RANGE"
+                              }
+                            ],
+                            "projection": {
+                              "projectionType": "ALL"
+                            }
+                          }
+                        ],
+                        "keySchema": [
+                          {
+                            "attributeName": "PK",
+                            "keyType": "HASH"
+                          },
+                          {
+                            "attributeName": "SK",
+                            "keyType": "RANGE"
+                          }
+                        ],
+                        "tableClass": "STANDARD"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "ScalingRole": {
+                    "id": "ScalingRole",
+                    "path": "HomeProSGCO-Staging/DynamoDBTableStack/DynamoDBTable/ScalingRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.182.0",
+                      "metadata": [
+                        "*"
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+                  "version": "2.182.0",
+                  "metadata": [
+                    {
+                      "partitionKey": {
+                        "name": "*",
+                        "type": "S"
+                      },
+                      "sortKey": {
+                        "name": "*",
+                        "type": "S"
+                      },
+                      "billingMode": "PAY_PER_REQUEST",
+                      "tableClass": "STANDARD",
+                      "removalPolicy": "retain"
+                    },
+                    {
+                      "addGlobalSecondaryIndex": [
+                        {
+                          "indexName": "*",
+                          "partitionKey": {
+                            "name": "*",
+                            "type": "S"
+                          },
+                          "projectionType": "ALL"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "DynamoDBTableName": {
+                "id": "DynamoDBTableName",
+                "path": "HomeProSGCO-Staging/DynamoDBTableStack/DynamoDBTableName",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.182.0"
+                }
+              },
+              "DynamoDBTableArn": {
+                "id": "DynamoDBTableArn",
+                "path": "HomeProSGCO-Staging/DynamoDBTableStack/DynamoDBTableArn",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.182.0"
+                }
+              },
+              "DynamoDBGSIName": {
+                "id": "DynamoDBGSIName",
+                "path": "HomeProSGCO-Staging/DynamoDBTableStack/DynamoDBGSIName",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.182.0"
+                }
+              },
+              "CDKMetadata": {
+                "id": "CDKMetadata",
+                "path": "HomeProSGCO-Staging/DynamoDBTableStack/CDKMetadata",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "HomeProSGCO-Staging/DynamoDBTableStack/CDKMetadata/Default",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.182.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.4.2"
+                }
+              },
+              "Exports": {
+                "id": "Exports",
+                "path": "HomeProSGCO-Staging/DynamoDBTableStack/Exports",
+                "children": {
+                  "Output{\"Fn::GetAtt\":[\"DynamoDBTable59784FC0\",\"Arn\"]}": {
+                    "id": "Output{\"Fn::GetAtt\":[\"DynamoDBTable59784FC0\",\"Arn\"]}",
+                    "path": "HomeProSGCO-Staging/DynamoDBTableStack/Exports/Output{\"Fn::GetAtt\":[\"DynamoDBTable59784FC0\",\"Arn\"]}",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnOutput",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "Output{\"Ref\":\"DynamoDBTable59784FC0\"}": {
+                    "id": "Output{\"Ref\":\"DynamoDBTable59784FC0\"}",
+                    "path": "HomeProSGCO-Staging/DynamoDBTableStack/Exports/Output{\"Ref\":\"DynamoDBTable59784FC0\"}",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnOutput",
+                      "version": "2.182.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.4.2"
+                }
+              },
+              "BootstrapVersion": {
+                "id": "BootstrapVersion",
+                "path": "HomeProSGCO-Staging/DynamoDBTableStack/BootstrapVersion",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnParameter",
+                  "version": "2.182.0"
+                }
+              },
+              "CheckBootstrapVersion": {
+                "id": "CheckBootstrapVersion",
+                "path": "HomeProSGCO-Staging/DynamoDBTableStack/CheckBootstrapVersion",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnRule",
+                  "version": "2.182.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Stack",
+              "version": "2.182.0"
+            }
+          },
+          "UserPool": {
+            "id": "UserPool",
+            "path": "HomeProSGCO-Staging/UserPool",
+            "children": {
+              "LambdaRole": {
+                "id": "LambdaRole",
+                "path": "HomeProSGCO-Staging/UserPool/LambdaRole",
+                "children": {
+                  "ImportLambdaRole": {
+                    "id": "ImportLambdaRole",
+                    "path": "HomeProSGCO-Staging/UserPool/LambdaRole/ImportLambdaRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.182.0",
+                      "metadata": [
+                        "*"
+                      ]
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "HomeProSGCO-Staging/UserPool/LambdaRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "HomeProSGCO-Staging/UserPool/LambdaRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "HomeProSGCO-Staging/UserPool/LambdaRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "cognito-idp:AdminAddUserToGroup",
+                                    "cognito-idp:AdminUpdateUserAttributes"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "arn:aws:cognito-idp:us-east-1:879381260600:userpool/*"
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:BatchWriteItem",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:DeleteItem",
+                                    "dynamodb:DescribeTable",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:PutItem",
+                                    "dynamodb:Query",
+                                    "dynamodb:Scan",
+                                    "dynamodb:UpdateItem"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::ImportValue": "HomeProSGCO-Staging-DynamoDBTableStack:ExportsOutputFnGetAttDynamoDBTable59784FC0ArnFDE6BED0"
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::ImportValue": "HomeProSGCO-Staging-DynamoDBTableStack:ExportsOutputFnGetAttDynamoDBTable59784FC0ArnFDE6BED0"
+                                          },
+                                          "/index/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "LambdaRoleDefaultPolicy75625A82",
+                            "roles": [
+                              {
+                                "Ref": "LambdaRole3A44B857"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.182.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.182.0",
+                      "metadata": [
+                        "*",
+                        {
+                          "attachToRole": [
+                            "*"
+                          ]
+                        },
+                        {
+                          "attachToRole": [
+                            "*"
+                          ]
+                        },
+                        {
+                          "addStatements": [
+                            {}
+                          ]
+                        },
+                        {
+                          "addStatements": [
+                            {}
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.182.0",
+                  "metadata": [
+                    {
+                      "assumedBy": {
+                        "principalAccount": "*",
+                        "assumeRoleAction": "*"
+                      },
+                      "managedPolicies": [
+                        {
+                          "managedPolicyArn": "*"
+                        }
+                      ]
+                    },
+                    {
+                      "addToPolicy": [
+                        {}
+                      ]
+                    },
+                    {
+                      "addToPrincipalPolicy": [
+                        {}
+                      ]
+                    },
+                    {
+                      "attachInlinePolicy": [
+                        "*"
+                      ]
+                    },
+                    {
+                      "attachInlinePolicy": [
+                        "*"
+                      ]
+                    },
+                    {
+                      "addToPrincipalPolicy": [
+                        {}
+                      ]
+                    }
+                  ]
+                }
+              },
+              "PostAuthConfirmLambda": {
+                "id": "PostAuthConfirmLambda",
+                "path": "HomeProSGCO-Staging/UserPool/PostAuthConfirmLambda",
+                "children": {
+                  "Code": {
+                    "id": "Code",
+                    "path": "HomeProSGCO-Staging/UserPool/PostAuthConfirmLambda/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "HomeProSGCO-Staging/UserPool/PostAuthConfirmLambda/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.182.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "HomeProSGCO-Staging/UserPool/PostAuthConfirmLambda/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.182.0",
+                          "metadata": []
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "HomeProSGCO-Staging/UserPool/PostAuthConfirmLambda/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "s3Bucket": "cdk-hnb659fds-assets-879381260600-us-east-1",
+                          "s3Key": "30bca40a59b8d87b16cf9e67d4735d149d5ac356f75ecdca1abf34a6a3f25b10.zip"
+                        },
+                        "environment": {
+                          "variables": {
+                            "DYNAMODB_TABLE": {
+                              "Fn::ImportValue": "HomeProSGCO-Staging-DynamoDBTableStack:ExportsOutputRefDynamoDBTable59784FC027915268"
+                            }
+                          }
+                        },
+                        "handler": "index.handler",
+                        "role": {
+                          "Fn::GetAtt": [
+                            "LambdaRole3A44B857",
+                            "Arn"
+                          ]
+                        },
+                        "runtime": "nodejs18.x"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                      "version": "2.182.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.Function",
+                  "version": "2.182.0",
+                  "metadata": [
+                    {
+                      "runtime": "*",
+                      "handler": "*",
+                      "code": "*",
+                      "role": "*",
+                      "environment": "*"
+                    },
+                    {
+                      "addEnvironment": [
+                        "*",
+                        "*"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "UserPool": {
+                "id": "UserPool",
+                "path": "HomeProSGCO-Staging/UserPool/UserPool",
+                "children": {
+                  "PostConfirmationCognito": {
+                    "id": "PostConfirmationCognito",
+                    "path": "HomeProSGCO-Staging/UserPool/UserPool/PostConfirmationCognito",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                      "aws:cdk:cloudformation:props": {
+                        "action": "lambda:InvokeFunction",
+                        "functionName": {
+                          "Fn::GetAtt": [
+                            "PostAuthConfirmLambda24567B99",
+                            "Arn"
+                          ]
+                        },
+                        "principal": "cognito-idp.amazonaws.com",
+                        "sourceArn": {
+                          "Fn::GetAtt": [
+                            "UserPool6BA7E5F2",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "smsRole": {
+                    "id": "smsRole",
+                    "path": "HomeProSGCO-Staging/UserPool/UserPool/smsRole",
+                    "children": {
+                      "ImportsmsRole": {
+                        "id": "ImportsmsRole",
+                        "path": "HomeProSGCO-Staging/UserPool/UserPool/smsRole/ImportsmsRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.182.0",
+                          "metadata": [
+                            "*"
+                          ]
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "HomeProSGCO-Staging/UserPool/UserPool/smsRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Condition": {
+                                    "StringEquals": {
+                                      "sts:ExternalId": "HomeProSGCOStagingUserPoolEFD1C4BE"
+                                    }
+                                  },
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "cognito-idp.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policies": [
+                              {
+                                "policyName": "sns-publish",
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sns:Publish",
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.182.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.182.0",
+                      "metadata": [
+                        {
+                          "assumedBy": {
+                            "principalAccount": "*",
+                            "assumeRoleAction": "*"
+                          },
+                          "inlinePolicies": "*"
+                        }
+                      ]
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "HomeProSGCO-Staging/UserPool/UserPool/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Cognito::UserPool",
+                      "aws:cdk:cloudformation:props": {
+                        "accountRecoverySetting": {
+                          "recoveryMechanisms": [
+                            {
+                              "name": "verified_email",
+                              "priority": 1
+                            }
+                          ]
+                        },
+                        "adminCreateUserConfig": {
+                          "allowAdminCreateUserOnly": false
+                        },
+                        "autoVerifiedAttributes": [
+                          "email"
+                        ],
+                        "emailVerificationMessage": "The verification code to your new account is {####}",
+                        "emailVerificationSubject": "Verify your new account",
+                        "enabledMfas": [
+                          "SMS_MFA",
+                          "SOFTWARE_TOKEN_MFA"
+                        ],
+                        "lambdaConfig": {
+                          "postConfirmation": {
+                            "Fn::GetAtt": [
+                              "PostAuthConfirmLambda24567B99",
+                              "Arn"
+                            ]
+                          }
+                        },
+                        "mfaConfiguration": "OPTIONAL",
+                        "policies": {
+                          "passwordPolicy": {
+                            "minimumLength": 12,
+                            "requireLowercase": true,
+                            "requireUppercase": true,
+                            "requireNumbers": true,
+                            "requireSymbols": true
+                          }
+                        },
+                        "schema": [
+                          {
+                            "name": "email",
+                            "mutable": true,
+                            "required": true
+                          },
+                          {
+                            "name": "tenantId",
+                            "attributeDataType": "String",
+                            "mutable": false
+                          },
+                          {
+                            "name": "appId",
+                            "attributeDataType": "String",
+                            "mutable": false
+                          },
+                          {
+                            "name": "role",
+                            "attributeDataType": "String",
+                            "mutable": true
+                          }
+                        ],
+                        "smsConfiguration": {
+                          "externalId": "HomeProSGCOStagingUserPoolEFD1C4BE",
+                          "snsCallerArn": {
+                            "Fn::GetAtt": [
+                              "UserPoolsmsRole4EA729DD",
+                              "Arn"
+                            ]
+                          }
+                        },
+                        "smsVerificationMessage": "The verification code to your new account is {####}",
+                        "usernameAttributes": [
+                          "email"
+                        ],
+                        "userPoolName": "UserPool",
+                        "verificationMessageTemplate": {
+                          "defaultEmailOption": "CONFIRM_WITH_CODE",
+                          "emailMessage": "The verification code to your new account is {####}",
+                          "emailSubject": "Verify your new account",
+                          "smsMessage": "The verification code to your new account is {####}"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cognito.CfnUserPool",
+                      "version": "2.182.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cognito.UserPool",
+                  "version": "2.182.0",
+                  "metadata": [
+                    {
+                      "userPoolName": "*",
+                      "selfSignUpEnabled": true,
+                      "signInAliases": {
+                        "email": true
+                      },
+                      "autoVerify": {
+                        "email": true
+                      },
+                      "standardAttributes": {},
+                      "customAttributes": "*",
+                      "mfa": "OPTIONAL",
+                      "mfaSecondFactor": {
+                        "sms": true,
+                        "otp": true
+                      },
+                      "passwordPolicy": {
+                        "minLength": "*",
+                        "requireUppercase": true,
+                        "requireLowercase": true,
+                        "requireDigits": true,
+                        "requireSymbols": true
+                      },
+                      "lambdaTriggers": {},
+                      "accountRecovery": 2,
+                      "removalPolicy": "retain"
+                    }
+                  ]
+                }
+              },
+              "UserPoolClient": {
+                "id": "UserPoolClient",
+                "path": "HomeProSGCO-Staging/UserPool/UserPoolClient",
+                "children": {
+                  "UserPoolClient": {
+                    "id": "UserPoolClient",
+                    "path": "HomeProSGCO-Staging/UserPool/UserPoolClient/UserPoolClient",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "HomeProSGCO-Staging/UserPool/UserPoolClient/UserPoolClient/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Cognito::UserPoolClient",
+                          "aws:cdk:cloudformation:props": {
+                            "accessTokenValidity": 60,
+                            "allowedOAuthFlows": [
+                              "implicit",
+                              "code"
+                            ],
+                            "allowedOAuthFlowsUserPoolClient": true,
+                            "allowedOAuthScopes": [
+                              "email",
+                              "openid",
+                              "profile"
+                            ],
+                            "callbackUrLs": [
+                              "https://homeprosgco.com/callback",
+                              "http://localhost:4200/callback"
+                            ],
+                            "enableTokenRevocation": true,
+                            "explicitAuthFlows": [
+                              "ALLOW_USER_PASSWORD_AUTH",
+                              "ALLOW_USER_SRP_AUTH",
+                              "ALLOW_REFRESH_TOKEN_AUTH"
+                            ],
+                            "generateSecret": false,
+                            "idTokenValidity": 60,
+                            "logoutUrLs": [
+                              "https://homeprosgco.com/logout",
+                              "http://localhost:4200/logout"
+                            ],
+                            "refreshTokenValidity": 43200,
+                            "supportedIdentityProviders": [
+                              "COGNITO"
+                            ],
+                            "tokenValidityUnits": {
+                              "idToken": "minutes",
+                              "accessToken": "minutes",
+                              "refreshToken": "minutes"
+                            },
+                            "userPoolId": {
+                              "Fn::ImportValue": "HomeProSGCO-Staging-UserPool:ExportsOutputRefUserPool6BA7E5F296FD7236"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_cognito.CfnUserPoolClient",
+                          "version": "2.182.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cognito.UserPoolClient",
+                      "version": "2.182.0",
+                      "metadata": [
+                        {
+                          "userPool": "*",
+                          "generateSecret": false,
+                          "authFlows": {
+                            "userPassword": true,
+                            "userSrp": true
+                          },
+                          "accessTokenValidity": "*",
+                          "idTokenValidity": "*",
+                          "refreshTokenValidity": "*",
+                          "enableTokenRevocation": true,
+                          "oAuth": {
+                            "callbackUrls": "*",
+                            "logoutUrls": "*",
+                            "flows": {
+                              "authorizationCodeGrant": true,
+                              "implicitCodeGrant": true
+                            },
+                            "scopes": "*"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "UserPoolClientId": {
+                    "id": "UserPoolClientId",
+                    "path": "HomeProSGCO-Staging/UserPool/UserPoolClient/UserPoolClientId",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnOutput",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "CDKMetadata": {
+                    "id": "CDKMetadata",
+                    "path": "HomeProSGCO-Staging/UserPool/UserPoolClient/CDKMetadata",
+                    "children": {
+                      "Default": {
+                        "id": "Default",
+                        "path": "HomeProSGCO-Staging/UserPool/UserPoolClient/CDKMetadata/Default",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnResource",
+                          "version": "2.182.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.4.2"
+                    }
+                  },
+                  "Exports": {
+                    "id": "Exports",
+                    "path": "HomeProSGCO-Staging/UserPool/UserPoolClient/Exports",
+                    "children": {
+                      "Output{\"Ref\":\"UserPoolClient2F5918F7\"}": {
+                        "id": "Output{\"Ref\":\"UserPoolClient2F5918F7\"}",
+                        "path": "HomeProSGCO-Staging/UserPool/UserPoolClient/Exports/Output{\"Ref\":\"UserPoolClient2F5918F7\"}",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnOutput",
+                          "version": "2.182.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.4.2"
+                    }
+                  },
+                  "BootstrapVersion": {
+                    "id": "BootstrapVersion",
+                    "path": "HomeProSGCO-Staging/UserPool/UserPoolClient/BootstrapVersion",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnParameter",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "CheckBootstrapVersion": {
+                    "id": "CheckBootstrapVersion",
+                    "path": "HomeProSGCO-Staging/UserPool/UserPoolClient/CheckBootstrapVersion",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnRule",
+                      "version": "2.182.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Stack",
+                  "version": "2.182.0"
+                }
+              },
+              "IdentityPool": {
+                "id": "IdentityPool",
+                "path": "HomeProSGCO-Staging/UserPool/IdentityPool",
+                "children": {
+                  "IdentityPool": {
+                    "id": "IdentityPool",
+                    "path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPool",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Cognito::IdentityPool",
+                      "aws:cdk:cloudformation:props": {
+                        "allowUnauthenticatedIdentities": false,
+                        "cognitoIdentityProviders": [
+                          {
+                            "clientId": {
+                              "Fn::ImportValue": "HomeProSGCO-Staging-UserPoolUserPoolClient3E901C04:ExportsOutputRefUserPoolClient2F5918F753847A55"
+                            },
+                            "providerName": {
+                              "Fn::ImportValue": "HomeProSGCO-Staging-UserPool:ExportsOutputFnGetAttUserPool6BA7E5F2ProviderNameA3E1F80D"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cognito.CfnIdentityPool",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "IdentityPoolAuthenticatedRole": {
+                    "id": "IdentityPoolAuthenticatedRole",
+                    "path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPoolAuthenticatedRole",
+                    "children": {
+                      "ImportIdentityPoolAuthenticatedRole": {
+                        "id": "ImportIdentityPoolAuthenticatedRole",
+                        "path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPoolAuthenticatedRole/ImportIdentityPoolAuthenticatedRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.182.0",
+                          "metadata": [
+                            "*"
+                          ]
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPoolAuthenticatedRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRoleWithWebIdentity",
+                                  "Condition": {
+                                    "StringEquals": {
+                                      "cognito-identity.amazonaws.com:aud": {
+                                        "Ref": "IdentityPool"
+                                      }
+                                    },
+                                    "ForAnyValue:StringLike": {
+                                      "cognito-identity.amazonaws.com:amr": "authenticated"
+                                    }
+                                  },
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Federated": "cognito-identity.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/AmazonCognitoPowerUser"
+                                  ]
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.182.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.182.0",
+                      "metadata": [
+                        {
+                          "assumedBy": {
+                            "principalAccount": "*",
+                            "assumeRoleAction": "*"
+                          },
+                          "managedPolicies": [
+                            {
+                              "managedPolicyArn": "*"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "IdentityPoolUnauthenticatedRole": {
+                    "id": "IdentityPoolUnauthenticatedRole",
+                    "path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPoolUnauthenticatedRole",
+                    "children": {
+                      "ImportIdentityPoolUnauthenticatedRole": {
+                        "id": "ImportIdentityPoolUnauthenticatedRole",
+                        "path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPoolUnauthenticatedRole/ImportIdentityPoolUnauthenticatedRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.182.0",
+                          "metadata": [
+                            "*"
+                          ]
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPoolUnauthenticatedRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRoleWithWebIdentity",
+                                  "Condition": {
+                                    "StringEquals": {
+                                      "cognito-identity.amazonaws.com:aud": {
+                                        "Ref": "IdentityPool"
+                                      }
+                                    },
+                                    "ForAnyValue:StringLike": {
+                                      "cognito-identity.amazonaws.com:amr": "unauthenticated"
+                                    }
+                                  },
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Federated": "cognito-identity.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/AmazonCognitoReadOnly"
+                                  ]
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.182.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.182.0",
+                      "metadata": [
+                        {
+                          "assumedBy": {
+                            "principalAccount": "*",
+                            "assumeRoleAction": "*"
+                          },
+                          "managedPolicies": [
+                            {
+                              "managedPolicyArn": "*"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "IdentityPoolRoleAttachment": {
+                    "id": "IdentityPoolRoleAttachment",
+                    "path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPoolRoleAttachment",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Cognito::IdentityPoolRoleAttachment",
+                      "aws:cdk:cloudformation:props": {
+                        "identityPoolId": {
+                          "Ref": "IdentityPool"
+                        },
+                        "roles": {
+                          "authenticated": {
+                            "Fn::GetAtt": [
+                              "IdentityPoolAuthenticatedRole881F2CC7",
+                              "Arn"
+                            ]
+                          },
+                          "unauthenticated": {
+                            "Fn::GetAtt": [
+                              "IdentityPoolUnauthenticatedRoleA7547A1B",
+                              "Arn"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cognito.CfnIdentityPoolRoleAttachment",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "IdentityPoolId": {
+                    "id": "IdentityPoolId",
+                    "path": "HomeProSGCO-Staging/UserPool/IdentityPool/IdentityPoolId",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnOutput",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "AuthenticatedRoleArn": {
+                    "id": "AuthenticatedRoleArn",
+                    "path": "HomeProSGCO-Staging/UserPool/IdentityPool/AuthenticatedRoleArn",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnOutput",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "UnauthenticatedRoleArn": {
+                    "id": "UnauthenticatedRoleArn",
+                    "path": "HomeProSGCO-Staging/UserPool/IdentityPool/UnauthenticatedRoleArn",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnOutput",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "CDKMetadata": {
+                    "id": "CDKMetadata",
+                    "path": "HomeProSGCO-Staging/UserPool/IdentityPool/CDKMetadata",
+                    "children": {
+                      "Default": {
+                        "id": "Default",
+                        "path": "HomeProSGCO-Staging/UserPool/IdentityPool/CDKMetadata/Default",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnResource",
+                          "version": "2.182.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.4.2"
+                    }
+                  },
+                  "BootstrapVersion": {
+                    "id": "BootstrapVersion",
+                    "path": "HomeProSGCO-Staging/UserPool/IdentityPool/BootstrapVersion",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnParameter",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "CheckBootstrapVersion": {
+                    "id": "CheckBootstrapVersion",
+                    "path": "HomeProSGCO-Staging/UserPool/IdentityPool/CheckBootstrapVersion",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnRule",
+                      "version": "2.182.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Stack",
+                  "version": "2.182.0"
+                }
+              },
+              "UserPoolId": {
+                "id": "UserPoolId",
+                "path": "HomeProSGCO-Staging/UserPool/UserPoolId",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.182.0"
+                }
+              },
+              "UserPoolARN": {
+                "id": "UserPoolARN",
+                "path": "HomeProSGCO-Staging/UserPool/UserPoolARN",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.182.0"
+                }
+              },
+              "PostAuthConfirmLambdaArn": {
+                "id": "PostAuthConfirmLambdaArn",
+                "path": "HomeProSGCO-Staging/UserPool/PostAuthConfirmLambdaArn",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.182.0"
+                }
+              },
+              "CDKMetadata": {
+                "id": "CDKMetadata",
+                "path": "HomeProSGCO-Staging/UserPool/CDKMetadata",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "HomeProSGCO-Staging/UserPool/CDKMetadata/Default",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.182.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.4.2"
+                }
+              },
+              "Exports": {
+                "id": "Exports",
+                "path": "HomeProSGCO-Staging/UserPool/Exports",
+                "children": {
+                  "Output{\"Ref\":\"UserPool6BA7E5F2\"}": {
+                    "id": "Output{\"Ref\":\"UserPool6BA7E5F2\"}",
+                    "path": "HomeProSGCO-Staging/UserPool/Exports/Output{\"Ref\":\"UserPool6BA7E5F2\"}",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnOutput",
+                      "version": "2.182.0"
+                    }
+                  },
+                  "Output{\"Fn::GetAtt\":[\"UserPool6BA7E5F2\",\"ProviderName\"]}": {
+                    "id": "Output{\"Fn::GetAtt\":[\"UserPool6BA7E5F2\",\"ProviderName\"]}",
+                    "path": "HomeProSGCO-Staging/UserPool/Exports/Output{\"Fn::GetAtt\":[\"UserPool6BA7E5F2\",\"ProviderName\"]}",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnOutput",
+                      "version": "2.182.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.4.2"
+                }
+              },
+              "BootstrapVersion": {
+                "id": "BootstrapVersion",
+                "path": "HomeProSGCO-Staging/UserPool/BootstrapVersion",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnParameter",
+                  "version": "2.182.0"
+                }
+              },
+              "CheckBootstrapVersion": {
+                "id": "CheckBootstrapVersion",
+                "path": "HomeProSGCO-Staging/UserPool/CheckBootstrapVersion",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnRule",
+                  "version": "2.182.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Stack",
+              "version": "2.182.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stage",
+          "version": "2.182.0"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.4.2"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.182.0"
+    }
+  }
+}

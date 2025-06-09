@@ -1,0 +1,16 @@
+// GENERATED REPOSITORY INTERFACE FOR {{ type_name }}
+// ---------------------------------------
+import '../../data/models/{{ filename }}.dart';
+
+abstract class I{{ type_name }}Repository {
+  Future<{{ type_name }}Model> get{{ type_name }}(String id);
+  Future<{{ type_name }}Model> put{{ type_name }}({{ type_name }}Model input);
+  Future<{{ type_name }}Model> update{{ type_name }}({{ type_name }}Model input);
+  Future<String> delete{{ type_name }}(String id);
+  Future<{{ type_name }}Model> softDelete{{ type_name }}({{ type_name }}Model input);
+  Future<List<{{ type_name }}Model>> query{{ pluralize(type_name) }}();
+
+  Stream<{{ type_name }}Model> onPut{{ type_name }}();
+  Stream<{{ type_name }}Model> onUpdate{{ type_name }}();
+  Stream<{{ type_name }}Model> onSoftDelete{{ type_name }}();
+}

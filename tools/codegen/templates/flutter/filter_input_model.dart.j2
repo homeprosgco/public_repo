@@ -1,0 +1,20 @@
+// GENERATED FILTER INPUT FOR {{ input_name }}
+class {{ input_name }} {
+  {% for name, gql_type in fields.items() %}
+  final {{ dart_type(gql_type) }}? {{ name }};
+  {% endfor %}
+
+  const {{ input_name }}({
+    {% for name, gql_type in fields.items() %}
+    this.{{ name }},
+    {% endfor %}
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      {% for name, gql_type in fields.items() %}
+      if ({{ name }} != null) '{{ name }}': {{ name }},
+      {% endfor %}
+    };
+  }
+}

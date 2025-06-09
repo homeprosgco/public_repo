@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../../static/output.css">
+    <title>{{ page_title }}</title>
+</head>
+
+<body class="p-6">
+    <section>
+        <div class="max-w-4xl mx-auto">
+            <div class="header pt-8 grid grid-cols-12 gap-x-4 mb-12">
+                <div class="col-span-8 flex gap-x-6 items-center">
+                    <img class="w-24" src="{{ logo_url }}" />
+                    <div class="flex flex-col">
+                        <h1 class="text-base font-bold text-[#FF7502]">{{ company_name }}</h1>
+                        <p class="text-sm text-gray-500">
+                            {{ company_address|linebreaksbr }}<br>
+                            <span class="font-medium text-gray-600">{{ company_email }}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-span-4">
+                    <div class="flex flex-row-reverse">
+                        <div class="min-w-56 text-left">
+                            <div class="flex justify-between">
+                                <h3 class="font-semibold text-gray-800 text-sm">Date:</h3>
+                                <span class="opacity-85 text-left text-sm text-gray-500">{{ proposal_date }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <h3 class="font-semibold text-gray-800 text-sm">Evolve ID:</h3>
+                                <span class="opacity-85 text-sm font-semibold text-[#FF7502]">{{ evolve_id }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="client-info" class="mb-6">
+                <div class="grid grid-cols-12 gap-x-4">
+                    <div class="col-span-5">
+                        <div class="flex flex-col">
+                            <h3 class="font-semibold text-gray-800 text-sm">To:</h3>
+                            <p class="text-sm text-gray-500">{{ client_address|linebreaksbr }}</p>
+                        </div>
+                    </div>
+                    <div class="col-span-4">
+                        <div class="flex flex-col">
+                            <h3 class="font-semibold text-gray-800 text-sm">Job Address:</h3>
+                            <p class="text-sm text-gray-500">{{ job_address|linebreaksbr }}</p>
+                        </div>
+                    </div>
+                    <div class="col-span-3">
+                        <div class="flex flex-row-reverse">
+                            <div class="min-w-56 text-left">
+                                <div class="flex flex-col">
+                                    <h3 class="font-semibold text-gray-800 text-sm">Member:</h3>
+                                    <span class="opacity-85 text-sm font-semibold text-[#FF7502] capitalize">{{ client_name }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="requested-work-scope" class="flex flex-col gap-y-2 mb-6">
+                <h2 class="font-semibold text-gray-800 text-sm">Requested Scope of Work:</h2>
+                <p class="text-sm text-gray-500 max-w-xl print:max-w-lg">{{ scope_of_work }}</p>
+            </div>
+
+            <div id="project-total" class="flex justify-between items-center mb-2">
+                <h3 class="font-semibold text-gray-800 text-sm">Total Project Cost:</h3>
+                <span class="font-semibold text-gray-800 text-base text-orange-500">{{ total_cost }}</span>
+            </div>
+
+            <div class="w-full h-1 border-t border-[#FF7502] mb-6"></div>
+
+            <div id="costs-breakdown" class="flex flex-col gap-y-6 mb-8">
+                {% for item in cost_breakdown %}
+                <div id="costs-breakdown-item" class="flex justify-between items-end">
+                    <div class="flex flex-col">
+                        <h3 class="font-semibold text-gray-800 text-sm mb-2">{{ item.title }}</h3>
+                        <p class="text-sm text-gray-500 max-w-xl print:max-w-lg">{{ item.description }}</p>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 text-sm">{{ item.cost }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="w-full h-1 border-t border-[#FF7502] mb-6"></div>
+
+            <div id="proposal-acceptance" class="flex flex-col">
+                <h3 class="font-semibold text-gray-800 text-sm mb-2">Acceptance of Proposal</h3>
+                <p class="text-sm text-gray-500">
+                    By accepting this proposal, the client (hereinafter referred to as "Client") agrees to the terms and
+                    conditions outlined in this proposal for {{ acceptance_scope }}. The
+                    Client acknowledges that they have reviewed the scope of work and pricing provided and accepts this
+                    proposal as a binding agreement. Any additional work or modifications not covered by this proposal will
+                    require a separate agreement and may incur additional charges.
+
+                    This proposal is valid for 30 days from the date of issuance. The commencement of work is subject to
+                    the receipt of a signed agreement and any required initial payments as outlined in the payment
+                    schedule.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="my-20"></div>
+
+    <section id="job-images" class="pb-10">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-semibold text-gray-800 text-sm mb-2">Photos</h2>
+            <div class="w-full h-1 border-t border-[#FF7502] opacity-50 mb-8"></div>
+            <div class="flex flex-wrap gap-4 justify-center">
+                {% for image in images %}
+                <div>
+                    <img class="w-52 h-52 object-cover" src="{{ image }}" />
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+enum PaymentStatus {
+  Pending
+  Completed
+  Failed
+}
+enum PaymentMethod {
+  Check
+  Venmo
+  Cashapp
+  Zelle
+  Cash
+  Credit Card
+  Strip
+}
+type Invoice {
+  id: ID!
+  tenant: Tenant @belongsTo
+  invoicedBy: TeamMember @belongsTo
+  customer: Customer @belongsTo
+  job: Job @belongsTo
+  invoiceNumber: String
+  dueDate: AWSDateTime
+  payment: Payment @belongsTo
+  paymentTerms: String
+  notes: String
+  lineItems: [AWSJSON]
+  jobServices: [AWSJSON]
+  paymentStatus: PaymentStatus
+  paymentMethod: PaymentMethod
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateInvoiceInput {
+  tenant: Tenant
+  invoicedBy: TeamMember
+  customer: Customer
+  job: Job
+  invoiceNumber: String
+  dueDate: AWSDateTime
+  payment: Payment
+  paymentTerms: String
+  notes: String
+  lineItems: [AWSJSON]
+  jobServices: [AWSJSON]
+  paymentStatus: PaymentStatus
+  paymentMethod: PaymentMethod
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateInvoiceInput {
+  id: ID!
+  tenant: Tenant
+  invoicedBy: TeamMember
+  customer: Customer
+  job: Job
+  invoiceNumber: String
+  dueDate: AWSDateTime
+  payment: Payment
+  paymentTerms: String
+  notes: String
+  lineItems: [AWSJSON]
+  jobServices: [AWSJSON]
+  paymentStatus: PaymentStatus
+  paymentMethod: PaymentMethod
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteInvoiceInput {
+  id: ID!
+}
+
+input InvoiceFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getInvoice(id: ID!): Invoice
+  queryInvoices(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: InvoiceFilterInput
+  ): [Invoice]
+}
+type Mutation {
+  putInvoice(input: CreateInvoiceInput!): Invoice
+  updateInvoice(input: UpdateInvoiceInput!): Invoice
+  softDeleteInvoice(input: SoftDeleteInvoiceInput!): Invoice
+  deleteInvoice(id: ID!): Invoice
+}
+type Subscription {
+  onPutInvoice: Invoice @aws_subscribe(mutations: ["putInvoice"])
+  onUpdateInvoice: Invoice @aws_subscribe(mutations: ["updateInvoice"])
+  onSoftDeleteInvoice: Invoice @aws_subscribe(mutations: ["softDeleteInvoice"])
+}

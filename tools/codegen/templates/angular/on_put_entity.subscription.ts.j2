@@ -1,0 +1,17 @@
+import { gql } from 'apollo-angular';
+
+export const ON_PUT_{{ type_name.upper() }} = gql`
+  subscription OnPut{{ type_name }} {
+    onPut{{ type_name }} {
+      id
+      {% for scalar in scalars %}
+      {{ scalar }}
+      {% endfor %}
+      {% for rel in relations %}
+      {{ rel | lower }} {
+        id
+      }
+      {% endfor %}
+    }
+  }
+`;

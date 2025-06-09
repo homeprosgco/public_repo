@@ -1,0 +1,66 @@
+input JobLeadInput {
+  prospectId: String!
+  leadSource: LeadSource!
+  status: LeadStatus!
+  category: String!
+  requestedWorkScope: String!
+  createdById: String!
+  address: AddressInput!
+  notes: String
+  comments: [CommentInput!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activity: [ActivityInput!]
+}
+
+type JobLead {
+  id: String
+  prospectId: String!
+  leadSource: LeadSource
+  status: LeadStatus!
+  createdById: String!
+  notes: String
+  comments: [Comment!]
+  imageURLs: [String!]
+  fileURLs: [String!]
+  category: String!
+  activities: [Activity!]
+  address: Address
+  requestedWorkScope: String!
+  created: String
+  updated: String
+}
+
+type Query {
+  jobLeads: [JobLead!]!
+  jobLeadById(jobLeadIdInput: GetByID!): JobLead!
+}
+
+type Mutation {
+  createJobLead(jobLeadInput: JobLeadInput!): JobLead!
+  updateJobLead(
+    jobLeadIdInput: GetByID!
+    updateJobLeadInput: JobLeadInput!
+  ): JobLead!
+  removeJobLead(jobLeadIdInput: GetByID!): String!
+}
+
+enum LeadSource {
+  CRAIGSLIST
+  BILLBOARD
+  DIRECT_MAIL
+  FACEBOOK
+  INSTAGRAM
+  YELP
+  REFERRAL
+}
+
+enum LeadStatus {
+  NEW
+  LRM
+  PENDING_IMAGES
+  VISIT_SCHEDULED
+  ESTIMATED
+  ESTIMATE_DENIED
+  CONVERTED_JOB
+}

@@ -1,0 +1,88 @@
+<div class="modal-body modal-body-md">
+  <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+    <h5 class="title">Create New Item</h5>
+    <ul class="nk-nav nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#infomation">Item Information</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#address">Additional Item Information</a>
+      </li>
+    </ul><!-- .nav-tabs -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="infomation">
+        <div class="row gy-4">
+          <div class="col-md-6">
+            <app-form-group [controlName]="'name'" [form]="itemForm" [inputId]="'item-name'" [label]="'Name'"
+              [placeholder]="'e.g Flat head screwdriver'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'category'" [form]="itemForm" [inputId]="'item-category'"
+              [label]="'Category'" [placeholder]="'e.g Ishtiyak'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'salePrice'" [form]="itemForm" [inputId]="'item-sale-price'"
+              [label]="'Sale Price'" [placeholder]="'e.g 29.99'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'purchasePrice'" [form]="itemForm" [inputId]="'item-purchase-price'"
+              [label]="'Purchase Price'" [placeholder]="'e.g 18.99'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'sku'" [form]="itemForm" [inputId]="'item-sku'" [label]="'Sku#'"
+              [placeholder]="'3095934402q94'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'modelNumber'" [form]="itemForm" [inputId]="'item-model-number'"
+              [label]="'Model#'" [placeholder]="'3095934402q94'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'brand'" [form]="itemForm" [inputId]="'item-brand'" [label]="'Brand Name'"
+              [placeholder]="'Dewalt'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'make'" [form]="itemForm" [inputId]="'item-maker'" [label]="'Make'"
+              [placeholder]="'Dewalt'"></app-form-group>
+          </div>
+          <div class="col-12">
+            <app-textarea-control [controlName]="'description'" [form]="itemForm" [id]="'item-description'"
+            [label]="'Description'" [placeholder]="'Give an item description'" [minHeight]="100"></app-textarea-control>
+          </div>
+        </div>
+      </div><!-- .tab-pane -->
+      <div class="tab-pane" id="address">
+        <div class="row gy-4">
+          <div class="col-12">
+            <app-array-form-group [arrayFormName]="'installLinks'" [arrayFormControls]="installLinkControls"
+              [form]="itemForm" [inputId]="'item-install-links'" [label]="'Installation Website Links'"
+              [placeholder]="'links for installation content'" (removeControl)="removeInstallLinkControl($event)"></app-array-form-group>
+            <div class="mt-1">
+              <a (click)="$event.preventDefault(); addInstallLinkControl()" href="#"><span>add installation website
+                  link</span></a>
+            </div>
+          </div>
+          <div class="col-12">
+            <app-array-form-group [arrayFormName]="'websiteReferences'" [arrayFormControls]="websiteReferenceControls"
+              [form]="itemForm" [inputId]="'item-website-reference-links'" [label]="'Website Reference Links'"
+              [placeholder]="'links for to reference for placing orders'" (removeControl)="removeWebsiteReferenceControl($event)"></app-array-form-group>
+            <div class="mt-1">
+              <a (click)="$event.preventDefault(); addWebsiteReferencesControl()" href="#"><span>add website reference
+                  link</span></a>
+            </div>
+          </div>
+        </div>
+      </div><!-- .tab-pane -->
+    </div><!-- .tab-content -->
+    <div class="col-12 mt-5">
+      <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2 justify-end">
+        <li>
+          <button *ngIf="isTesting" type="button" href="#" class="btn btn-primary" (click)="addTestItem()">Add Test Item</button>
+          <span class="d-inline-block me-2"></span>
+          <button type="submit" href="#" class="btn btn-primary">Create New Item</button>
+          <button *ngIf="isEditing" type="submit" href="#" class="btn btn-primary">Update Item</button>
+        </li>
+      </ul>
+    </div>
+  </form>
+
+</div><!-- .modal-body -->

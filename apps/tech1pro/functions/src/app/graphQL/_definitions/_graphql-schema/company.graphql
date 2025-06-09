@@ -1,0 +1,30 @@
+input CompanyProfileInput {
+  companyName: String!
+  phone: String!
+  email: String!
+  accountId: String
+  serviceCategory: String!
+  address: AddressInput!
+  logoURL: String
+  fax: String
+  socials: [String]
+  website: String
+  bio: String
+}
+
+type CompanyProfile {
+  accountId: String
+  address: Address
+  bio: String
+  companyName: String!
+  created: String
+  fax: String
+  id: String
+  logoURL: String
+  email: String!
+  phone: String!
+  serviceCategory: String
+  socials: [String]
+  website: String
+  updated: String
+}

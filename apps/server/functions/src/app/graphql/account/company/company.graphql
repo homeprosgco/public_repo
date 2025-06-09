@@ -1,0 +1,38 @@
+input CompanyProfileInput {
+  compnayName: String!
+  mainPhone: String!
+  mainEmail: String!
+  accountId: String!
+  serviceCategory: String!
+  address: AddressInput!
+  logoURL: String
+  fax: String
+  socials: [String]
+  website: String
+  bio: String
+}
+
+type CompanyProfile {
+  id: String!
+  compnayName: String!
+  mainPhone: String!
+  mainEmail: String!
+  accountId: String!
+  serviceCategory: String
+  address: Address
+  logoURL: String
+  fax: String
+  socials: [String]
+  website: String
+  created: String
+  bio: String
+}
+
+type Mutation {
+  createCompanyProfile(companyInput: CompanyProfileInput!): CompanyProfile!
+  updateCompanyProfile(
+    companyIdInput: GetByID!
+    updateCompanyProfileInput: CompanyProfileInput!
+  ): CompanyProfile!
+  removeCompanyProfile(companyIdInput: GetByID!): String!
+}

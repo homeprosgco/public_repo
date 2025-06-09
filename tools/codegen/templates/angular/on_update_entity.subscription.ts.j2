@@ -1,0 +1,17 @@
+import { gql } from 'apollo-angular';
+
+export const ON_UPDATE_{{ type_name.upper() }} = gql`
+  subscription OnUpdate{{ type_name }} {
+    onUpdate{{ type_name }} {
+      id
+      {% for scalar in scalars %}
+      {{ scalar }}
+      {% endfor %}
+      {% for rel in relations %}
+      {{ rel | lower }} {
+        id
+      }
+      {% endfor %}
+    }
+  }
+`;

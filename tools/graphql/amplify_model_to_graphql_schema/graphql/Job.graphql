@@ -1,0 +1,149 @@
+enum JobPricingModel {
+  FlatRate
+  Hourly
+  PerSquareFoot
+  CustomQuote
+}
+enum JobPriority {
+  Critical
+  High
+  Medium
+  Low
+  Deferred
+}
+enum JobStatus {
+  Pending
+  InProgress
+  OnHold
+  Completed
+  Cancelled
+  AwaitingReview
+  Scheduled
+}
+type Job {
+  id: ID!
+  tenant: Tenant @belongsTo
+  estimate: Estimate @hasOne
+  proposal: Proposal @hasOne
+  expenses: [Expense] @hasMany
+  project: Project @belongsTo
+  contracts: Contract @hasOne
+  assignedTo: TeamMember @hasOne
+  warranty: Warranty @hasOne
+  invoice: Invoice @hasOne
+  files: [File] @hasMany
+  scope: String
+  actualHours: Float
+  completionDate: AWSDateTime
+  estimatedHours: Float
+  manager: TeamMember @hasOne
+  notes: String
+  pricingModel: JobPricingModel
+  priority: JobPriority
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  status: JobStatus
+  tasks: [AWSJSON]
+  service: [AWSJSON]
+  lineItems: [AWSJSON]
+  title: String
+  requirements: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  payment: Payment @belongsTo
+  isDeleted: Boolean!
+}
+input CreateJobInput {
+  tenant: Tenant
+  estimate: Estimate
+  proposal: Proposal
+  expenses: [Expense]
+  project: Project
+  contracts: Contract
+  assignedTo: TeamMember
+  warranty: Warranty
+  invoice: Invoice
+  files: [File]
+  scope: String
+  actualHours: Float
+  completionDate: AWSDateTime
+  estimatedHours: Float
+  manager: TeamMember
+  notes: String
+  pricingModel: JobPricingModel
+  priority: JobPriority
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  status: JobStatus
+  tasks: [AWSJSON]
+  service: [AWSJSON]
+  lineItems: [AWSJSON]
+  title: String
+  requirements: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  payment: Payment
+  isDeleted: Boolean = false
+}
+input UpdateJobInput {
+  id: ID!
+  tenant: Tenant
+  estimate: Estimate
+  proposal: Proposal
+  expenses: [Expense]
+  project: Project
+  contracts: Contract
+  assignedTo: TeamMember
+  warranty: Warranty
+  invoice: Invoice
+  files: [File]
+  scope: String
+  actualHours: Float
+  completionDate: AWSDateTime
+  estimatedHours: Float
+  manager: TeamMember
+  notes: String
+  pricingModel: JobPricingModel
+  priority: JobPriority
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  status: JobStatus
+  tasks: [AWSJSON]
+  service: [AWSJSON]
+  lineItems: [AWSJSON]
+  title: String
+  requirements: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  payment: Payment
+  isDeleted: Boolean
+}
+input SoftDeleteJobInput {
+  id: ID!
+}
+
+input JobFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getJob(id: ID!): Job
+  queryJobs(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: JobFilterInput
+  ): [Job]
+}
+type Mutation {
+  putJob(input: CreateJobInput!): Job
+  updateJob(input: UpdateJobInput!): Job
+  softDeleteJob(input: SoftDeleteJobInput!): Job
+  deleteJob(id: ID!): Job
+}
+type Subscription {
+  onPutJob: Job @aws_subscribe(mutations: ["putJob"])
+  onUpdateJob: Job @aws_subscribe(mutations: ["updateJob"])
+  onSoftDeleteJob: Job @aws_subscribe(mutations: ["softDeleteJob"])
+}

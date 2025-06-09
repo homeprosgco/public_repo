@@ -1,0 +1,80 @@
+
+type WarrantyClaim {
+  id: ID!
+  warranty: Warranty @belongsTo
+  issueReported: String
+  reportDate: AWSDate
+  resolution: String
+  resolvedDate: AWSDate
+  responseTimeHours: Int
+  costIncurred: Float
+  satisfactionRating: Int
+  rootCause: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  customer: Customer @belongsTo
+  teammember: TeamMember @belongsTo
+  isDeleted: Boolean!
+}
+input CreateWarrantyClaimInput {
+  warranty: Warranty
+  issueReported: String
+  reportDate: AWSDate
+  resolution: String
+  resolvedDate: AWSDate
+  responseTimeHours: Int
+  costIncurred: Float
+  satisfactionRating: Int
+  rootCause: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  customer: Customer
+  teammember: TeamMember
+  isDeleted: Boolean = false
+}
+input UpdateWarrantyClaimInput {
+  id: ID!
+  warranty: Warranty
+  issueReported: String
+  reportDate: AWSDate
+  resolution: String
+  resolvedDate: AWSDate
+  responseTimeHours: Int
+  costIncurred: Float
+  satisfactionRating: Int
+  rootCause: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  customer: Customer
+  teammember: TeamMember
+  isDeleted: Boolean
+}
+input SoftDeleteWarrantyClaimInput {
+  id: ID!
+}
+
+input WarrantyClaimFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getWarrantyClaim(id: ID!): WarrantyClaim
+  queryWarrantyClaims(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: WarrantyClaimFilterInput
+  ): [WarrantyClaim]
+}
+type Mutation {
+  putWarrantyClaim(input: CreateWarrantyClaimInput!): WarrantyClaim
+  updateWarrantyClaim(input: UpdateWarrantyClaimInput!): WarrantyClaim
+  softDeleteWarrantyClaim(input: SoftDeleteWarrantyClaimInput!): WarrantyClaim
+  deleteWarrantyClaim(id: ID!): WarrantyClaim
+}
+type Subscription {
+  onPutWarrantyClaim: WarrantyClaim @aws_subscribe(mutations: ["putWarrantyClaim"])
+  onUpdateWarrantyClaim: WarrantyClaim @aws_subscribe(mutations: ["updateWarrantyClaim"])
+  onSoftDeleteWarrantyClaim: WarrantyClaim @aws_subscribe(mutations: ["softDeleteWarrantyClaim"])
+}

@@ -1,0 +1,43 @@
+input AuthUserInput {
+  email: String!
+  password: String!
+}
+
+input CreateUserTokenInput {
+    userId: String!,
+    accountId: String!
+}
+
+type Token {
+  token: String!
+}
+
+enum AuthUserResultOperationType {
+  REGISTER_AUTH_USER
+  SIGNIN_AUTH_USER
+}
+
+input NewAccountUserInput {
+  email: String!
+  password: String!
+  accountId: String!
+}
+
+type AuthUserResponse {
+  status: String!
+  operationType: AuthUserResultOperationType!
+  operationResult: String! 
+  statusCode: Int!
+  idToken: String
+}
+
+type Query {
+  authUserResponse: AuthUserResponse
+}
+
+type Mutation {
+  registerAuthUser(input: AuthUserInput!): AuthUserResponse
+  signinAuthUser(input: AuthUserInput!): AuthUserResponse
+  registerAccountUser(input: NewAccountUserInput!): AuthUserResponse
+  createUserToken(input: CreateUserTokenInput!): Token!
+}

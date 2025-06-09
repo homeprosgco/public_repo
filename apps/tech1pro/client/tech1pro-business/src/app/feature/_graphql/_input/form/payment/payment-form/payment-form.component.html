@@ -1,0 +1,52 @@
+<div class="modal-body modal-body-md">
+  <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+    <h5 *ngIf="!isEditing" class="title">Create New Payment</h5>
+    <h5 *ngIf="isEditing" class="title">Update Payment Information</h5>
+    <ul class="nk-nav nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#infomation">Payment Information</a>
+      </li>
+    </ul><!-- .nav-tabs -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="infomation">
+        <div class="row gy-4">
+          <div class="col-md-6">
+            <app-form-group [controlName]="'amount'" [form]="paymentForm" [inputId]="'payment-amount'"
+              [label]="'Amount'" [placeholder]="'e.g 45.99'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'to'" [form]="paymentForm" [inputId]="'payment-to'"
+              [label]="'Pay To'" [placeholder]="'e.g Jon Smith'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'for'" [form]="paymentForm" [inputId]="'payment-for'"
+              [label]="'Payment For'" [placeholder]="'e.g Home Services'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'direction'" [form]="paymentForm" [inputId]="'payment-direction'" [label]="'Payment Direction'"
+              [placeholder]="'e.g Incoming'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'referenceId'" [form]="paymentForm" [inputId]="'payment-referenceId'" [label]="'Reference Id'"
+              [placeholder]="'e.g 4783'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'referenceType'" [form]="paymentForm" [inputId]="'payment-reference-type'" [label]="'Reference Type'"
+              [placeholder]="'e.g Invoice'"></app-form-group>
+          </div>
+        </div>
+      </div><!-- .tab-pane -->
+    </div><!-- .tab-content -->
+    <div class="col-12 mt-3">
+      <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2 justify-end">
+        <li>
+          <button *ngIf="isTesting" type="button" href="#" class="btn btn-primary" (click)="addTestPayment()">Add Test Payment</button>
+          <span class="d-inline-block me-2"></span>
+          <button *ngIf="!isEditing" type="submit" href="#" class="btn btn-primary">Create New Payment</button>
+          <button *ngIf="isEditing" type="submit" href="#" class="btn btn-primary">Update Payment</button>
+        </li>
+      </ul>
+    </div>
+  </form>
+
+</div><!-- .modal-body -->

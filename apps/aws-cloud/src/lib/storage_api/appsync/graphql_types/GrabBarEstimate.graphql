@@ -1,0 +1,108 @@
+enum GrabBarEstimateShowerwallconditionEnum {
+  Good
+  Bad
+}
+enum GrabBarEstimateShowerwalltypeEnum {
+  Tile
+  Fiberglass
+}
+type GrabBarEstimate {
+  description: String
+  grabBarLocation: String
+  grabBarLengths: [String]
+  grabBarTypes: [String]
+  need90DegreeGrabBar: Boolean
+  locationOf90DegreeGrabBar: String
+  bathroomDimensions: String
+  needSmallerGrabBar: Boolean
+  showerWallCondition: GrabBarEstimateShowerwallconditionEnum
+  showerWallType: GrabBarEstimateShowerwalltypeEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreateGrabBarEstimateInput {
+  description: String
+  grabBarLocation: String
+  grabBarLengths: [String]
+  grabBarTypes: [String]
+  need90DegreeGrabBar: Boolean
+  locationOf90DegreeGrabBar: String
+  bathroomDimensions: String
+  needSmallerGrabBar: Boolean
+  showerWallCondition: GrabBarEstimateShowerwallconditionEnum
+  showerWallType: GrabBarEstimateShowerwalltypeEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdateGrabBarEstimateInput {
+  id: ID!
+  description: String
+  grabBarLocation: String
+  grabBarLengths: [String]
+  grabBarTypes: [String]
+  need90DegreeGrabBar: Boolean
+  locationOf90DegreeGrabBar: String
+  bathroomDimensions: String
+  needSmallerGrabBar: Boolean
+  showerWallCondition: GrabBarEstimateShowerwallconditionEnum
+  showerWallType: GrabBarEstimateShowerwalltypeEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeleteGrabBarEstimateInput {
+  id: ID!
+}
+
+type Query {
+    getGrabBarEstimate(id: ID!): GrabBarEstimate
+    
+    queryGrabBarEstimates(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: GrabBarEstimateFilterInput
+    ): [GrabBarEstimate]
+    }
+
+    input GrabBarEstimateFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putGrabBarEstimate(input: CreateGrabBarEstimateInput!): GrabBarEstimate
+    updateGrabBarEstimate(input: UpdateGrabBarEstimateInput!): GrabBarEstimate
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteGrabBarEstimate(input: SoftDeleteGrabBarEstimateInput!): GrabBarEstimate
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteGrabBarEstimate(id: ID!): GrabBarEstimate
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutGrabBarEstimate: GrabBarEstimate @aws_subscribe(mutations: ["putGrabBarEstimate"])
+    onUpdateGrabBarEstimate: GrabBarEstimate @aws_subscribe(mutations: ["updateGrabBarEstimate"])
+    onSoftDeleteGrabBarEstimate: GrabBarEstimate @aws_subscribe(mutations: ["softDeleteGrabBarEstimate"])
+}
+    

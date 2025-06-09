@@ -1,0 +1,36 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../data/models/{{ filename }}.dart';
+
+import '{{ filename }}_usecase_providers.dart';
+
+part '{{ filename }}_action_providers.g.dart';
+
+@riverpod
+Future<{{ type_name }}> get{{ type_name }}(Ref ref, String id) {
+  return ref.watch(get{{ type_name }}UseCaseProvider).call(id);
+}
+
+@riverpod
+Future<List<{{ type_name }}>> query{{ pluralize(type_name) }}(Ref ref) {
+  return ref.watch(query{{ pluralize(type_name) }}UseCaseProvider).call();
+}
+
+@riverpod
+Future<{{ type_name }}> put{{ type_name }}(Ref ref, {{ type_name }} input) {
+  return ref.watch(put{{ type_name }}UseCaseProvider).call(input);
+}
+
+@riverpod
+Future<{{ type_name }}> update{{ type_name }}(Ref ref, {{ type_name }} input) {
+  return ref.watch(update{{ type_name }}UseCaseProvider).call(input);
+}
+
+@riverpod
+Future<{{ type_name }}> delete{{ type_name }}(Ref ref, String id) {
+  return ref.watch(delete{{ type_name }}UseCaseProvider).call(id);
+}
+
+@riverpod
+Future<{{ type_name }}> softDelete{{ type_name }}(Ref ref, {{ type_name }} input) {
+  return ref.watch(softDelete{{ type_name }}UseCaseProvider).call(input);
+}

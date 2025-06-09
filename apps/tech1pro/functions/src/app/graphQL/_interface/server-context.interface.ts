@@ -1,0 +1,44 @@
+import { UserProfile } from "@graphql-schema/*";
+import { FirebaseAuthService } from "../_service/firebase/admin/auth.service";
+import { FirestoreService } from "../_service/firebase/admin/firestore.service";
+import { AccountService } from "../_service/firebase/admin/firestore/account.service";
+import { BeneficiaryService } from "../_service/firebase/admin/firestore/beneficiary.service";
+import { CompanyProfileService } from "../_service/firebase/admin/firestore/company-profile.service";
+import { CustomerService } from "../_service/firebase/admin/firestore/customer.service";
+import { EstimateService } from "../_service/firebase/admin/firestore/estimate.service";
+import { ExpenseService } from "../_service/firebase/admin/firestore/expense.service";
+import { InvoiceService } from "../_service/firebase/admin/firestore/invoice.service";
+import { ItemService } from "../_service/firebase/admin/firestore/item.service";
+import { JobLeadService } from "../_service/firebase/admin/firestore/job-lead.service";
+import { JobService } from "../_service/firebase/admin/firestore/job.service";
+import { PaymentService } from "../_service/firebase/admin/firestore/payment.service";
+import { ProjectService } from "../_service/firebase/admin/firestore/project.service";
+import { ProposalService } from "../_service/firebase/admin/firestore/proposal.service";
+import { ProspectService } from "../_service/firebase/admin/firestore/prospect.service";
+import { UserService } from "../_service/firebase/admin/firestore/user.service";
+import { WorkServiceService } from "../_service/firebase/admin/firestore/work-service.service";
+
+export interface ServerContext {
+  accountId: string;
+  accounts: AccountService,
+  auth: FirebaseAuthService,
+  beneficiaries: BeneficiaryService,
+  companyProfile: CompanyProfileService,
+  customers: CustomerService,
+  db: FirestoreService;
+  estimates: EstimateService,
+  expenses: ExpenseService,
+  invoices: InvoiceService,
+  items: ItemService,
+  jobLeads: JobLeadService,
+  jobs: JobService,
+  payments: PaymentService,
+  projects: ProjectService,
+  proposals: ProposalService,
+  prospects: ProspectService,
+  token: string;
+  uid: string;
+  user: UserProfile,
+  users: UserService,
+  workServices: WorkServiceService
+}

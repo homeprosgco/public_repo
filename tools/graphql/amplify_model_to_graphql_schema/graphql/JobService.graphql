@@ -1,0 +1,80 @@
+
+type JobService {
+  id: ID!
+  tenant: Tenant @belongsTo
+  name: String
+  description: String
+  serviceType: String
+  category: String
+  estimatedCost: Float
+  durationInHours: Float
+  requiredMaterials: [AWSJSON]
+  photoUrls: [String]
+  materialList: [AWSJSON]
+  lineItems: [AWSJSON]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateJobServiceInput {
+  tenant: Tenant
+  name: String
+  description: String
+  serviceType: String
+  category: String
+  estimatedCost: Float
+  durationInHours: Float
+  requiredMaterials: [AWSJSON]
+  photoUrls: [String]
+  materialList: [AWSJSON]
+  lineItems: [AWSJSON]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateJobServiceInput {
+  id: ID!
+  tenant: Tenant
+  name: String
+  description: String
+  serviceType: String
+  category: String
+  estimatedCost: Float
+  durationInHours: Float
+  requiredMaterials: [AWSJSON]
+  photoUrls: [String]
+  materialList: [AWSJSON]
+  lineItems: [AWSJSON]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteJobServiceInput {
+  id: ID!
+}
+
+input JobServiceFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getJobService(id: ID!): JobService
+  queryJobServices(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: JobServiceFilterInput
+  ): [JobService]
+}
+type Mutation {
+  putJobService(input: CreateJobServiceInput!): JobService
+  updateJobService(input: UpdateJobServiceInput!): JobService
+  softDeleteJobService(input: SoftDeleteJobServiceInput!): JobService
+  deleteJobService(id: ID!): JobService
+}
+type Subscription {
+  onPutJobService: JobService @aws_subscribe(mutations: ["putJobService"])
+  onUpdateJobService: JobService @aws_subscribe(mutations: ["updateJobService"])
+  onSoftDeleteJobService: JobService @aws_subscribe(mutations: ["softDeleteJobService"])
+}

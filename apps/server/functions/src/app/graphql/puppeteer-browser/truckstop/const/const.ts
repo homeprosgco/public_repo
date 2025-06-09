@@ -1,0 +1,1 @@
+export const loadboardPageURL = 'https://main.truckstop.com/app/search/loads';

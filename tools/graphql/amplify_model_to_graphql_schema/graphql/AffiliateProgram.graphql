@@ -1,0 +1,68 @@
+
+type AffiliateProgram {
+  id: ID!
+  name: String
+  description: String
+  commissionRate: Float
+  status: AffiliateProgramStatus
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  termsAndConditions: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateAffiliateProgramInput {
+  name: String
+  description: String
+  commissionRate: Float
+  status: AffiliateProgramStatus
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  termsAndConditions: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateAffiliateProgramInput {
+  id: ID!
+  name: String
+  description: String
+  commissionRate: Float
+  status: AffiliateProgramStatus
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  termsAndConditions: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteAffiliateProgramInput {
+  id: ID!
+}
+
+input AffiliateProgramFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getAffiliateProgram(id: ID!): AffiliateProgram
+  queryAffiliatePrograms(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: AffiliateProgramFilterInput
+  ): [AffiliateProgram]
+}
+type Mutation {
+  putAffiliateProgram(input: CreateAffiliateProgramInput!): AffiliateProgram
+  updateAffiliateProgram(input: UpdateAffiliateProgramInput!): AffiliateProgram
+  softDeleteAffiliateProgram(input: SoftDeleteAffiliateProgramInput!): AffiliateProgram
+  deleteAffiliateProgram(id: ID!): AffiliateProgram
+}
+type Subscription {
+  onPutAffiliateProgram: AffiliateProgram @aws_subscribe(mutations: ["putAffiliateProgram"])
+  onUpdateAffiliateProgram: AffiliateProgram @aws_subscribe(mutations: ["updateAffiliateProgram"])
+  onSoftDeleteAffiliateProgram: AffiliateProgram @aws_subscribe(mutations: ["softDeleteAffiliateProgram"])
+}

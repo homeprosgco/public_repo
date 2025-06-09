@@ -1,0 +1,33 @@
+import { gql } from 'apollo-angular';
+
+export const QUERY_{{ pluralize(type_name).upper() }} = gql`
+  query Query{{ pluralize(type_name) }}(
+    $limit: Int,
+    $nextToken: String,
+    $includeDeleted: Boolean,
+    $filters: {{ type_name }}FilterInput
+    {% for rel in relations %}
+    , $include{{ rel }}: Boolean
+    {% endfor %}
+  ) {
+    query{{ pluralize(type_name) }}(
+      limit: $limit,
+      nextToken: $nextToken,
+      includeDeleted: $includeDeleted,
+      filters: $filters
+    ) {
+      items {
+        id
+        {% for scalar in scalars %}
+        {{ scalar }}
+        {% endfor %}
+        {% for rel in relations %}
+        {{ rel | lower }} @include(if: $include{{ rel }}) {
+          id
+        }
+        {% endfor %}
+      }
+      nextToken
+    }
+  }
+`;

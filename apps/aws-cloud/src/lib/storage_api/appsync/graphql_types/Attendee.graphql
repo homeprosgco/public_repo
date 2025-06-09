@@ -1,0 +1,66 @@
+
+type Attendee {
+  id: ID!
+  name: String
+  email: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateAttendeeInput {
+  name: String
+  email: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateAttendeeInput {
+  id: ID!
+  name: String
+  email: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteAttendeeInput {
+  id: ID!
+}
+
+type Query {
+    getAttendee(id: ID!): Attendee
+    
+    queryAttendees(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: AttendeeFilterInput
+    ): [Attendee]
+    }
+
+    input AttendeeFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putAttendee(input: CreateAttendeeInput!): Attendee
+    updateAttendee(input: UpdateAttendeeInput!): Attendee
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteAttendee(input: SoftDeleteAttendeeInput!): Attendee
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteAttendee(id: ID!): Attendee
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutAttendee: Attendee @aws_subscribe(mutations: ["putAttendee"])
+    onUpdateAttendee: Attendee @aws_subscribe(mutations: ["updateAttendee"])
+    onSoftDeleteAttendee: Attendee @aws_subscribe(mutations: ["softDeleteAttendee"])
+}
+    

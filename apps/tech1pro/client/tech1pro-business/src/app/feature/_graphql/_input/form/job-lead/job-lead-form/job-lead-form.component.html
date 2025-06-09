@@ -1,0 +1,81 @@
+<div class="modal-body modal-body-md">
+  <form [formGroup]="jobLeadForm" (ngSubmit)="onSubmit()">
+    <h5 class="title">Create New Job Lead</h5>
+    <ul class="nk-nav nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#infomation">Job Lead Information</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#address">Job Lead Service Address</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#images-upload">Upload Images</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#documents-upload">Upload Documents</a>
+      </li>
+    </ul><!-- .nav-tabs -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="infomation">
+        <div class="row gy-4">
+          <div class="col-md-6">
+            <app-prospect-select (prospect)="onProspectSelected($event)"></app-prospect-select>
+          </div>
+          <div class="col-md-6">
+            <app-select2 [label]="'Status'" [category]="'job-leads'" (selected)="onStatusSelected($event)">
+            </app-select2>
+          </div>
+          <div class="col-md-6">
+            <app-form-group [controlName]="'referenceId'" [form]="jobLeadForm" [inputId]="'job-lead-reference-id'"
+              [label]="'Reference Id#'" [placeholder]="'e.g 29382'"></app-form-group>
+          </div>
+          <div class="col-md-6">
+            <app-select2 [label]="'Lead Source'" [category]="'job-lead-source'"
+              (selected)="onLeadSourceSelected($event)"></app-select2>
+          </div>
+          <div class="col-md-6">
+            <app-select2 [label]="'Work Category'" [category]="'work-categories'"
+              (selected)="onWorkCategorySelected($event)"></app-select2>
+          </div>
+          <div class="col-12">
+            <app-textarea-control [controlName]="'requestedWorkScope'" [form]="jobLeadForm"
+              [id]="'job-lead-requested-work-scope'" [label]="'Requested Work Scope'"
+              [placeholder]="'Description of requested work scope'" [minHeight]="100"></app-textarea-control>
+          </div>
+          <div class="col-12">
+            <app-textarea-control [controlName]="'notes'" [form]="jobLeadForm" [id]="'job-lead-notes'" [label]="'Notes'"
+              [placeholder]="'add notes for work service'" [minHeight]="100"></app-textarea-control>
+          </div>
+        </div>
+      </div><!-- .tab-pane -->
+      <div class="tab-pane" id="address">
+        <div class="row gy-4" [formGroupName]="'address'">
+          <app-address-form-group [form]="jobLeadForm" [idSuffx]="'job-lead'" [addressForm]="addressForm">
+          </app-address-form-group>
+        </div>
+      </div><!-- .tab-pane -->
+      <div class="tab-pane" id="images-upload">
+        <div class="row gy-4">
+          <div class="col-12">
+            <app-images-upload></app-images-upload>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="documents-upload">
+        <div class="row gy-4">
+          <div class="col-12">
+            <app-files-upload></app-files-upload>
+          </div>
+        </div>
+      </div>
+    </div><!-- .tab-content -->
+    <div class="col-12 mt-5">
+      <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2 justify-end">
+        <li>
+          <button type="submit" href="#" class="btn btn-primary">Create New Job Lead</button>
+        </li>
+      </ul>
+    </div>
+  </form>
+
+</div><!-- .modal-body -->

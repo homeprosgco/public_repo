@@ -1,0 +1,72 @@
+
+type Tenant {
+  id: ID!
+  ownerId: ID!
+  accountManagerId: ID!
+  type: String
+  contactPersonId: String
+  status: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreateTenantInput {
+  ownerId: ID!
+  accountManagerId: ID!
+  type: String
+  contactPersonId: String
+  status: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdateTenantInput {
+  id: ID!
+  ownerId: ID!
+  accountManagerId: ID!
+  type: String
+  contactPersonId: String
+  status: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeleteTenantInput {
+  id: ID!
+}
+
+type Query {
+    getTenant(id: ID!): Tenant
+    
+    queryTenants(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: TenantFilterInput
+    ): [Tenant]
+    }
+
+    input TenantFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putTenant(input: CreateTenantInput!): Tenant
+    updateTenant(input: UpdateTenantInput!): Tenant
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteTenant(input: SoftDeleteTenantInput!): Tenant
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteTenant(id: ID!): Tenant
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutTenant: Tenant @aws_subscribe(mutations: ["putTenant"])
+    onUpdateTenant: Tenant @aws_subscribe(mutations: ["updateTenant"])
+    onSoftDeleteTenant: Tenant @aws_subscribe(mutations: ["softDeleteTenant"])
+}
+    

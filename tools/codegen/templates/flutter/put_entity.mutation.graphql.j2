@@ -1,0 +1,14 @@
+# GENERATED PUT {{ type_name.upper() }} MUTATION
+mutation Put{{ type_name }}($input: Create{{ type_name }}Input!) {
+  put{{ type_name }}(input: $input) {
+    id
+    {% for scalar in scalars %}
+    {{ scalar }}
+    {% endfor %}
+    {% for rel in relations %}
+    {{ rel | lower }} {
+      id
+    }
+    {% endfor %}
+  }
+}

@@ -1,0 +1,10 @@
+import { Component } from '@angular/core';
+import { ListStyleTypeDirective, ColorOrangeDirective, BorderRadiusDirective, TextDecorationLineDirective, PaddingLeftDirective, WidthDirective, ColorBlueDirective, BackgroundPositionDirective, PaddingBottomDirective, HeightDirective, BackgroundClipDirective, BackgroundZincColorDirective, FontSizeDirective, MaxWScreenDirective, MarginLeftDirective, BackgroundSizeDirective, AlignItemsDirective, JustifyContentDirective, LineHeightDirective, MarginBottomDirective, FlexWrapDirective, TransitionTimingFunctionDirective, PaddingTopDirective, VerticalAlignDirective, MaxWidthDirective, MarginTopDirective, GradientFromOrangeDirective, BackgroundImageDirective, BackgroundRepeatDirective, FlexGrowDirective, TransitionDurationDirective, FlexShrinkDirective, FontWeightDirective, GradientFromPositionDirective, PaddingRightDirective, ColorZincDirective, ColumnGapDirective, DisplayDirective, ColorDirective, MarginRightDirective, RowGapDirective, FlexBasisDirective } from '@public-repo/tailwindcss';
+
+@Component({
+  selector: 'sg-handyman_footer',
+  templateUrl: './handyman_footer.component.html',
+  standalone: true,
+  imports: [ListStyleTypeDirective, ColorOrangeDirective, BorderRadiusDirective, TextDecorationLineDirective, PaddingLeftDirective, WidthDirective, ColorBlueDirective, BackgroundPositionDirective, PaddingBottomDirective, HeightDirective, BackgroundClipDirective, BackgroundZincColorDirective, FontSizeDirective, MaxWScreenDirective, MarginLeftDirective, BackgroundSizeDirective, AlignItemsDirective, JustifyContentDirective, LineHeightDirective, MarginBottomDirective, FlexWrapDirective, TransitionTimingFunctionDirective, PaddingTopDirective, VerticalAlignDirective, MaxWidthDirective, MarginTopDirective, GradientFromOrangeDirective, BackgroundImageDirective, BackgroundRepeatDirective, FlexGrowDirective, TransitionDurationDirective, FlexShrinkDirective, FontWeightDirective, GradientFromPositionDirective, PaddingRightDirective, ColorZincDirective, ColumnGapDirective, DisplayDirective, ColorDirective, MarginRightDirective, RowGapDirective, FlexBasisDirective]
+})
+export class HandymanFooterComponent {}

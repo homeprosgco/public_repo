@@ -1,0 +1,27 @@
+name: aws_basecamp
+packages:
+  - packages/**
+  - apps/homeprosgapp
+  - apps/**
+  - websites/**
+  - scripts/**
+scripts:
+  bootstrap:
+    description: "Install dependencies for all packages."
+    run: melos bootstrap
+  run_app:
+    description: "Run the Flutter app."
+    run: melos exec -p homeprosgapp -- flutter run
+  build_web:
+    description: "Build the Flutter web app."
+    run: melos exec --scope="*homeprosgapp*"  -- flutter run -d chrome
+  clean:
+    description: "Clean the workspace."
+    run: melos exec -- pub clean
+  format:
+    description: "Format all Dart code."
+    run: melos exec -- dart format .
+  test_echo:
+    description: "Echo for GitHub Action dev"
+    run: melos exec -- echo "test dev"
+  copy_artifacts: ./scripts/flutter/copy_artifacts.sh

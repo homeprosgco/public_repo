@@ -1,0 +1,38 @@
+| Phase                            | Responsibility                                                            |
+| -------------------------------- | ------------------------------------------------------------------------- |
+| `SGFileUtils`                    | Abstract file utilities and path management                               |
+| `SGWebsiteArchiver`              | Crawls and archives HTML and CSS from the template                        |
+| `SoupIdCoordinator`              | Assigns unique IDs to DOM nodes for easier style mapping                  |
+| `CSSExtractor` + `CSSRuleMapper` | Extracts and maps CSS to DOM tree                                         |
+| `ThemeTokenGenerator`            | Builds a theme object from extracted colors/styles                        |
+| `ComponentEmitter`               | Emits Emotion-styled React components based on the styled DOM tree        |
+| `handle_html_file(...)`          | Main logic that processes one page's HTML and generates corresponding TSX |
+
+✅ Execution Breakdown
+Crawler → HTML Archiver
+
+Downloads a static HTML/CSS snapshot of the target site.
+
+Tree Builder
+
+Parses and reconstructs a node tree (with styles).
+
+Theme Extraction
+
+Extracts Tailwind/utility-based color styles into a theme object.
+
+Component Emission
+
+Converts the styled node tree into reusable React components:
+
+emit_single_component_tsx() → Converts node tree to TSX components
+
+emit_page_component_tsx() → Writes entrypoint page component (Next.js-compatible)
+
+Output
+
+Components saved to:
+
+lib/generated_components (UI, content block, block)
+
+lib/templates/<template> (top-level page)

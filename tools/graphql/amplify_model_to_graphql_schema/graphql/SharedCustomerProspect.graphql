@@ -1,0 +1,82 @@
+enum SharedCustomerProspectStatus {
+  New
+  Contacted
+  InProcess
+  Approved
+  Rejected
+  Hired
+  Declined
+}
+type SharedCustomerProspect {
+  id: ID!
+  campaign: Campaign @belongsTo
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: SharedCustomerProspectStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateSharedCustomerProspectInput {
+  campaign: Campaign
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: SharedCustomerProspectStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateSharedCustomerProspectInput {
+  id: ID!
+  campaign: Campaign
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: SharedCustomerProspectStatus
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteSharedCustomerProspectInput {
+  id: ID!
+}
+
+input SharedCustomerProspectFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getSharedCustomerProspect(id: ID!): SharedCustomerProspect
+  querySharedCustomerProspects(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: SharedCustomerProspectFilterInput
+  ): [SharedCustomerProspect]
+}
+type Mutation {
+  putSharedCustomerProspect(input: CreateSharedCustomerProspectInput!): SharedCustomerProspect
+  updateSharedCustomerProspect(input: UpdateSharedCustomerProspectInput!): SharedCustomerProspect
+  softDeleteSharedCustomerProspect(input: SoftDeleteSharedCustomerProspectInput!): SharedCustomerProspect
+  deleteSharedCustomerProspect(id: ID!): SharedCustomerProspect
+}
+type Subscription {
+  onPutSharedCustomerProspect: SharedCustomerProspect @aws_subscribe(mutations: ["putSharedCustomerProspect"])
+  onUpdateSharedCustomerProspect: SharedCustomerProspect @aws_subscribe(mutations: ["updateSharedCustomerProspect"])
+  onSoftDeleteSharedCustomerProspect: SharedCustomerProspect @aws_subscribe(mutations: ["softDeleteSharedCustomerProspect"])
+}

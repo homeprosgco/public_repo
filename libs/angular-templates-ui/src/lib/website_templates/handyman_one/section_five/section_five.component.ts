@@ -1,0 +1,10 @@
+import { Component } from '@angular/core';
+import { BorderRadiusDirective, TranslateYDirective, PaddingLeftDirective, WidthDirective, TransitionPropertyDirective, BackgroundNeutralColorDirective, FlexBasisDirective, PaddingBottomDirective, HeightDirective, BackgroundZincColorDirective, FontSizeDirective, MaxWScreenDirective, MarginLeftDirective, BackgroundOrangeColorDirective, AlignItemsDirective, TopDirective, JustifyContentDirective, ColorNeutralDirective, PositionDirective, LineHeightDirective, MarginBottomDirective, TextTransformDirective, TextAlignDirective, FlexWrapDirective, PaddingTopDirective, VerticalAlignDirective, MaxWidthDirective, TransitionDurationDirective, MarginTopDirective, FlexGrowDirective, FlexShrinkDirective, RotateDirective, ZIndexDirective, PaddingRightDirective, OpacityDirective, ColorZincDirective, DisplayDirective, ColorDirective, LeftDirective, MarginRightDirective, BackgroundColorDirective, FontWeightDirective } from '@public-repo/tailwindcss';
+
+@Component({
+  selector: 'sg-section_five',
+  templateUrl: './section_five.component.html',
+  standalone: true,
+  imports: [BorderRadiusDirective, TranslateYDirective, PaddingLeftDirective, WidthDirective, TransitionPropertyDirective, BackgroundNeutralColorDirective, FlexBasisDirective, PaddingBottomDirective, HeightDirective, BackgroundZincColorDirective, FontSizeDirective, MaxWScreenDirective, MarginLeftDirective, BackgroundOrangeColorDirective, AlignItemsDirective, TopDirective, JustifyContentDirective, ColorNeutralDirective, PositionDirective, LineHeightDirective, MarginBottomDirective, TextTransformDirective, TextAlignDirective, FlexWrapDirective, PaddingTopDirective, VerticalAlignDirective, MaxWidthDirective, TransitionDurationDirective, MarginTopDirective, FlexGrowDirective, FlexShrinkDirective, RotateDirective, ZIndexDirective, PaddingRightDirective, OpacityDirective, ColorZincDirective, DisplayDirective, ColorDirective, LeftDirective, MarginRightDirective, BackgroundColorDirective, FontWeightDirective]
+})
+export class SectionFiveComponent {}

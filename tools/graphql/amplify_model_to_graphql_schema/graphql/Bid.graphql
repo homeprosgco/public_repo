@@ -1,0 +1,87 @@
+enum BidType {
+  FixedPrice
+  TimeAndMaterials
+  CostPlus
+  Hourly
+}
+enum BidStatus {
+  Draft
+  Submitted
+  UnderReview
+  Accepted
+  Rejected
+  Withdrawn
+}
+type Bid {
+  id: ID!
+  booking: Booking @belongsTo
+  submittedBy: Tenant @hasOne
+  amount: Float
+  bidType: BidType
+  scopeOfWork: String
+  notes: String
+  status: BidStatus
+  attachments: [String]
+  validUntil: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateBidInput {
+  booking: Booking
+  submittedBy: Tenant
+  amount: Float
+  bidType: BidType
+  scopeOfWork: String
+  notes: String
+  status: BidStatus
+  attachments: [String]
+  validUntil: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateBidInput {
+  id: ID!
+  booking: Booking
+  submittedBy: Tenant
+  amount: Float
+  bidType: BidType
+  scopeOfWork: String
+  notes: String
+  status: BidStatus
+  attachments: [String]
+  validUntil: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteBidInput {
+  id: ID!
+}
+
+input BidFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getBid(id: ID!): Bid
+  queryBids(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: BidFilterInput
+  ): [Bid]
+}
+type Mutation {
+  putBid(input: CreateBidInput!): Bid
+  updateBid(input: UpdateBidInput!): Bid
+  softDeleteBid(input: SoftDeleteBidInput!): Bid
+  deleteBid(id: ID!): Bid
+}
+type Subscription {
+  onPutBid: Bid @aws_subscribe(mutations: ["putBid"])
+  onUpdateBid: Bid @aws_subscribe(mutations: ["updateBid"])
+  onSoftDeleteBid: Bid @aws_subscribe(mutations: ["softDeleteBid"])
+}

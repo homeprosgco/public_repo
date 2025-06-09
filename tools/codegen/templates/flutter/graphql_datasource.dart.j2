@@ -1,0 +1,108 @@
+// GENERATED DATASOURCE FOR {{ type_name }} USING IGraphQLClientService + RouteQueryService
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:@homeprosgco/graphql_client/graphql_client_service.dart';
+import 'package:flutter_route_query/i_route_query_service.dart';
+
+import '../../models/{{ filename }}.dart';
+import '../models/i_{{ filename }}_graphql_datasource.dart';
+import '../models/{{ filename }}_filter_keys.constant.dart';
+import '../models/{{ filename }}_filter_input.dart';
+
+class GraphQL{{ type_name }}Datasource implements I{{ type_name }}GraphQLDatasource {
+  final IGraphQLClientService client;
+  final IRouteQueryService routeQuery;
+
+  GraphQL{{ type_name }}Datasource(this.client, this.routeQuery);
+
+  @override
+  Future<{{ type_name }}Model> get{{ type_name }}(String id) async {
+    final result = await client.query(QueryOptions(
+      document: gql(await _loadQuery('get_{{ filename }}')),
+      variables: { 'id': id },
+    ));
+
+    if (result.hasException) throw result.exception!;
+    return {{ type_name }}Model.fromJson(result.data!['get{{ type_name }}']);
+  }
+
+  @override
+  Future<List<{{ type_name }}Model>> query{{ pluralize(type_name) }}() async {
+    final rawFilters = routeQuery.getRawFilters();
+    final includes = routeQuery.getRawIncludes();
+
+    final filterMap = <String, dynamic>{};
+    for (final entry in rawFilters.entries) {
+      if ({{ filename }}FilterKeys.contains(entry.key)) {
+        filterMap[entry.key] = entry.value;
+      }
+    }
+
+    final result = await client.query(QueryOptions(
+      document: gql(await _loadQuery('query_{{ pluralize(filename) }}')),
+      variables: {
+        'filters': filterMap,
+        ...includes,
+      },
+    ));
+
+    if (result.hasException) throw result.exception!;
+    return (result.data!['query{{ pluralize(type_name) }}']['items'] as List)
+        .map((e) => {{ type_name }}Model.fromJson(e))
+        .toList();
+  }
+
+  @override
+  Future<{{ type_name }}Model> put{{ type_name }}({{ type_name }}Model input) async {
+    final result = await client.mutate(MutationOptions(
+      document: gql(await _loadMutation('put_{{ filename }}')),
+      variables: { 'input': input.toJson() },
+    ));
+
+    if (result.hasException) throw result.exception!;
+    return {{ type_name }}Model.fromJson(result.data!['put{{ type_name }}']);
+  }
+
+  @override
+  Future<{{ type_name }}Model> update{{ type_name }}({{ type_name }}Model input) async {
+    final result = await client.mutate(MutationOptions(
+      document: gql(await _loadMutation('update_{{ filename }}')),
+      variables: { 'input': input.toJson() },
+    ));
+
+    if (result.hasException) throw result.exception!;
+    return {{ type_name }}Model.fromJson(result.data!['update{{ type_name }}']);
+  }
+
+  @override
+  Future<{{ type_name }}Model> delete{{ type_name }}(String id) async {
+    final result = await client.mutate(MutationOptions(
+      document: gql(await _loadMutation('delete_{{ filename }}')),
+      variables: { 'id': id },
+    ));
+
+    if (result.hasException) throw result.exception!;
+    return {{ type_name }}Model.fromJson(result.data!['delete{{ type_name }}']);
+  }
+
+  @override
+  Future<{{ type_name }}Model> softDelete{{ type_name }}({{ type_name }}Model input) async {
+    final result = await client.mutate(MutationOptions(
+      document: gql(await _loadMutation('soft_delete_{{ filename }}')),
+      variables: { 'input': input.toJson() },
+    ));
+
+    if (result.hasException) throw result.exception!;
+    return {{ type_name }}Model.fromJson(result.data!['softDelete{{ type_name }}']);
+  }
+
+  @override
+  Stream<{{ type_name }}Model> onPut{{ type_name }}() => throw UnimplementedError();
+  @override
+  Stream<{{ type_name }}Model> onUpdate{{ type_name }}() => throw UnimplementedError();
+  @override
+  Stream<{{ type_name }}Model> onSoftDelete{{ type_name }}() => throw UnimplementedError();
+
+  Future<String> _loadQuery(String name) => rootBundle.loadString('graphql/queries/\$name.graphql');
+  Future<String> _loadMutation(String name) => rootBundle.loadString('graphql/mutations/\$name.graphql');
+}

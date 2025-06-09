@@ -1,0 +1,52 @@
+
+type TeamTeamMembers {
+  teamId: ID!
+  team: Team @belongsTo
+  teamMemberId: ID!
+  teamMember: TeamMember @belongsTo
+  isDeleted: Boolean!
+}
+input CreateTeamTeamMembersInput {
+  teamId: ID!
+  team: Team
+  teamMemberId: ID!
+  teamMember: TeamMember
+  isDeleted: Boolean = false
+}
+input UpdateTeamTeamMembersInput {
+  id: ID!
+  teamId: ID!
+  team: Team
+  teamMemberId: ID!
+  teamMember: TeamMember
+  isDeleted: Boolean
+}
+input SoftDeleteTeamTeamMembersInput {
+  id: ID!
+}
+
+input TeamTeamMembersFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getTeamTeamMembers(id: ID!): TeamTeamMembers
+  queryTeamTeamMemberses(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: TeamTeamMembersFilterInput
+  ): [TeamTeamMembers]
+}
+type Mutation {
+  putTeamTeamMembers(input: CreateTeamTeamMembersInput!): TeamTeamMembers
+  updateTeamTeamMembers(input: UpdateTeamTeamMembersInput!): TeamTeamMembers
+  softDeleteTeamTeamMembers(input: SoftDeleteTeamTeamMembersInput!): TeamTeamMembers
+  deleteTeamTeamMembers(id: ID!): TeamTeamMembers
+}
+type Subscription {
+  onPutTeamTeamMembers: TeamTeamMembers @aws_subscribe(mutations: ["putTeamTeamMembers"])
+  onUpdateTeamTeamMembers: TeamTeamMembers @aws_subscribe(mutations: ["updateTeamTeamMembers"])
+  onSoftDeleteTeamTeamMembers: TeamTeamMembers @aws_subscribe(mutations: ["softDeleteTeamTeamMembers"])
+}

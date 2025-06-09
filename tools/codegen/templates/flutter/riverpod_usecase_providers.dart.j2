@@ -1,0 +1,37 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../domain/repositories/i_{{ filename }}_repository.dart';
+import '../../domain/usecases/get_{{ filename }}.usecase.dart';
+import '../../domain/usecases/put_{{ filename }}.usecase.dart';
+import '../../domain/usecases/query_{{ pluralize(filename) }}.usecase.dart';
+import '../../domain/usecases/update_{{ filename }}.usecase.dart';
+import '../../domain/usecases/delete_{{ filename }}.usecase.dart';
+import '../../domain/usecases/soft_delete_{{ filename }}.usecase.dart';
+
+import '{{ filename }}_repository_provider.dart';
+
+part '{{ filename }}_usecase_providers.g.dart';
+
+@riverpod
+Get{{ type_name }} get{{ type_name }}UseCase(Ref ref) =>
+    Get{{ type_name }}(ref.watch({{ filename }}RepositoryProvider));
+
+@riverpod
+Query{{ pluralize(type_name) }} query{{ pluralize(type_name) }}UseCase(Ref ref) =>
+    Query{{ pluralize(type_name) }}(ref.watch({{ filename }}RepositoryProvider));
+
+@riverpod
+Put{{ type_name }} put{{ type_name }}UseCase(Ref ref) =>
+    Put{{ type_name }}(ref.watch({{ filename }}RepositoryProvider));
+
+@riverpod
+Update{{ type_name }} update{{ type_name }}UseCase(Ref ref) =>
+    Update{{ type_name }}(ref.watch({{ filename }}RepositoryProvider));
+
+@riverpod
+Delete{{ type_name }} delete{{ type_name }}UseCase(Ref ref) =>
+    Delete{{ type_name }}(ref.watch({{ filename }}RepositoryProvider));
+
+@riverpod
+SoftDelete{{ type_name }} softDelete{{ type_name }}UseCase(Ref ref) =>
+    SoftDelete{{ type_name }}(ref.watch({{ filename }}RepositoryProvider));

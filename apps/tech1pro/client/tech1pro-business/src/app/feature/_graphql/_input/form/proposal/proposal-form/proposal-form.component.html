@@ -1,0 +1,72 @@
+<div class="modal-body modal-body-md">
+  <form [formGroup]="proposalForm" (ngSubmit)="onSubmit()">
+    <h5 class="title">Create New Proposal</h5>
+    <ul class="nk-nav nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#infomation">Proposal Information</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#address">Proposal Address</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#serviceItems">Proposal Services</a>
+      </li>
+    </ul><!-- .nav-tabs -->
+    <div class="tab-content">
+      <div class="tab-pane active" id="infomation">
+        <div class="row gy-4">
+          <div class="col-12">
+            <app-form-group [controlName]="'category'" [form]="proposalForm" [inputId]="'job-lead-category'"
+              [label]="'Category'" [placeholder]="'e.g Plumbing'"></app-form-group>
+          </div>
+          <div class="col-12">
+            <app-textarea-control [controlName]="'requestedWorkScope'" [form]="proposalForm" [id]="'job-lead-requested-work-scope'"
+            [label]="'Requested Work Scope'" [placeholder]="'Description of requested work scope'" [minHeight]="100"></app-textarea-control>
+          </div>
+          <div class="col-12">
+            <app-textarea-control [controlName]="'notes'" [form]="proposalForm" [id]="'job-lead-notes'"
+            [label]="'Notes'" [placeholder]="'add notes for work service'" [minHeight]="100"></app-textarea-control>
+          </div>
+        </div>
+      </div><!-- .tab-pane -->
+      <div class="tab-pane" id="address">
+        <div class="row gy-4" [formGroupName]="'address'">
+          <div class="col-12">
+            <app-form-group [controlName]="'streetAddress'" [form]="addressForm" [inputId]="'job-lead-street-address'"
+              [label]="'Street Address'" [placeholder]="'123 Thank You Place'"></app-form-group>
+          </div>
+          <div class="col-12">
+            <app-form-group [controlName]="'city'" [form]="addressForm" [inputId]="'job-lead-city'"
+              [label]="'City'" [placeholder]="'Wonderland'"></app-form-group>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label class="form-label" for="lead-address">Address</label>
+              <input type="text" class="form-control" id="lead-address" placeholder="Address">
+            </div>
+          </div>
+        </div>
+      </div><!-- .tab-pane -->
+      <div class="tab-pane" id="serviceItems">
+        <div class="row gy-4">
+          <div class="col-12">
+            <app-array-form-group [arrayFormName]="'lineWorkServices'" [arrayFormControls]="lineWorkServiceControls"
+              [form]="proposalForm" [inputId]="'proposal-work-services'" [label]="'Proposed Services'"
+              [placeholder]="'proposal service'"></app-array-form-group>
+            <div class="mt-1">
+              <a (click)="$event.preventDefault(); addLineWorkServiceControl()" href="#"><span>add a proposed service</span></a>
+            </div>
+          </div>
+        </div>
+      </div><!-- .tab-pane -->
+    </div><!-- .tab-content -->
+    <div class="col-12 mt-5">
+      <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2 justify-end">
+        <li>
+          <button type="submit" href="#" class="btn btn-primary primary-shadow">Create New Proposal</button>
+        </li>
+      </ul>
+    </div>
+  </form>
+
+</div><!-- .modal-body -->

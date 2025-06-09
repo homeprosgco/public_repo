@@ -1,0 +1,48 @@
+input CreateUserInput {
+  displayName: String
+  email: String!
+  password: String!
+}
+
+input UserProfileInput {
+  displayName: String
+  email: String!
+  firstname: String
+  lastname: String
+  phone: String
+  profileURL: String
+  password: String
+  activeAccountId: String
+}
+
+type UserProfile {
+  id: String!
+  displayName: String
+  email: String!
+  firstname: String
+  lastname: String
+  phone: String
+  profileURL: String
+  idToken: String
+  refreshToken: String
+  created: String
+  activeAccountId: String
+}
+
+type User {
+  uid: String!
+  email: String
+}
+
+type Query {
+  userById(uid: String!): User
+  userProfileById(userProfileId: String!): UserProfile!
+  allUsers: [UserProfile!]!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  createUserProfile(userProfileInput: UserProfileInput!): UserProfile!
+  updateUserProfile(userProfileUpdate: UserProfileInput!): UserProfile!
+  removeUserProfile(userProfileId: String!): String!
+}

@@ -1,0 +1,59 @@
+
+type CampaignAudience {
+  id: ID!
+  campaign: Campaign @belongsTo
+  demographics: [String]
+  targetingCriteria: String
+  audienceSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateCampaignAudienceInput {
+  campaign: Campaign
+  demographics: [String]
+  targetingCriteria: String
+  audienceSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateCampaignAudienceInput {
+  id: ID!
+  campaign: Campaign
+  demographics: [String]
+  targetingCriteria: String
+  audienceSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteCampaignAudienceInput {
+  id: ID!
+}
+
+input CampaignAudienceFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getCampaignAudience(id: ID!): CampaignAudience
+  queryCampaignAudiences(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: CampaignAudienceFilterInput
+  ): [CampaignAudience]
+}
+type Mutation {
+  putCampaignAudience(input: CreateCampaignAudienceInput!): CampaignAudience
+  updateCampaignAudience(input: UpdateCampaignAudienceInput!): CampaignAudience
+  softDeleteCampaignAudience(input: SoftDeleteCampaignAudienceInput!): CampaignAudience
+  deleteCampaignAudience(id: ID!): CampaignAudience
+}
+type Subscription {
+  onPutCampaignAudience: CampaignAudience @aws_subscribe(mutations: ["putCampaignAudience"])
+  onUpdateCampaignAudience: CampaignAudience @aws_subscribe(mutations: ["updateCampaignAudience"])
+  onSoftDeleteCampaignAudience: CampaignAudience @aws_subscribe(mutations: ["softDeleteCampaignAudience"])
+}

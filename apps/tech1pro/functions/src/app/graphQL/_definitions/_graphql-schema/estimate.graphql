@@ -1,0 +1,55 @@
+input EstimateInput {
+  activities: [ActivityInput!]
+  address: AddressInput!
+  addressId: String
+  category: String
+  comments: [CommentInput!]
+  createdById: String!
+  fileURLs: [String]
+  imageURLs: [String]
+  jobLeadId: String
+  lineItems: [LineItemInput!]
+  lineWorkServices: [LineWorkServiceInput!]
+  notes: [NoteInput!]
+  number: Int!
+  prospectId: String
+  referenceId: String
+  status: String!
+  viewedDate: String
+  created: String
+  updated: String
+}
+
+type Estimate {
+  activities: [Activity!]
+  address: Address
+  addressId: String
+  category: String
+  comments: [Comment!]
+  created: String!
+  createdById: String!
+  expires: String
+  fileURLs: [String]
+  id: String
+  imageURLs: [String]
+  jobLeadId: String
+  lineItems: [LineItem!]
+  lineWorkServices: [LineWorkService!]
+  notes: [Note!]
+  number: Int!
+  prospectId: String!
+  referenceId: String
+  serviceAddress: Address!
+  status: String!
+  updated: String
+  viewedDate: String
+}
+
+enum EstimateStatus {
+  ACCEPTED
+  DENIED
+  DRAFT
+  EXPIRED
+  SENT
+  VIEWED
+}

@@ -42,3 +42,25 @@ Thumbs.db
 .nx/workspace-data
 
 .angular
+apps/angular
+apps/public_repo_app
+apps/react
+libs/aws-cloud
+libs/react
+programs
+tools/cheatsheets
+tools/html_to_angular_directives
+tools/html
+tools/emotion_components
+
+# Next.js
+.next
+out
+
+vite.config.*.timestamp*
+vitest.config.*.timestamp*
+.pytest_cache
+
+ngrok
+ngrok-stable-linux-amd64.zip
+venv

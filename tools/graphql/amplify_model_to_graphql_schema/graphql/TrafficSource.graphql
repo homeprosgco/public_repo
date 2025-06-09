@@ -1,0 +1,77 @@
+enum TrafficSourceType {
+  OrganicSearch
+  PaidSearch
+  SocialMedia
+  Direct
+  Referral
+  Email
+  Affiliate
+  DisplayAds
+  InfluencerMarketing
+  ColdCall
+  NetworkPro
+}
+type TrafficSource {
+  id: ID!
+  campaign: Campaign @belongsTo
+  sourceType: TrafficSourceType
+  visits: Int
+  bounceRate: Float
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+  campaignmetric: CampaignMetric @belongsTo
+  joblead: JobLead @belongsTo
+}
+input CreateTrafficSourceInput {
+  campaign: Campaign
+  sourceType: TrafficSourceType
+  visits: Int
+  bounceRate: Float
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+  campaignmetric: CampaignMetric
+  joblead: JobLead
+}
+input UpdateTrafficSourceInput {
+  id: ID!
+  campaign: Campaign
+  sourceType: TrafficSourceType
+  visits: Int
+  bounceRate: Float
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+  campaignmetric: CampaignMetric
+  joblead: JobLead
+}
+input SoftDeleteTrafficSourceInput {
+  id: ID!
+}
+
+input TrafficSourceFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getTrafficSource(id: ID!): TrafficSource
+  queryTrafficSources(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: TrafficSourceFilterInput
+  ): [TrafficSource]
+}
+type Mutation {
+  putTrafficSource(input: CreateTrafficSourceInput!): TrafficSource
+  updateTrafficSource(input: UpdateTrafficSourceInput!): TrafficSource
+  softDeleteTrafficSource(input: SoftDeleteTrafficSourceInput!): TrafficSource
+  deleteTrafficSource(id: ID!): TrafficSource
+}
+type Subscription {
+  onPutTrafficSource: TrafficSource @aws_subscribe(mutations: ["putTrafficSource"])
+  onUpdateTrafficSource: TrafficSource @aws_subscribe(mutations: ["updateTrafficSource"])
+  onSoftDeleteTrafficSource: TrafficSource @aws_subscribe(mutations: ["softDeleteTrafficSource"])
+}

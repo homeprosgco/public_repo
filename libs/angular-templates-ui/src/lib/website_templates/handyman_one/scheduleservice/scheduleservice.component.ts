@@ -1,0 +1,10 @@
+import { Component } from '@angular/core';
+import { ColorOrangeDirective, TextDecorationLineDirective, PaddingLeftDirective, WidthDirective, TransitionPropertyDirective, BackgroundNeutralColorDirective, PaddingBottomDirective, HeightDirective, BackgroundZincColorDirective, FontSizeDirective, MaxWScreenDirective, MarginLeftDirective, AlignItemsDirective, FontFamilyDirective, BackgroundOrangeColorDirective, TopDirective, JustifyContentDirective, PositionDirective, LineHeightDirective, MarginBottomDirective, TextAlignDirective, FontStyleDirective, TransitionTimingFunctionDirective, PaddingTopDirective, VerticalAlignDirective, MaxWidthDirective, MarginTopDirective, TransitionDurationDirective, RightDirective, RotateDirective, ZIndexDirective, FlexDirectionDirective, PaddingRightDirective, ColorZincDirective, ColumnGapDirective, DisplayDirective, ColorDirective, OverflowDirective, LeftDirective, MarginRightDirective, CursorDirective, RowGapDirective, BackgroundColorDirective, FontWeightDirective } from '@public-repo/tailwindcss';
+
+@Component({
+  selector: 'sg-scheduleservice',
+  templateUrl: './scheduleservice.component.html',
+  standalone: true,
+  imports: [ColorOrangeDirective, TextDecorationLineDirective, PaddingLeftDirective, WidthDirective, TransitionPropertyDirective, BackgroundNeutralColorDirective, PaddingBottomDirective, HeightDirective, BackgroundZincColorDirective, FontSizeDirective, MaxWScreenDirective, MarginLeftDirective, AlignItemsDirective, FontFamilyDirective, BackgroundOrangeColorDirective, TopDirective, JustifyContentDirective, PositionDirective, LineHeightDirective, MarginBottomDirective, TextAlignDirective, FontStyleDirective, TransitionTimingFunctionDirective, PaddingTopDirective, VerticalAlignDirective, MaxWidthDirective, MarginTopDirective, TransitionDurationDirective, RightDirective, RotateDirective, ZIndexDirective, FlexDirectionDirective, PaddingRightDirective, ColorZincDirective, ColumnGapDirective, DisplayDirective, ColorDirective, OverflowDirective, LeftDirective, MarginRightDirective, CursorDirective, RowGapDirective, BackgroundColorDirective, FontWeightDirective]
+})
+export class ScheduleserviceComponent {}

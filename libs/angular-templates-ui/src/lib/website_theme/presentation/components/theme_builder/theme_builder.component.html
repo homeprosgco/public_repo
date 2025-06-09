@@ -1,0 +1,16 @@
+<!-- theme_builder.component.html -->
+<div class="p-4 space-y-2">
+  <div class="text-xl font-bold">Live Theme</div>
+  <div class="grid grid-cols-2 gap-2">
+    <div class="bg-[var(--primary)] text-white p-2 rounded">Primary</div>
+    <div class="bg-[var(--secondary)] text-white p-2 rounded">Secondary</div>
+    <div class="bg-[var(--background)] text-black p-2 rounded">Background</div>
+    <div class="text-[var(--text)] p-2 rounded border">Text Color</div>
+  </div>
+
+  <div class="bg-tertiary">test</div>
+
+  <pre class="bg-gray-100 p-2 rounded text-xs">
+    {{ computedTheme() | json }}
+  </pre>
+</div>

@@ -1,0 +1,46 @@
+type Truckstop {
+  isLoggedIn: Boolean
+  startNewSearch: Boolean
+  operationMsg: String
+  isSearchContainerOpen: Boolean
+  originLocationInputState: OriginLocationInputState
+  loadsContainerTabsState: LoadsContainerTabsState
+  loadSearch: LoadSearch
+}
+
+type Query {
+  truckstop: Truckstop!
+}
+
+type Mutation {
+  login: Truckstop
+  loadSearch(input: OriginLocationInput!): Truckstop!
+}
+
+input OriginLocationInput {
+  city: String!
+  state: String!
+  zipcode: String
+}
+
+type OriginLocationInputState {
+  originInput: String!
+  inputValue: String!
+  status: String!
+}
+
+type LoadsContainerTabsState {
+  openTabsCityStates: [TabCityState!]!
+  activeTabIndex: Int!
+}
+
+type TabCityState {
+  originLocation: String!
+  destinationLocation: String!
+}
+
+type LoadSearch {
+  action: String!
+  city: String
+  state: String!
+}

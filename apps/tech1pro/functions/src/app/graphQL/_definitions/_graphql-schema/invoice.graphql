@@ -1,0 +1,60 @@
+input InvoiceInput {
+  activities: [ActivityInput!]
+  address: AddressInput
+  addressId: String
+  category: String
+  comments: [CommentInput!]
+  created: String
+  createdById: String!
+  customerId: String!
+  estimateId: String
+  fileURLs: [String]
+  imageURLs: [String]
+  jobId: String
+  jobLeadId: String
+  lineItems: [LineItemInput!]
+  lineWorkServices: [LineWorkServiceInput!]
+  notes: [NoteInput!]
+  number: Int!
+  projectId: String
+  proposalId: String
+  referenceId: String
+  status: String!
+  updated: String
+}
+
+type Invoice {
+  activities: [Activity!]
+  address: Address
+  addressId: String
+  category: String
+  comments: [Comment!]
+  created: String
+  createdById: String!
+  customerId: String!
+  estimateId: String
+  fileURLs: [String]
+  imageURLs: [String]
+  id: String
+  jobId: String
+  jobLeadId: String
+  lineItems: [LineItem!]
+  lineWorkServices: [LineWorkService!]
+  notes: [Note!]
+  number: Int!
+  projectId: String
+  proposalId: String
+  referenceId: String
+  status: String!
+  viewedDate: String
+  updated: String
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+  OVERDUE
+  UNPAID
+  VIEWED
+}

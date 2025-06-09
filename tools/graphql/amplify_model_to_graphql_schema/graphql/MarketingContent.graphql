@@ -1,0 +1,97 @@
+enum ContentManagementStatus {
+  Draft
+  InReview
+  Approved
+  Published
+  Archived
+  Deleted
+}
+enum ContentManagementType {
+  BlogPost
+  Article
+  Tutorial
+  FAQ
+  News
+  CaseStudy
+  WhitePaper
+  Video
+  Podcast
+  Infographic
+  Webinar
+}
+type MarketingContent {
+  id: ID!
+  author: TeamMember @hasOne
+  title: String
+  body: String
+  datePublished: AWSDateTime
+  tags: [String]
+  seoKeywords: [String]
+  relatedMedia: [String]
+  status: ContentManagementStatus
+  type: ContentManagementType
+  created: AWSDateTime
+  updated: AWSDateTime
+  campaign: Campaign @belongsTo
+  isDeleted: Boolean!
+}
+input CreateMarketingContentInput {
+  author: TeamMember
+  title: String
+  body: String
+  datePublished: AWSDateTime
+  tags: [String]
+  seoKeywords: [String]
+  relatedMedia: [String]
+  status: ContentManagementStatus
+  type: ContentManagementType
+  created: AWSDateTime
+  updated: AWSDateTime
+  campaign: Campaign
+  isDeleted: Boolean = false
+}
+input UpdateMarketingContentInput {
+  id: ID!
+  author: TeamMember
+  title: String
+  body: String
+  datePublished: AWSDateTime
+  tags: [String]
+  seoKeywords: [String]
+  relatedMedia: [String]
+  status: ContentManagementStatus
+  type: ContentManagementType
+  created: AWSDateTime
+  updated: AWSDateTime
+  campaign: Campaign
+  isDeleted: Boolean
+}
+input SoftDeleteMarketingContentInput {
+  id: ID!
+}
+
+input MarketingContentFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getMarketingContent(id: ID!): MarketingContent
+  queryMarketingContents(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: MarketingContentFilterInput
+  ): [MarketingContent]
+}
+type Mutation {
+  putMarketingContent(input: CreateMarketingContentInput!): MarketingContent
+  updateMarketingContent(input: UpdateMarketingContentInput!): MarketingContent
+  softDeleteMarketingContent(input: SoftDeleteMarketingContentInput!): MarketingContent
+  deleteMarketingContent(id: ID!): MarketingContent
+}
+type Subscription {
+  onPutMarketingContent: MarketingContent @aws_subscribe(mutations: ["putMarketingContent"])
+  onUpdateMarketingContent: MarketingContent @aws_subscribe(mutations: ["updateMarketingContent"])
+  onSoftDeleteMarketingContent: MarketingContent @aws_subscribe(mutations: ["softDeleteMarketingContent"])
+}

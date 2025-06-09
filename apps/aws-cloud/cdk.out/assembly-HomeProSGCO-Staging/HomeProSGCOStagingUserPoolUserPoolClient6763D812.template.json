@@ -1,0 +1,109 @@
+{
+ "Resources": {
+  "UserPoolClient2F5918F7": {
+   "Type": "AWS::Cognito::UserPoolClient",
+   "Properties": {
+    "AccessTokenValidity": 60,
+    "AllowedOAuthFlows": [
+     "implicit",
+     "code"
+    ],
+    "AllowedOAuthFlowsUserPoolClient": true,
+    "AllowedOAuthScopes": [
+     "email",
+     "openid",
+     "profile"
+    ],
+    "CallbackURLs": [
+     "https://homeprosgco.com/callback",
+     "http://localhost:4200/callback"
+    ],
+    "EnableTokenRevocation": true,
+    "ExplicitAuthFlows": [
+     "ALLOW_USER_PASSWORD_AUTH",
+     "ALLOW_USER_SRP_AUTH",
+     "ALLOW_REFRESH_TOKEN_AUTH"
+    ],
+    "GenerateSecret": false,
+    "IdTokenValidity": 60,
+    "LogoutURLs": [
+     "https://homeprosgco.com/logout",
+     "http://localhost:4200/logout"
+    ],
+    "RefreshTokenValidity": 43200,
+    "SupportedIdentityProviders": [
+     "COGNITO"
+    ],
+    "TokenValidityUnits": {
+     "AccessToken": "minutes",
+     "IdToken": "minutes",
+     "RefreshToken": "minutes"
+    },
+    "UserPoolId": {
+     "Fn::ImportValue": "HomeProSGCO-Staging-UserPool:ExportsOutputRefUserPool6BA7E5F296FD7236"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/UserPoolClient/UserPoolClient/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/22QQU8CQQyFfwtzNMMIGw9mb4ZEjxoQL8aYMtuFssN0M+2wUbL/3QBLooZT0++lr30t3PS+cJMRdDL2VTMOtHKHhYJvLHTy6XkdSdkdloLphTnMAmHU94PJAzCluTHWrDFiAsUF+oRqyhqCoDWQdfMYuBNTDiMg0nGqTKkpoz2xRWrPbW8NeI8ir9xgfINAFenXsIGqazRhnVA21ySMsAp4Uua4Zw9KHC97+SHr5niUhxBW4JtlCjIMBl5z1l+gviQ4xuFE3yerGVf4lCDqxZN2bSBP+k/orRHPLZ7d+v7Dzur495/9ET1nbbP2NnKFbiu3+6Jw0zs3GW2FaJxyVNqhm5/rDxx4i224AQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "HomeProSGCO-Staging/UserPool/UserPoolClient/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "UserPoolClientId": {
+   "Value": {
+    "Ref": "UserPoolClient2F5918F7"
+   }
+  },
+  "ExportsOutputRefUserPoolClient2F5918F753847A55": {
+   "Value": {
+    "Ref": "UserPoolClient2F5918F7"
+   },
+   "Export": {
+    "Name": "HomeProSGCO-Staging-UserPoolUserPoolClient3E901C04:ExportsOutputRefUserPoolClient2F5918F753847A55"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

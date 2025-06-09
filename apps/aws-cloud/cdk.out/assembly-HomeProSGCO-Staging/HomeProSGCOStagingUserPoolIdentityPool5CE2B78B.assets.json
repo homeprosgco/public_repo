@@ -1,0 +1,20 @@
+{
+  "version": "40.0.0",
+  "files": {
+    "dcd29398f0d7fbc3e213edca09c9b64f05a3cbe3b0bea1e76e7cef1a6296f560": {
+      "source": {
+        "path": "HomeProSGCOStagingUserPoolIdentityPool5CE2B78B.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "879381260600-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-879381260600-us-east-1",
+          "objectKey": "dcd29398f0d7fbc3e213edca09c9b64f05a3cbe3b0bea1e76e7cef1a6296f560.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::879381260600:role/cdk-hnb659fds-file-publishing-role-879381260600-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

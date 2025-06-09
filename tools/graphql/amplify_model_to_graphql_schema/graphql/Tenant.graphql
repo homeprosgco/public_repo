@@ -1,0 +1,151 @@
+enum TenantStatus {
+  Active
+  Suspended
+  Terminated
+  PendingApproval
+}
+type Tenant {
+  id: ID!
+  owner: AppUser @hasOne
+  accountManager: TeamMember @hasOne
+  type: String
+  contactPerson: AppUser @hasOne
+  status: TenantStatus
+  isDeleted: Boolean
+  campaigns: [Campaign] @hasMany
+  contacts: [Contact] @hasMany
+  contracts: [Contract] @hasMany
+  customers: [Customer] @hasMany
+  estimates: [Estimate] @hasMany
+  expenses: [Expense] @hasMany
+  feedbacks: [Feedback] @hasMany
+  files: [File] @hasMany
+  invites: [Invite] @hasMany
+  invoices: [Invoice] @hasMany
+  jobs: [Job] @hasMany
+  jobLeads: [JobLead] @hasMany
+  jobServices: [JobService] @hasMany
+  jobTasks: [JobTask] @hasMany
+  maintenanceLogs: [MaintenanceLog] @hasMany
+  materialLists: [MaterialList] @hasMany
+  payments: [Payment] @hasMany
+  products: [Product] @hasMany
+  projects: [Project] @hasMany
+  proposals: [Proposal] @hasMany
+  recipients: [Recipient] @hasMany
+  resources: [Resource] @hasMany
+  reviews: [Review] @hasMany
+  subscriptionPlans: [SubscriptionPlan] @hasMany
+  supportTickets: [SupportTicket] @hasMany
+  teams: [Team] @hasMany
+  teamMembers: [TeamMember] @hasMany
+  created: AWSDateTime
+  updated: AWSDateTime
+  bid: Bid @belongsTo
+}
+input CreateTenantInput {
+  owner: AppUser
+  accountManager: TeamMember
+  type: String
+  contactPerson: AppUser
+  status: TenantStatus
+  isDeleted: Boolean
+  campaigns: [Campaign]
+  contacts: [Contact]
+  contracts: [Contract]
+  customers: [Customer]
+  estimates: [Estimate]
+  expenses: [Expense]
+  feedbacks: [Feedback]
+  files: [File]
+  invites: [Invite]
+  invoices: [Invoice]
+  jobs: [Job]
+  jobLeads: [JobLead]
+  jobServices: [JobService]
+  jobTasks: [JobTask]
+  maintenanceLogs: [MaintenanceLog]
+  materialLists: [MaterialList]
+  payments: [Payment]
+  products: [Product]
+  projects: [Project]
+  proposals: [Proposal]
+  recipients: [Recipient]
+  resources: [Resource]
+  reviews: [Review]
+  subscriptionPlans: [SubscriptionPlan]
+  supportTickets: [SupportTicket]
+  teams: [Team]
+  teamMembers: [TeamMember]
+  created: AWSDateTime
+  updated: AWSDateTime
+  bid: Bid
+}
+input UpdateTenantInput {
+  id: ID!
+  owner: AppUser
+  accountManager: TeamMember
+  type: String
+  contactPerson: AppUser
+  status: TenantStatus
+  isDeleted: Boolean
+  campaigns: [Campaign]
+  contacts: [Contact]
+  contracts: [Contract]
+  customers: [Customer]
+  estimates: [Estimate]
+  expenses: [Expense]
+  feedbacks: [Feedback]
+  files: [File]
+  invites: [Invite]
+  invoices: [Invoice]
+  jobs: [Job]
+  jobLeads: [JobLead]
+  jobServices: [JobService]
+  jobTasks: [JobTask]
+  maintenanceLogs: [MaintenanceLog]
+  materialLists: [MaterialList]
+  payments: [Payment]
+  products: [Product]
+  projects: [Project]
+  proposals: [Proposal]
+  recipients: [Recipient]
+  resources: [Resource]
+  reviews: [Review]
+  subscriptionPlans: [SubscriptionPlan]
+  supportTickets: [SupportTicket]
+  teams: [Team]
+  teamMembers: [TeamMember]
+  created: AWSDateTime
+  updated: AWSDateTime
+  bid: Bid
+}
+input SoftDeleteTenantInput {
+  id: ID!
+}
+
+input TenantFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getTenant(id: ID!): Tenant
+  queryTenants(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: TenantFilterInput
+  ): [Tenant]
+}
+type Mutation {
+  putTenant(input: CreateTenantInput!): Tenant
+  updateTenant(input: UpdateTenantInput!): Tenant
+  softDeleteTenant(input: SoftDeleteTenantInput!): Tenant
+  deleteTenant(id: ID!): Tenant
+}
+type Subscription {
+  onPutTenant: Tenant @aws_subscribe(mutations: ["putTenant"])
+  onUpdateTenant: Tenant @aws_subscribe(mutations: ["updateTenant"])
+  onSoftDeleteTenant: Tenant @aws_subscribe(mutations: ["softDeleteTenant"])
+}

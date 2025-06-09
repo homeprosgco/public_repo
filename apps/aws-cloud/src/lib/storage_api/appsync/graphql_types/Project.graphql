@@ -1,0 +1,93 @@
+
+type Project {
+  id: ID!
+  managerId: ID!
+  name: String
+  scope: String
+  goal: String
+  status: String
+  deadline: AWSDateTime
+  budget: Float
+  notes: String
+  feedbackId: ID!
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  completionDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateProjectInput {
+  managerId: ID!
+  name: String
+  scope: String
+  goal: String
+  status: String
+  deadline: AWSDateTime
+  budget: Float
+  notes: String
+  feedbackId: ID!
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  completionDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateProjectInput {
+  id: ID!
+  managerId: ID!
+  name: String
+  scope: String
+  goal: String
+  status: String
+  deadline: AWSDateTime
+  budget: Float
+  notes: String
+  feedbackId: ID!
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  completionDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteProjectInput {
+  id: ID!
+}
+
+type Query {
+    getProject(id: ID!): Project
+    
+    queryProjects(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: ProjectFilterInput
+    ): [Project]
+    }
+
+    input ProjectFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putProject(input: CreateProjectInput!): Project
+    updateProject(input: UpdateProjectInput!): Project
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteProject(input: SoftDeleteProjectInput!): Project
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteProject(id: ID!): Project
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutProject: Project @aws_subscribe(mutations: ["putProject"])
+    onUpdateProject: Project @aws_subscribe(mutations: ["updateProject"])
+    onSoftDeleteProject: Project @aws_subscribe(mutations: ["softDeleteProject"])
+}
+    

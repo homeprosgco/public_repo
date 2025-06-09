@@ -1,0 +1,63 @@
+
+type Team {
+  id: ID!
+  name: String
+  memberIds: [ID]!
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateTeamInput {
+  name: String
+  memberIds: [ID]!
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateTeamInput {
+  id: ID!
+  name: String
+  memberIds: [ID]!
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteTeamInput {
+  id: ID!
+}
+
+type Query {
+    getTeam(id: ID!): Team
+    
+    queryTeams(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: TeamFilterInput
+    ): [Team]
+    }
+
+    input TeamFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putTeam(input: CreateTeamInput!): Team
+    updateTeam(input: UpdateTeamInput!): Team
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteTeam(input: SoftDeleteTeamInput!): Team
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteTeam(id: ID!): Team
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutTeam: Team @aws_subscribe(mutations: ["putTeam"])
+    onUpdateTeam: Team @aws_subscribe(mutations: ["updateTeam"])
+    onSoftDeleteTeam: Team @aws_subscribe(mutations: ["softDeleteTeam"])
+}
+    

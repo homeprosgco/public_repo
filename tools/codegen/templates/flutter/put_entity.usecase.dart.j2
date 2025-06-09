@@ -1,0 +1,13 @@
+// GENERATED PUT {{ type_name.upper() }} USE CASE
+import '../repositories/i_{{ filename }}_repository.dart';
+import '../../data/models/{{ filename }}.dart';
+
+class Put{{ type_name }}UseCase {
+  final I{{ type_name }}Repository repository;
+
+  Put{{ type_name }}UseCase(this.repository);
+
+  Future<{{ type_name }}Model> execute({{ type_name }}Model input) {
+    return repository.put{{ type_name }}(input);
+  }
+}

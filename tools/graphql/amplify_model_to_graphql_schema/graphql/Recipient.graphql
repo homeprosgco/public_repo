@@ -1,0 +1,83 @@
+enum RecipientType {
+  RentTenant
+  InsuranceMember
+}
+type Recipient {
+  id: ID!
+  tenant: Tenant @belongsTo
+  rentalProperty: Property @belongsTo
+  customer: Customer @belongsTo
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  type: RecipientType
+  additionalInfo: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  lease: Lease @belongsTo
+  isDeleted: Boolean!
+}
+input CreateRecipientInput {
+  tenant: Tenant
+  rentalProperty: Property
+  customer: Customer
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  type: RecipientType
+  additionalInfo: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  lease: Lease
+  isDeleted: Boolean = false
+}
+input UpdateRecipientInput {
+  id: ID!
+  tenant: Tenant
+  rentalProperty: Property
+  customer: Customer
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  type: RecipientType
+  additionalInfo: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  lease: Lease
+  isDeleted: Boolean
+}
+input SoftDeleteRecipientInput {
+  id: ID!
+}
+
+input RecipientFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getRecipient(id: ID!): Recipient
+  queryRecipients(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: RecipientFilterInput
+  ): [Recipient]
+}
+type Mutation {
+  putRecipient(input: CreateRecipientInput!): Recipient
+  updateRecipient(input: UpdateRecipientInput!): Recipient
+  softDeleteRecipient(input: SoftDeleteRecipientInput!): Recipient
+  deleteRecipient(id: ID!): Recipient
+}
+type Subscription {
+  onPutRecipient: Recipient @aws_subscribe(mutations: ["putRecipient"])
+  onUpdateRecipient: Recipient @aws_subscribe(mutations: ["updateRecipient"])
+  onSoftDeleteRecipient: Recipient @aws_subscribe(mutations: ["softDeleteRecipient"])
+}

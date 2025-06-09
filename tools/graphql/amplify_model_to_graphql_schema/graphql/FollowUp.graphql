@@ -1,0 +1,104 @@
+enum FollowUpType {
+  PHONE
+  EMAIL
+  NOTIFICATION
+}
+enum FollowUpStatus {
+  PENDING
+  COMPLETED
+  SKIPPED
+}
+type FollowUp {
+  id: ID!
+  tenant: Tenant @belongsTo
+  assignedTo: TeamMember @belongsTo
+  followedUpBy: TeamMember @belongsTo
+  project: Project @belongsTo
+  customer: Customer @belongsTo
+  scheduledDate: AWSDate
+  type: FollowUpType
+  status: FollowUpStatus
+  notes: String
+  customerResponse: String
+  warrantyExtensionOffered: Boolean
+  warrantyExtended: Boolean
+  extensionFeeAccepted: Boolean
+  extensionPaidDate: AWSDate
+  created: AWSDateTime
+  updated: AWSDateTime
+  team: Team @belongsTo
+  warranty: Warranty @belongsTo
+  isDeleted: Boolean!
+}
+input CreateFollowUpInput {
+  tenant: Tenant
+  assignedTo: TeamMember
+  followedUpBy: TeamMember
+  project: Project
+  customer: Customer
+  scheduledDate: AWSDate
+  type: FollowUpType
+  status: FollowUpStatus
+  notes: String
+  customerResponse: String
+  warrantyExtensionOffered: Boolean
+  warrantyExtended: Boolean
+  extensionFeeAccepted: Boolean
+  extensionPaidDate: AWSDate
+  created: AWSDateTime
+  updated: AWSDateTime
+  team: Team
+  warranty: Warranty
+  isDeleted: Boolean = false
+}
+input UpdateFollowUpInput {
+  id: ID!
+  tenant: Tenant
+  assignedTo: TeamMember
+  followedUpBy: TeamMember
+  project: Project
+  customer: Customer
+  scheduledDate: AWSDate
+  type: FollowUpType
+  status: FollowUpStatus
+  notes: String
+  customerResponse: String
+  warrantyExtensionOffered: Boolean
+  warrantyExtended: Boolean
+  extensionFeeAccepted: Boolean
+  extensionPaidDate: AWSDate
+  created: AWSDateTime
+  updated: AWSDateTime
+  team: Team
+  warranty: Warranty
+  isDeleted: Boolean
+}
+input SoftDeleteFollowUpInput {
+  id: ID!
+}
+
+input FollowUpFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getFollowUp(id: ID!): FollowUp
+  queryFollowUps(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: FollowUpFilterInput
+  ): [FollowUp]
+}
+type Mutation {
+  putFollowUp(input: CreateFollowUpInput!): FollowUp
+  updateFollowUp(input: UpdateFollowUpInput!): FollowUp
+  softDeleteFollowUp(input: SoftDeleteFollowUpInput!): FollowUp
+  deleteFollowUp(id: ID!): FollowUp
+}
+type Subscription {
+  onPutFollowUp: FollowUp @aws_subscribe(mutations: ["putFollowUp"])
+  onUpdateFollowUp: FollowUp @aws_subscribe(mutations: ["updateFollowUp"])
+  onSoftDeleteFollowUp: FollowUp @aws_subscribe(mutations: ["softDeleteFollowUp"])
+}

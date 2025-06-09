@@ -1,0 +1,13 @@
+// GENERATED UPDATE {{ type_name.upper() }} USE CASE
+import '../repositories/i_{{ filename }}_repository.dart';
+import '../../data/models/{{ filename }}.dart';
+
+class Update{{ type_name }}UseCase {
+  final I{{ type_name }}Repository repository;
+
+  Update{{ type_name }}UseCase(this.repository);
+
+  Future<{{ type_name }}Model> execute({{ type_name }}Model input) {
+    return repository.update{{ type_name }}(input);
+  }
+}

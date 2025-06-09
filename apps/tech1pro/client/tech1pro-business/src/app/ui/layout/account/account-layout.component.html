@@ -1,0 +1,26 @@
+<div class="nk-app-root">
+  <!-- main @s -->
+  <div class="nk-main ">
+    <!-- sidebar @s -->
+    <div class="nk-sidebar nk-sidebar-fixed is-dark " data-content="sidebarMenu">
+      <app-off-canvas-menu></app-off-canvas-menu>
+    </div>
+    <!-- sidebar @e -->
+    <!-- wrap @s -->
+    <div class="nk-wrap ">
+      <!-- main header @s -->
+      <div class="nk-header nk-header-fixed is-light">
+        <app-page-header></app-page-header>
+      </div>
+      <!-- main header @e -->
+      <!-- content @s -->
+      <div class="nk-content ">
+        <!-- <app-toast></app-toast> -->
+        <app-content-area>
+          <ng-content></ng-content>
+        </app-content-area>
+        <!-- <app-alert></app-alert> -->
+      </div>
+    </div>
+  </div>
+</div>

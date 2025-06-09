@@ -1,0 +1,47 @@
+import { Injectable } from '@angular/core';
+import { I{{ type_name }}Repository } from '../../domain/repositories/i-{{ split_and_hyphenate(type_name) }}.repository';
+import { I{{ type_name }}DataSource } from '../datasources/i-{{ split_and_hyphenate(type_name) }}.datasource';
+import { {{ type_name }} } from '../../data/models/{{ split_and_hyphenate(type_name) }}.interface';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+@Injectable({ providedIn: 'root' })
+export class GraphQL{{ type_name }}Repository implements I{{ type_name }}Repository {
+  constructor(private ds: I{{ type_name }}DataSource) {}
+
+  get{{ type_name }}(id: string): Observable<{{ type_name }}> {
+    return this.ds.get{{ type_name }}(id).pipe(map(r => r.get{{ type_name }}));
+  }
+
+  put{{ type_name }}(input: {{ type_name }}): Observable<{{ type_name }}> {
+    return this.ds.put{{ type_name }}(input).pipe(map(r => r.put{{ type_name }}));
+  }
+
+  update{{ type_name }}(input: Partial<{{ type_name }}>): Observable<{{ type_name }}> {
+    return this.ds.update{{ type_name }}(input).pipe(map(r => r.update{{ type_name }}));
+  }
+
+  delete{{ type_name }}(id: string): Observable<string> {
+    return this.ds.delete{{ type_name }}(id).pipe(map(r => r.delete{{ type_name }}.id));
+  }
+
+  softDelete{{ type_name }}(input: { id: string }): Observable<{{ type_name }}> {
+    return this.ds.softDelete{{ type_name }}(input).pipe(map(r => r.softDelete{{ type_name }}));
+  }
+
+  query{{ pluralize(type_name) }}(): Observable<{{ type_name }}[]> {
+    return this.ds.query{{ type_name }}s().pipe(map(r => r.query{{ pluralize(type_name) }}.items));
+  }
+
+  onPut{{ type_name }}(): Observable<{{ type_name }}> {
+    return this.ds.onPut{{ type_name }}().pipe(map(r => r.onPut{{ type_name }}));
+  }
+
+  onUpdate{{ type_name }}(): Observable<{{ type_name }}> {
+    return this.ds.onUpdate{{ type_name }}().pipe(map(r => r.onUpdate{{ type_name }}));
+  }
+
+  onSoftDelete{{ type_name }}(): Observable<{{ type_name }}> {
+    return this.ds.onSoftDelete{{ type_name }}().pipe(map(r => r.onSoftDelete{{ type_name }}));
+  }
+}

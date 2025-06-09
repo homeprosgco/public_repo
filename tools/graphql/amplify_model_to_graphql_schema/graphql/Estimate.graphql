@@ -1,0 +1,99 @@
+enum EstimateStatus {
+  Draft
+  PendingReview
+  Submitted
+  AwaitingCustomerResponse
+  Approved
+  Declined
+  Revised
+  Expired
+  Accepted
+  Invoiced
+  Closed
+  Cancelled
+}
+type Estimate {
+  id: ID!
+  tenant: Tenant @belongsTo
+  createdBy: TeamMember @belongsTo
+  customer: Customer @belongsTo
+  job: Job @belongsTo
+  workRequest: WorkRequest @belongsTo
+  serviceAddress: AWSJSON
+  estimateNumber: String
+  paymentTerms: String
+  description: String
+  status: EstimateStatus
+  lineItems: [AWSJSON]
+  jobServices: [AWSJSON]
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateEstimateInput {
+  tenant: Tenant
+  createdBy: TeamMember
+  customer: Customer
+  job: Job
+  workRequest: WorkRequest
+  serviceAddress: AWSJSON
+  estimateNumber: String
+  paymentTerms: String
+  description: String
+  status: EstimateStatus
+  lineItems: [AWSJSON]
+  jobServices: [AWSJSON]
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateEstimateInput {
+  id: ID!
+  tenant: Tenant
+  createdBy: TeamMember
+  customer: Customer
+  job: Job
+  workRequest: WorkRequest
+  serviceAddress: AWSJSON
+  estimateNumber: String
+  paymentTerms: String
+  description: String
+  status: EstimateStatus
+  lineItems: [AWSJSON]
+  jobServices: [AWSJSON]
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteEstimateInput {
+  id: ID!
+}
+
+input EstimateFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getEstimate(id: ID!): Estimate
+  queryEstimates(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: EstimateFilterInput
+  ): [Estimate]
+}
+type Mutation {
+  putEstimate(input: CreateEstimateInput!): Estimate
+  updateEstimate(input: UpdateEstimateInput!): Estimate
+  softDeleteEstimate(input: SoftDeleteEstimateInput!): Estimate
+  deleteEstimate(id: ID!): Estimate
+}
+type Subscription {
+  onPutEstimate: Estimate @aws_subscribe(mutations: ["putEstimate"])
+  onUpdateEstimate: Estimate @aws_subscribe(mutations: ["updateEstimate"])
+  onSoftDeleteEstimate: Estimate @aws_subscribe(mutations: ["softDeleteEstimate"])
+}

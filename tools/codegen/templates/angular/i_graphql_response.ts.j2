@@ -1,0 +1,37 @@
+import { {{ type_name }} } from './{{ split_and_hyphenate(type_name) }}.interface';
+
+export interface Delete{{ type_name }}Response {
+  delete{{ type_name }}: { id: string };
+}
+
+export interface SoftDelete{{ type_name }}Response {
+  softDelete{{ type_name }}: { id: string };
+}
+
+export interface Put{{ type_name }}Response {
+  put{{ type_name }}: {{ type_name }};
+}
+
+export interface Get{{ type_name }}Response {
+  get{{ type_name }}: {{ type_name }};
+}
+
+export interface Query{{ type_name }}sResponse {
+  query{{ pluralize(type_name ) }}: { items: {{ type_name }}[]; nextToken?: string };
+}
+
+export interface Update{{ type_name }}Response {
+  update{{ type_name }}: {{ type_name }};
+}
+
+export interface OnPut{{ type_name }}Response {
+  onPut{{ type_name }}: {{ type_name }};
+}
+
+export interface OnUpdate{{ type_name }}Response {
+  onUpdate{{ type_name }}: {{ type_name }};
+}
+
+export interface OnSoftDelete{{ type_name }}Response {
+  onSoftDelete{{ type_name }}: {{ type_name }};
+}

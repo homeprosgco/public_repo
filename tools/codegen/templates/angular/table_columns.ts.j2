@@ -1,0 +1,5 @@
+export const {{ type_name.upper() }}_COLUMNS = [
+{% for field, type in fields.items() %}
+  { field: '{{ field }}', header: '{{ field | replace("_", " ") | title }}', type: '{{ "number" if type == "number" else "boolean" if type == "boolean" else "date" if "date" in field.lower() else "array" if "[]" in type else "text" }}' },
+{% endfor %}
+];

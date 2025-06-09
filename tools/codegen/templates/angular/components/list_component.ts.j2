@@ -1,0 +1,30 @@
+import { Component, TemplateRef, ViewChild, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DynamicTemplateLoaderComponent } from '@shared/ui/dynamic-template-loader';
+import { SGDataTableComponent } from '@shared/ui/sg-data-table';
+import { {{ type_name.upper() }}_COLUMNS } from '../../data/columns/{{ split_and_hyphenate(type_name) }}-columns';
+import { Query{{ pluralize(type_name) }}UseCase } from '../../domain/usecases/query-{{ split_and_hyphenate(type_name) }}s.usecase';
+import { {{ type_name }} } from '../../data/models/{{ split_and_hyphenate(type_name) }}.interface';
+
+@Component({
+  selector: 'sg-{{ split_and_hyphenate(type_name) }}-list',
+  standalone: true,
+  imports: [CommonModule, DynamicTemplateLoaderComponent, SGDataTableComponent],
+  template: `
+    <sg-dynamic-template-loader [data$]="data$" [template]="tableTemplate">
+    </sg-dynamic-template-loader>
+
+    <ng-template #tableTemplate let-data>
+      <sg-data-table
+        [tableData]="data"
+        [tableColumns]="{{ type_name.upper() }}_COLUMNS"
+      ></sg-data-table>
+    </ng-template>
+  `
+})
+export class {{ type_name }}ListComponent {
+  private query = inject(Query{{ pluralize(type_name) }}UseCase);
+  data$ = this.query.execute();
+
+  @ViewChild('tableTemplate', { static: true }) tableTemplateRef!: TemplateRef<any>;
+}

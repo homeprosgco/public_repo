@@ -1,0 +1,64 @@
+input JobInput {
+  customerId: String!
+  status: String!
+  category: String!
+  requestedWorkScope: String!
+  definedWorkScope: String!
+  createdById: String!
+  address: AddressInput!
+  proposalId: String
+  estimateId: String
+  addressId: String
+  jobLeadId: String
+  notes: [NoteInput!]
+  comments: [CommentInput!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activities: [ActivityInput!]
+  assignedToId: String
+  startDate: String
+  poNumber: String
+  jobManagerId: String
+  created: String
+  updated: String
+  lineItems: [LineItemInput!]
+  lineWorkServices: [LineWorkServiceInput!]
+}
+
+type Job {
+  id: String
+  customerId: String!
+  status: String!
+  createdById: String!
+  definedWorkScope: String!
+  jobLeadId: String
+  notes: [Note!]
+  comments: [Comment!]
+  imageURLs: [String!]
+  fileURLs: [String!]
+  category: String!
+  activities: [Activity!]
+  address: Address
+  addressId: String
+  requestedWorkScope: String!
+  created: String!
+  updated: String
+  assignedToId: String
+  startDate: String
+  completedDate: String
+  estimateId: String
+  proposalId: String
+  poNumber: String
+  jobManagerId: String
+  lineItems: [LineItem!]
+  lineWorkServices: [LineWorkService!]
+}
+
+enum JobStatus {
+  NEW
+  SCHEDULED
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETE
+  INVOICED
+}

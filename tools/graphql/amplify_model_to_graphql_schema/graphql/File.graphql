@@ -1,0 +1,71 @@
+
+type File {
+  id: ID!
+  tenant: Tenant @belongsTo
+  proposal: Proposal @belongsTo
+  job: Job @belongsTo
+  name: String
+  url: String
+  notes: String
+  type: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateFileInput {
+  tenant: Tenant
+  proposal: Proposal
+  job: Job
+  name: String
+  url: String
+  notes: String
+  type: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateFileInput {
+  id: ID!
+  tenant: Tenant
+  proposal: Proposal
+  job: Job
+  name: String
+  url: String
+  notes: String
+  type: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteFileInput {
+  id: ID!
+}
+
+input FileFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getFile(id: ID!): File
+  queryFiles(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: FileFilterInput
+  ): [File]
+}
+type Mutation {
+  putFile(input: CreateFileInput!): File
+  updateFile(input: UpdateFileInput!): File
+  softDeleteFile(input: SoftDeleteFileInput!): File
+  deleteFile(id: ID!): File
+}
+type Subscription {
+  onPutFile: File @aws_subscribe(mutations: ["putFile"])
+  onUpdateFile: File @aws_subscribe(mutations: ["updateFile"])
+  onSoftDeleteFile: File @aws_subscribe(mutations: ["softDeleteFile"])
+}

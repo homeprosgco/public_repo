@@ -1,0 +1,34 @@
+{
+  "version": "40.0.0",
+  "files": {
+    "30bca40a59b8d87b16cf9e67d4735d149d5ac356f75ecdca1abf34a6a3f25b10": {
+      "source": {
+        "path": "../asset.30bca40a59b8d87b16cf9e67d4735d149d5ac356f75ecdca1abf34a6a3f25b10",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "879381260600-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-879381260600-us-east-1",
+          "objectKey": "30bca40a59b8d87b16cf9e67d4735d149d5ac356f75ecdca1abf34a6a3f25b10.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::879381260600:role/cdk-hnb659fds-file-publishing-role-879381260600-us-east-1"
+        }
+      }
+    },
+    "0663071dd697b7fc5fdc699f9b6b975e8988eca77ce993ab69eb3fe17fb707a2": {
+      "source": {
+        "path": "HomeProSGCOStagingUserPoolEACEB72A.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "879381260600-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-879381260600-us-east-1",
+          "objectKey": "0663071dd697b7fc5fdc699f9b6b975e8988eca77ce993ab69eb3fe17fb707a2.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::879381260600:role/cdk-hnb659fds-file-publishing-role-879381260600-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,0 +1,2 @@
+export const jobLeadStatus = ['new', 'callback pending', 'images pending', 'visit scheduled', 'proposal created', 'proposal sent', 'estimate created', 'estimate sent', 'approved', 'lead converted'];
+export type status = 'job-leads' | 'job-lead-source' | 'work-categories';

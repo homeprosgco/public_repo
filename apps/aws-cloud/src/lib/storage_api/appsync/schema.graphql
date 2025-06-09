@@ -1,0 +1,3383 @@
+type AdContent {
+  id: ID!
+  title: String
+  bodyText: String
+  mediaURL: String
+  adType: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateAdContentInput {
+  title: String
+  bodyText: String
+  mediaURL: String
+  adType: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateAdContentInput {
+  id: ID!
+  title: String
+  bodyText: String
+  mediaURL: String
+  adType: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteAdContentInput {
+  id: ID!
+}
+
+type Query {
+  getAdContent(id: ID!): AdContent
+  queryAdContents(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: AdContentFilterInput): [AdContent]
+  getAdSchedule(id: ID!): AdSchedule
+  queryAdSchedules(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: AdScheduleFilterInput): [AdSchedule]
+  getAttendee(id: ID!): Attendee
+  queryAttendees(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: AttendeeFilterInput): [Attendee]
+  getAudienceSegment(id: ID!): AudienceSegment
+  queryAudienceSegments(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: AudienceSegmentFilterInput): [AudienceSegment]
+  getCalendarEvent(id: ID!): CalendarEvent
+  queryCalendarEvents(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: CalendarEventFilterInput): [CalendarEvent]
+  getCampaign(id: ID!): Campaign
+  queryCampaigns(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: CampaignFilterInput): [Campaign]
+  getCampaignAudience(id: ID!): CampaignAudience
+  queryCampaignAudiences(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: CampaignAudienceFilterInput): [CampaignAudience]
+  getCampaignMetric(id: ID!): CampaignMetric
+  queryCampaignMetrics(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: CampaignMetricFilterInput): [CampaignMetric]
+  getChatAttachment(id: ID!): ChatAttachment
+  queryChatAttachments(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ChatAttachmentFilterInput): [ChatAttachment]
+  getChatMessage(id: ID!): ChatMessage
+  queryChatMessages(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ChatMessageFilterInput): [ChatMessage]
+  getChatRoom(id: ID!): ChatRoom
+  queryChatRooms(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ChatRoomFilterInput): [ChatRoom]
+  getChatRoomUser(id: ID!): ChatRoomUser
+  queryChatRoomUsers(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ChatRoomUserFilterInput): [ChatRoomUser]
+  getChoreServiceEstimate(id: ID!): ChoreServiceEstimate
+  queryChoreServiceEstimates(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ChoreServiceEstimateFilterInput): [ChoreServiceEstimate]
+  getContact(id: ID!): Contact
+  queryContacts(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ContactFilterInput): [Contact]
+  getContract(id: ID!): Contract
+  queryContracts(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ContractFilterInput): [Contract]
+  getConversionFunnel(id: ID!): ConversionFunnel
+  queryConversionFunnels(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ConversionFunnelFilterInput): [ConversionFunnel]
+  getCustomer(id: ID!): Customer
+  queryCustomers(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: CustomerFilterInput): [Customer]
+  getDoorMeasurement(id: ID!): DoorMeasurement
+  queryDoorMeasurements(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: DoorMeasurementFilterInput): [DoorMeasurement]
+  getDoorWideningEstimate(id: ID!): DoorWideningEstimate
+  queryDoorWideningEstimates(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: DoorWideningEstimateFilterInput): [DoorWideningEstimate]
+  getEstimate(id: ID!): Estimate
+  queryEstimates(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: EstimateFilterInput): [Estimate]
+  getExpense(id: ID!): Expense
+  queryExpenses(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ExpenseFilterInput): [Expense]
+  getFeedback(id: ID!): Feedback
+  queryFeedbacks(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: FeedbackFilterInput): [Feedback]
+  getFile(id: ID!): File
+  queryFiles(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: FileFilterInput): [File]
+  getGrabBarEstimate(id: ID!): GrabBarEstimate
+  queryGrabBarEstimates(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: GrabBarEstimateFilterInput): [GrabBarEstimate]
+  getInvite(id: ID!): Invite
+  queryInvites(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: InviteFilterInput): [Invite]
+  getInvoice(id: ID!): Invoice
+  queryInvoices(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: InvoiceFilterInput): [Invoice]
+  getJob(id: ID!): Job
+  queryJobs(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: JobFilterInput): [Job]
+  getJobLead(id: ID!): JobLead
+  queryJobLeads(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: JobLeadFilterInput): [JobLead]
+  getJobService(id: ID!): JobService
+  queryJobServices(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: JobServiceFilterInput): [JobService]
+  getJobTask(id: ID!): JobTask
+  queryJobTasks(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: JobTaskFilterInput): [JobTask]
+  getMaterialList(id: ID!): MaterialList
+  queryMaterialLists(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: MaterialListFilterInput): [MaterialList]
+  getNetworkProProspect(id: ID!): NetworkProProspect
+  queryNetworkProProspects(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: NetworkProProspectFilterInput): [NetworkProProspect]
+  getPayment(id: ID!): Payment
+  queryPayments(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: PaymentFilterInput): [Payment]
+  getProduct(id: ID!): Product
+  queryProducts(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ProductFilterInput): [Product]
+  getProject(id: ID!): Project
+  queryProjects(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ProjectFilterInput): [Project]
+  getProperty(id: ID!): Property
+  queryPropertys(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: PropertyFilterInput): [Property]
+  getProposal(id: ID!): Proposal
+  queryProposals(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ProposalFilterInput): [Proposal]
+  getRecipient(id: ID!): Recipient
+  queryRecipients(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: RecipientFilterInput): [Recipient]
+  getRecurrenceRule(id: ID!): RecurrenceRule
+  queryRecurrenceRules(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: RecurrenceRuleFilterInput): [RecurrenceRule]
+  getResource(id: ID!): Resource
+  queryResources(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ResourceFilterInput): [Resource]
+  getReview(id: ID!): Review
+  queryReviews(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ReviewFilterInput): [Review]
+  getSharedCustomerProspect(id: ID!): SharedCustomerProspect
+  querySharedCustomerProspects(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: SharedCustomerProspectFilterInput): [SharedCustomerProspect]
+  getShowerConversionEstimate(id: ID!): ShowerConversionEstimate
+  queryShowerConversionEstimates(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: ShowerConversionEstimateFilterInput): [ShowerConversionEstimate]
+  getSubscriptionPlan(id: ID!): SubscriptionPlan
+  querySubscriptionPlans(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: SubscriptionPlanFilterInput): [SubscriptionPlan]
+  getSupportTicket(id: ID!): SupportTicket
+  querySupportTickets(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: SupportTicketFilterInput): [SupportTicket]
+  getTeam(id: ID!): Team
+  queryTeams(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: TeamFilterInput): [Team]
+  getTeamMember(id: ID!): TeamMember
+  queryTeamMembers(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: TeamMemberFilterInput): [TeamMember]
+  getTenant(id: ID!): Tenant
+  queryTenants(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: TenantFilterInput): [Tenant]
+  getTrafficSource(id: ID!): TrafficSource
+  queryTrafficSources(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: TrafficSourceFilterInput): [TrafficSource]
+  getUserProfile(id: ID!): UserProfile
+  queryUserProfiles(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: UserProfileFilterInput): [UserProfile]
+  getWoodRampEstimate(id: ID!): WoodRampEstimate
+  queryWoodRampEstimates(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: WoodRampEstimateFilterInput): [WoodRampEstimate]
+  getWorkRequest(id: ID!): WorkRequest
+  queryWorkRequests(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: WorkRequestFilterInput): [WorkRequest]
+  getWorkScheduleEvent(id: ID!): WorkScheduleEvent
+  queryWorkScheduleEvents(limit: Int, nextToken: String, includeDeleted: Boolean = false, filters: WorkScheduleEventFilterInput): [WorkScheduleEvent]
+}
+
+input AdContentFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Mutation {
+  putAdContent(input: CreateAdContentInput!): AdContent
+  updateAdContent(input: UpdateAdContentInput!): AdContent
+  softDeleteAdContent(input: SoftDeleteAdContentInput!): AdContent
+  deleteAdContent(id: ID!): AdContent
+  putAdSchedule(input: CreateAdScheduleInput!): AdSchedule
+  updateAdSchedule(input: UpdateAdScheduleInput!): AdSchedule
+  softDeleteAdSchedule(input: SoftDeleteAdScheduleInput!): AdSchedule
+  deleteAdSchedule(id: ID!): AdSchedule
+  putAttendee(input: CreateAttendeeInput!): Attendee
+  updateAttendee(input: UpdateAttendeeInput!): Attendee
+  softDeleteAttendee(input: SoftDeleteAttendeeInput!): Attendee
+  deleteAttendee(id: ID!): Attendee
+  putAudienceSegment(input: CreateAudienceSegmentInput!): AudienceSegment
+  updateAudienceSegment(input: UpdateAudienceSegmentInput!): AudienceSegment
+  softDeleteAudienceSegment(input: SoftDeleteAudienceSegmentInput!): AudienceSegment
+  deleteAudienceSegment(id: ID!): AudienceSegment
+  putCalendarEvent(input: CreateCalendarEventInput!): CalendarEvent
+  updateCalendarEvent(input: UpdateCalendarEventInput!): CalendarEvent
+  softDeleteCalendarEvent(input: SoftDeleteCalendarEventInput!): CalendarEvent
+  deleteCalendarEvent(id: ID!): CalendarEvent
+  putCampaign(input: CreateCampaignInput!): Campaign
+  updateCampaign(input: UpdateCampaignInput!): Campaign
+  softDeleteCampaign(input: SoftDeleteCampaignInput!): Campaign
+  deleteCampaign(id: ID!): Campaign
+  putCampaignAudience(input: CreateCampaignAudienceInput!): CampaignAudience
+  updateCampaignAudience(input: UpdateCampaignAudienceInput!): CampaignAudience
+  softDeleteCampaignAudience(input: SoftDeleteCampaignAudienceInput!): CampaignAudience
+  deleteCampaignAudience(id: ID!): CampaignAudience
+  putCampaignMetric(input: CreateCampaignMetricInput!): CampaignMetric
+  updateCampaignMetric(input: UpdateCampaignMetricInput!): CampaignMetric
+  softDeleteCampaignMetric(input: SoftDeleteCampaignMetricInput!): CampaignMetric
+  deleteCampaignMetric(id: ID!): CampaignMetric
+  putChatAttachment(input: CreateChatAttachmentInput!): ChatAttachment
+  updateChatAttachment(input: UpdateChatAttachmentInput!): ChatAttachment
+  softDeleteChatAttachment(input: SoftDeleteChatAttachmentInput!): ChatAttachment
+  deleteChatAttachment(id: ID!): ChatAttachment
+  putChatMessage(input: CreateChatMessageInput!): ChatMessage
+  updateChatMessage(input: UpdateChatMessageInput!): ChatMessage
+  softDeleteChatMessage(input: SoftDeleteChatMessageInput!): ChatMessage
+  deleteChatMessage(id: ID!): ChatMessage
+  putChatRoom(input: CreateChatRoomInput!): ChatRoom
+  updateChatRoom(input: UpdateChatRoomInput!): ChatRoom
+  softDeleteChatRoom(input: SoftDeleteChatRoomInput!): ChatRoom
+  deleteChatRoom(id: ID!): ChatRoom
+  putChatRoomUser(input: CreateChatRoomUserInput!): ChatRoomUser
+  updateChatRoomUser(input: UpdateChatRoomUserInput!): ChatRoomUser
+  softDeleteChatRoomUser(input: SoftDeleteChatRoomUserInput!): ChatRoomUser
+  deleteChatRoomUser(id: ID!): ChatRoomUser
+  putChoreServiceEstimate(input: CreateChoreServiceEstimateInput!): ChoreServiceEstimate
+  updateChoreServiceEstimate(input: UpdateChoreServiceEstimateInput!): ChoreServiceEstimate
+  softDeleteChoreServiceEstimate(input: SoftDeleteChoreServiceEstimateInput!): ChoreServiceEstimate
+  deleteChoreServiceEstimate(id: ID!): ChoreServiceEstimate
+  putContact(input: CreateContactInput!): Contact
+  updateContact(input: UpdateContactInput!): Contact
+  softDeleteContact(input: SoftDeleteContactInput!): Contact
+  deleteContact(id: ID!): Contact
+  putContract(input: CreateContractInput!): Contract
+  updateContract(input: UpdateContractInput!): Contract
+  softDeleteContract(input: SoftDeleteContractInput!): Contract
+  deleteContract(id: ID!): Contract
+  putConversionFunnel(input: CreateConversionFunnelInput!): ConversionFunnel
+  updateConversionFunnel(input: UpdateConversionFunnelInput!): ConversionFunnel
+  softDeleteConversionFunnel(input: SoftDeleteConversionFunnelInput!): ConversionFunnel
+  deleteConversionFunnel(id: ID!): ConversionFunnel
+  putCustomer(input: CreateCustomerInput!): Customer
+  updateCustomer(input: UpdateCustomerInput!): Customer
+  softDeleteCustomer(input: SoftDeleteCustomerInput!): Customer
+  deleteCustomer(id: ID!): Customer
+  putDoorMeasurement(input: CreateDoorMeasurementInput!): DoorMeasurement
+  updateDoorMeasurement(input: UpdateDoorMeasurementInput!): DoorMeasurement
+  softDeleteDoorMeasurement(input: SoftDeleteDoorMeasurementInput!): DoorMeasurement
+  deleteDoorMeasurement(id: ID!): DoorMeasurement
+  putDoorWideningEstimate(input: CreateDoorWideningEstimateInput!): DoorWideningEstimate
+  updateDoorWideningEstimate(input: UpdateDoorWideningEstimateInput!): DoorWideningEstimate
+  softDeleteDoorWideningEstimate(input: SoftDeleteDoorWideningEstimateInput!): DoorWideningEstimate
+  deleteDoorWideningEstimate(id: ID!): DoorWideningEstimate
+  putEstimate(input: CreateEstimateInput!): Estimate
+  updateEstimate(input: UpdateEstimateInput!): Estimate
+  softDeleteEstimate(input: SoftDeleteEstimateInput!): Estimate
+  deleteEstimate(id: ID!): Estimate
+  putExpense(input: CreateExpenseInput!): Expense
+  updateExpense(input: UpdateExpenseInput!): Expense
+  softDeleteExpense(input: SoftDeleteExpenseInput!): Expense
+  deleteExpense(id: ID!): Expense
+  putFeedback(input: CreateFeedbackInput!): Feedback
+  updateFeedback(input: UpdateFeedbackInput!): Feedback
+  softDeleteFeedback(input: SoftDeleteFeedbackInput!): Feedback
+  deleteFeedback(id: ID!): Feedback
+  putFile(input: CreateFileInput!): File
+  updateFile(input: UpdateFileInput!): File
+  softDeleteFile(input: SoftDeleteFileInput!): File
+  deleteFile(id: ID!): File
+  putGrabBarEstimate(input: CreateGrabBarEstimateInput!): GrabBarEstimate
+  updateGrabBarEstimate(input: UpdateGrabBarEstimateInput!): GrabBarEstimate
+  softDeleteGrabBarEstimate(input: SoftDeleteGrabBarEstimateInput!): GrabBarEstimate
+  deleteGrabBarEstimate(id: ID!): GrabBarEstimate
+  putInvite(input: CreateInviteInput!): Invite
+  updateInvite(input: UpdateInviteInput!): Invite
+  softDeleteInvite(input: SoftDeleteInviteInput!): Invite
+  deleteInvite(id: ID!): Invite
+  putInvoice(input: CreateInvoiceInput!): Invoice
+  updateInvoice(input: UpdateInvoiceInput!): Invoice
+  softDeleteInvoice(input: SoftDeleteInvoiceInput!): Invoice
+  deleteInvoice(id: ID!): Invoice
+  putJob(input: CreateJobInput!): Job
+  updateJob(input: UpdateJobInput!): Job
+  softDeleteJob(input: SoftDeleteJobInput!): Job
+  deleteJob(id: ID!): Job
+  putJobLead(input: CreateJobLeadInput!): JobLead
+  updateJobLead(input: UpdateJobLeadInput!): JobLead
+  softDeleteJobLead(input: SoftDeleteJobLeadInput!): JobLead
+  deleteJobLead(id: ID!): JobLead
+  putJobService(input: CreateJobServiceInput!): JobService
+  updateJobService(input: UpdateJobServiceInput!): JobService
+  softDeleteJobService(input: SoftDeleteJobServiceInput!): JobService
+  deleteJobService(id: ID!): JobService
+  putJobTask(input: CreateJobTaskInput!): JobTask
+  updateJobTask(input: UpdateJobTaskInput!): JobTask
+  softDeleteJobTask(input: SoftDeleteJobTaskInput!): JobTask
+  deleteJobTask(id: ID!): JobTask
+  putMaterialList(input: CreateMaterialListInput!): MaterialList
+  updateMaterialList(input: UpdateMaterialListInput!): MaterialList
+  softDeleteMaterialList(input: SoftDeleteMaterialListInput!): MaterialList
+  deleteMaterialList(id: ID!): MaterialList
+  putNetworkProProspect(input: CreateNetworkProProspectInput!): NetworkProProspect
+  updateNetworkProProspect(input: UpdateNetworkProProspectInput!): NetworkProProspect
+  softDeleteNetworkProProspect(input: SoftDeleteNetworkProProspectInput!): NetworkProProspect
+  deleteNetworkProProspect(id: ID!): NetworkProProspect
+  putPayment(input: CreatePaymentInput!): Payment
+  updatePayment(input: UpdatePaymentInput!): Payment
+  softDeletePayment(input: SoftDeletePaymentInput!): Payment
+  deletePayment(id: ID!): Payment
+  putProduct(input: CreateProductInput!): Product
+  updateProduct(input: UpdateProductInput!): Product
+  softDeleteProduct(input: SoftDeleteProductInput!): Product
+  deleteProduct(id: ID!): Product
+  putProject(input: CreateProjectInput!): Project
+  updateProject(input: UpdateProjectInput!): Project
+  softDeleteProject(input: SoftDeleteProjectInput!): Project
+  deleteProject(id: ID!): Project
+  putProperty(input: CreatePropertyInput!): Property
+  updateProperty(input: UpdatePropertyInput!): Property
+  softDeleteProperty(input: SoftDeletePropertyInput!): Property
+  deleteProperty(id: ID!): Property
+  putProposal(input: CreateProposalInput!): Proposal
+  updateProposal(input: UpdateProposalInput!): Proposal
+  softDeleteProposal(input: SoftDeleteProposalInput!): Proposal
+  deleteProposal(id: ID!): Proposal
+  putRecipient(input: CreateRecipientInput!): Recipient
+  updateRecipient(input: UpdateRecipientInput!): Recipient
+  softDeleteRecipient(input: SoftDeleteRecipientInput!): Recipient
+  deleteRecipient(id: ID!): Recipient
+  putRecurrenceRule(input: CreateRecurrenceRuleInput!): RecurrenceRule
+  updateRecurrenceRule(input: UpdateRecurrenceRuleInput!): RecurrenceRule
+  softDeleteRecurrenceRule(input: SoftDeleteRecurrenceRuleInput!): RecurrenceRule
+  deleteRecurrenceRule(id: ID!): RecurrenceRule
+  putResource(input: CreateResourceInput!): Resource
+  updateResource(input: UpdateResourceInput!): Resource
+  softDeleteResource(input: SoftDeleteResourceInput!): Resource
+  deleteResource(id: ID!): Resource
+  putReview(input: CreateReviewInput!): Review
+  updateReview(input: UpdateReviewInput!): Review
+  softDeleteReview(input: SoftDeleteReviewInput!): Review
+  deleteReview(id: ID!): Review
+  putSharedCustomerProspect(input: CreateSharedCustomerProspectInput!): SharedCustomerProspect
+  updateSharedCustomerProspect(input: UpdateSharedCustomerProspectInput!): SharedCustomerProspect
+  softDeleteSharedCustomerProspect(input: SoftDeleteSharedCustomerProspectInput!): SharedCustomerProspect
+  deleteSharedCustomerProspect(id: ID!): SharedCustomerProspect
+  putShowerConversionEstimate(input: CreateShowerConversionEstimateInput!): ShowerConversionEstimate
+  updateShowerConversionEstimate(input: UpdateShowerConversionEstimateInput!): ShowerConversionEstimate
+  softDeleteShowerConversionEstimate(input: SoftDeleteShowerConversionEstimateInput!): ShowerConversionEstimate
+  deleteShowerConversionEstimate(id: ID!): ShowerConversionEstimate
+  putSubscriptionPlan(input: CreateSubscriptionPlanInput!): SubscriptionPlan
+  updateSubscriptionPlan(input: UpdateSubscriptionPlanInput!): SubscriptionPlan
+  softDeleteSubscriptionPlan(input: SoftDeleteSubscriptionPlanInput!): SubscriptionPlan
+  deleteSubscriptionPlan(id: ID!): SubscriptionPlan
+  putSupportTicket(input: CreateSupportTicketInput!): SupportTicket
+  updateSupportTicket(input: UpdateSupportTicketInput!): SupportTicket
+  softDeleteSupportTicket(input: SoftDeleteSupportTicketInput!): SupportTicket
+  deleteSupportTicket(id: ID!): SupportTicket
+  putTeam(input: CreateTeamInput!): Team
+  updateTeam(input: UpdateTeamInput!): Team
+  softDeleteTeam(input: SoftDeleteTeamInput!): Team
+  deleteTeam(id: ID!): Team
+  putTeamMember(input: CreateTeamMemberInput!): TeamMember
+  updateTeamMember(input: UpdateTeamMemberInput!): TeamMember
+  softDeleteTeamMember(input: SoftDeleteTeamMemberInput!): TeamMember
+  deleteTeamMember(id: ID!): TeamMember
+  putTenant(input: CreateTenantInput!): Tenant
+  updateTenant(input: UpdateTenantInput!): Tenant
+  softDeleteTenant(input: SoftDeleteTenantInput!): Tenant
+  deleteTenant(id: ID!): Tenant
+  putTrafficSource(input: CreateTrafficSourceInput!): TrafficSource
+  updateTrafficSource(input: UpdateTrafficSourceInput!): TrafficSource
+  softDeleteTrafficSource(input: SoftDeleteTrafficSourceInput!): TrafficSource
+  deleteTrafficSource(id: ID!): TrafficSource
+  putUserProfile(input: CreateUserProfileInput!): UserProfile
+  updateUserProfile(input: UpdateUserProfileInput!): UserProfile
+  softDeleteUserProfile(input: SoftDeleteUserProfileInput!): UserProfile
+  deleteUserProfile(id: ID!): UserProfile
+  putWoodRampEstimate(input: CreateWoodRampEstimateInput!): WoodRampEstimate
+  updateWoodRampEstimate(input: UpdateWoodRampEstimateInput!): WoodRampEstimate
+  softDeleteWoodRampEstimate(input: SoftDeleteWoodRampEstimateInput!): WoodRampEstimate
+  deleteWoodRampEstimate(id: ID!): WoodRampEstimate
+  putWorkRequest(input: CreateWorkRequestInput!): WorkRequest
+  updateWorkRequest(input: UpdateWorkRequestInput!): WorkRequest
+  softDeleteWorkRequest(input: SoftDeleteWorkRequestInput!): WorkRequest
+  deleteWorkRequest(id: ID!): WorkRequest
+  putWorkScheduleEvent(input: CreateWorkScheduleEventInput!): WorkScheduleEvent
+  updateWorkScheduleEvent(input: UpdateWorkScheduleEventInput!): WorkScheduleEvent
+  softDeleteWorkScheduleEvent(input: SoftDeleteWorkScheduleEventInput!): WorkScheduleEvent
+  deleteWorkScheduleEvent(id: ID!): WorkScheduleEvent
+}
+
+type Subscription {
+  onPutAdContent: AdContent @aws_subscribe(mutations: ["putAdContent"])
+  onUpdateAdContent: AdContent @aws_subscribe(mutations: ["updateAdContent"])
+  onSoftDeleteAdContent: AdContent @aws_subscribe(mutations: ["softDeleteAdContent"])
+  onPutAdSchedule: AdSchedule @aws_subscribe(mutations: ["putAdSchedule"])
+  onUpdateAdSchedule: AdSchedule @aws_subscribe(mutations: ["updateAdSchedule"])
+  onSoftDeleteAdSchedule: AdSchedule @aws_subscribe(mutations: ["softDeleteAdSchedule"])
+  onPutAttendee: Attendee @aws_subscribe(mutations: ["putAttendee"])
+  onUpdateAttendee: Attendee @aws_subscribe(mutations: ["updateAttendee"])
+  onSoftDeleteAttendee: Attendee @aws_subscribe(mutations: ["softDeleteAttendee"])
+  onPutAudienceSegment: AudienceSegment @aws_subscribe(mutations: ["putAudienceSegment"])
+  onUpdateAudienceSegment: AudienceSegment @aws_subscribe(mutations: ["updateAudienceSegment"])
+  onSoftDeleteAudienceSegment: AudienceSegment @aws_subscribe(mutations: ["softDeleteAudienceSegment"])
+  onPutCalendarEvent: CalendarEvent @aws_subscribe(mutations: ["putCalendarEvent"])
+  onUpdateCalendarEvent: CalendarEvent @aws_subscribe(mutations: ["updateCalendarEvent"])
+  onSoftDeleteCalendarEvent: CalendarEvent @aws_subscribe(mutations: ["softDeleteCalendarEvent"])
+  onPutCampaign: Campaign @aws_subscribe(mutations: ["putCampaign"])
+  onUpdateCampaign: Campaign @aws_subscribe(mutations: ["updateCampaign"])
+  onSoftDeleteCampaign: Campaign @aws_subscribe(mutations: ["softDeleteCampaign"])
+  onPutCampaignAudience: CampaignAudience @aws_subscribe(mutations: ["putCampaignAudience"])
+  onUpdateCampaignAudience: CampaignAudience @aws_subscribe(mutations: ["updateCampaignAudience"])
+  onSoftDeleteCampaignAudience: CampaignAudience @aws_subscribe(mutations: ["softDeleteCampaignAudience"])
+  onPutCampaignMetric: CampaignMetric @aws_subscribe(mutations: ["putCampaignMetric"])
+  onUpdateCampaignMetric: CampaignMetric @aws_subscribe(mutations: ["updateCampaignMetric"])
+  onSoftDeleteCampaignMetric: CampaignMetric @aws_subscribe(mutations: ["softDeleteCampaignMetric"])
+  onPutChatAttachment: ChatAttachment @aws_subscribe(mutations: ["putChatAttachment"])
+  onUpdateChatAttachment: ChatAttachment @aws_subscribe(mutations: ["updateChatAttachment"])
+  onSoftDeleteChatAttachment: ChatAttachment @aws_subscribe(mutations: ["softDeleteChatAttachment"])
+  onPutChatMessage: ChatMessage @aws_subscribe(mutations: ["putChatMessage"])
+  onUpdateChatMessage: ChatMessage @aws_subscribe(mutations: ["updateChatMessage"])
+  onSoftDeleteChatMessage: ChatMessage @aws_subscribe(mutations: ["softDeleteChatMessage"])
+  onPutChatRoom: ChatRoom @aws_subscribe(mutations: ["putChatRoom"])
+  onUpdateChatRoom: ChatRoom @aws_subscribe(mutations: ["updateChatRoom"])
+  onSoftDeleteChatRoom: ChatRoom @aws_subscribe(mutations: ["softDeleteChatRoom"])
+  onPutChatRoomUser: ChatRoomUser @aws_subscribe(mutations: ["putChatRoomUser"])
+  onUpdateChatRoomUser: ChatRoomUser @aws_subscribe(mutations: ["updateChatRoomUser"])
+  onSoftDeleteChatRoomUser: ChatRoomUser @aws_subscribe(mutations: ["softDeleteChatRoomUser"])
+  onPutChoreServiceEstimate: ChoreServiceEstimate @aws_subscribe(mutations: ["putChoreServiceEstimate"])
+  onUpdateChoreServiceEstimate: ChoreServiceEstimate @aws_subscribe(mutations: ["updateChoreServiceEstimate"])
+  onSoftDeleteChoreServiceEstimate: ChoreServiceEstimate @aws_subscribe(mutations: ["softDeleteChoreServiceEstimate"])
+  onPutContact: Contact @aws_subscribe(mutations: ["putContact"])
+  onUpdateContact: Contact @aws_subscribe(mutations: ["updateContact"])
+  onSoftDeleteContact: Contact @aws_subscribe(mutations: ["softDeleteContact"])
+  onPutContract: Contract @aws_subscribe(mutations: ["putContract"])
+  onUpdateContract: Contract @aws_subscribe(mutations: ["updateContract"])
+  onSoftDeleteContract: Contract @aws_subscribe(mutations: ["softDeleteContract"])
+  onPutConversionFunnel: ConversionFunnel @aws_subscribe(mutations: ["putConversionFunnel"])
+  onUpdateConversionFunnel: ConversionFunnel @aws_subscribe(mutations: ["updateConversionFunnel"])
+  onSoftDeleteConversionFunnel: ConversionFunnel @aws_subscribe(mutations: ["softDeleteConversionFunnel"])
+  onPutCustomer: Customer @aws_subscribe(mutations: ["putCustomer"])
+  onUpdateCustomer: Customer @aws_subscribe(mutations: ["updateCustomer"])
+  onSoftDeleteCustomer: Customer @aws_subscribe(mutations: ["softDeleteCustomer"])
+  onPutDoorMeasurement: DoorMeasurement @aws_subscribe(mutations: ["putDoorMeasurement"])
+  onUpdateDoorMeasurement: DoorMeasurement @aws_subscribe(mutations: ["updateDoorMeasurement"])
+  onSoftDeleteDoorMeasurement: DoorMeasurement @aws_subscribe(mutations: ["softDeleteDoorMeasurement"])
+  onPutDoorWideningEstimate: DoorWideningEstimate @aws_subscribe(mutations: ["putDoorWideningEstimate"])
+  onUpdateDoorWideningEstimate: DoorWideningEstimate @aws_subscribe(mutations: ["updateDoorWideningEstimate"])
+  onSoftDeleteDoorWideningEstimate: DoorWideningEstimate @aws_subscribe(mutations: ["softDeleteDoorWideningEstimate"])
+  onPutEstimate: Estimate @aws_subscribe(mutations: ["putEstimate"])
+  onUpdateEstimate: Estimate @aws_subscribe(mutations: ["updateEstimate"])
+  onSoftDeleteEstimate: Estimate @aws_subscribe(mutations: ["softDeleteEstimate"])
+  onPutExpense: Expense @aws_subscribe(mutations: ["putExpense"])
+  onUpdateExpense: Expense @aws_subscribe(mutations: ["updateExpense"])
+  onSoftDeleteExpense: Expense @aws_subscribe(mutations: ["softDeleteExpense"])
+  onPutFeedback: Feedback @aws_subscribe(mutations: ["putFeedback"])
+  onUpdateFeedback: Feedback @aws_subscribe(mutations: ["updateFeedback"])
+  onSoftDeleteFeedback: Feedback @aws_subscribe(mutations: ["softDeleteFeedback"])
+  onPutFile: File @aws_subscribe(mutations: ["putFile"])
+  onUpdateFile: File @aws_subscribe(mutations: ["updateFile"])
+  onSoftDeleteFile: File @aws_subscribe(mutations: ["softDeleteFile"])
+  onPutGrabBarEstimate: GrabBarEstimate @aws_subscribe(mutations: ["putGrabBarEstimate"])
+  onUpdateGrabBarEstimate: GrabBarEstimate @aws_subscribe(mutations: ["updateGrabBarEstimate"])
+  onSoftDeleteGrabBarEstimate: GrabBarEstimate @aws_subscribe(mutations: ["softDeleteGrabBarEstimate"])
+  onPutInvite: Invite @aws_subscribe(mutations: ["putInvite"])
+  onUpdateInvite: Invite @aws_subscribe(mutations: ["updateInvite"])
+  onSoftDeleteInvite: Invite @aws_subscribe(mutations: ["softDeleteInvite"])
+  onPutInvoice: Invoice @aws_subscribe(mutations: ["putInvoice"])
+  onUpdateInvoice: Invoice @aws_subscribe(mutations: ["updateInvoice"])
+  onSoftDeleteInvoice: Invoice @aws_subscribe(mutations: ["softDeleteInvoice"])
+  onPutJob: Job @aws_subscribe(mutations: ["putJob"])
+  onUpdateJob: Job @aws_subscribe(mutations: ["updateJob"])
+  onSoftDeleteJob: Job @aws_subscribe(mutations: ["softDeleteJob"])
+  onPutJobLead: JobLead @aws_subscribe(mutations: ["putJobLead"])
+  onUpdateJobLead: JobLead @aws_subscribe(mutations: ["updateJobLead"])
+  onSoftDeleteJobLead: JobLead @aws_subscribe(mutations: ["softDeleteJobLead"])
+  onPutJobService: JobService @aws_subscribe(mutations: ["putJobService"])
+  onUpdateJobService: JobService @aws_subscribe(mutations: ["updateJobService"])
+  onSoftDeleteJobService: JobService @aws_subscribe(mutations: ["softDeleteJobService"])
+  onPutJobTask: JobTask @aws_subscribe(mutations: ["putJobTask"])
+  onUpdateJobTask: JobTask @aws_subscribe(mutations: ["updateJobTask"])
+  onSoftDeleteJobTask: JobTask @aws_subscribe(mutations: ["softDeleteJobTask"])
+  onPutMaterialList: MaterialList @aws_subscribe(mutations: ["putMaterialList"])
+  onUpdateMaterialList: MaterialList @aws_subscribe(mutations: ["updateMaterialList"])
+  onSoftDeleteMaterialList: MaterialList @aws_subscribe(mutations: ["softDeleteMaterialList"])
+  onPutNetworkProProspect: NetworkProProspect @aws_subscribe(mutations: ["putNetworkProProspect"])
+  onUpdateNetworkProProspect: NetworkProProspect @aws_subscribe(mutations: ["updateNetworkProProspect"])
+  onSoftDeleteNetworkProProspect: NetworkProProspect @aws_subscribe(mutations: ["softDeleteNetworkProProspect"])
+  onPutPayment: Payment @aws_subscribe(mutations: ["putPayment"])
+  onUpdatePayment: Payment @aws_subscribe(mutations: ["updatePayment"])
+  onSoftDeletePayment: Payment @aws_subscribe(mutations: ["softDeletePayment"])
+  onPutProduct: Product @aws_subscribe(mutations: ["putProduct"])
+  onUpdateProduct: Product @aws_subscribe(mutations: ["updateProduct"])
+  onSoftDeleteProduct: Product @aws_subscribe(mutations: ["softDeleteProduct"])
+  onPutProject: Project @aws_subscribe(mutations: ["putProject"])
+  onUpdateProject: Project @aws_subscribe(mutations: ["updateProject"])
+  onSoftDeleteProject: Project @aws_subscribe(mutations: ["softDeleteProject"])
+  onPutProperty: Property @aws_subscribe(mutations: ["putProperty"])
+  onUpdateProperty: Property @aws_subscribe(mutations: ["updateProperty"])
+  onSoftDeleteProperty: Property @aws_subscribe(mutations: ["softDeleteProperty"])
+  onPutProposal: Proposal @aws_subscribe(mutations: ["putProposal"])
+  onUpdateProposal: Proposal @aws_subscribe(mutations: ["updateProposal"])
+  onSoftDeleteProposal: Proposal @aws_subscribe(mutations: ["softDeleteProposal"])
+  onPutRecipient: Recipient @aws_subscribe(mutations: ["putRecipient"])
+  onUpdateRecipient: Recipient @aws_subscribe(mutations: ["updateRecipient"])
+  onSoftDeleteRecipient: Recipient @aws_subscribe(mutations: ["softDeleteRecipient"])
+  onPutRecurrenceRule: RecurrenceRule @aws_subscribe(mutations: ["putRecurrenceRule"])
+  onUpdateRecurrenceRule: RecurrenceRule @aws_subscribe(mutations: ["updateRecurrenceRule"])
+  onSoftDeleteRecurrenceRule: RecurrenceRule @aws_subscribe(mutations: ["softDeleteRecurrenceRule"])
+  onPutResource: Resource @aws_subscribe(mutations: ["putResource"])
+  onUpdateResource: Resource @aws_subscribe(mutations: ["updateResource"])
+  onSoftDeleteResource: Resource @aws_subscribe(mutations: ["softDeleteResource"])
+  onPutReview: Review @aws_subscribe(mutations: ["putReview"])
+  onUpdateReview: Review @aws_subscribe(mutations: ["updateReview"])
+  onSoftDeleteReview: Review @aws_subscribe(mutations: ["softDeleteReview"])
+  onPutSharedCustomerProspect: SharedCustomerProspect @aws_subscribe(mutations: ["putSharedCustomerProspect"])
+  onUpdateSharedCustomerProspect: SharedCustomerProspect @aws_subscribe(mutations: ["updateSharedCustomerProspect"])
+  onSoftDeleteSharedCustomerProspect: SharedCustomerProspect @aws_subscribe(mutations: ["softDeleteSharedCustomerProspect"])
+  onPutShowerConversionEstimate: ShowerConversionEstimate @aws_subscribe(mutations: ["putShowerConversionEstimate"])
+  onUpdateShowerConversionEstimate: ShowerConversionEstimate @aws_subscribe(mutations: ["updateShowerConversionEstimate"])
+  onSoftDeleteShowerConversionEstimate: ShowerConversionEstimate @aws_subscribe(mutations: ["softDeleteShowerConversionEstimate"])
+  onPutSubscriptionPlan: SubscriptionPlan @aws_subscribe(mutations: ["putSubscriptionPlan"])
+  onUpdateSubscriptionPlan: SubscriptionPlan @aws_subscribe(mutations: ["updateSubscriptionPlan"])
+  onSoftDeleteSubscriptionPlan: SubscriptionPlan @aws_subscribe(mutations: ["softDeleteSubscriptionPlan"])
+  onPutSupportTicket: SupportTicket @aws_subscribe(mutations: ["putSupportTicket"])
+  onUpdateSupportTicket: SupportTicket @aws_subscribe(mutations: ["updateSupportTicket"])
+  onSoftDeleteSupportTicket: SupportTicket @aws_subscribe(mutations: ["softDeleteSupportTicket"])
+  onPutTeam: Team @aws_subscribe(mutations: ["putTeam"])
+  onUpdateTeam: Team @aws_subscribe(mutations: ["updateTeam"])
+  onSoftDeleteTeam: Team @aws_subscribe(mutations: ["softDeleteTeam"])
+  onPutTeamMember: TeamMember @aws_subscribe(mutations: ["putTeamMember"])
+  onUpdateTeamMember: TeamMember @aws_subscribe(mutations: ["updateTeamMember"])
+  onSoftDeleteTeamMember: TeamMember @aws_subscribe(mutations: ["softDeleteTeamMember"])
+  onPutTenant: Tenant @aws_subscribe(mutations: ["putTenant"])
+  onUpdateTenant: Tenant @aws_subscribe(mutations: ["updateTenant"])
+  onSoftDeleteTenant: Tenant @aws_subscribe(mutations: ["softDeleteTenant"])
+  onPutTrafficSource: TrafficSource @aws_subscribe(mutations: ["putTrafficSource"])
+  onUpdateTrafficSource: TrafficSource @aws_subscribe(mutations: ["updateTrafficSource"])
+  onSoftDeleteTrafficSource: TrafficSource @aws_subscribe(mutations: ["softDeleteTrafficSource"])
+  onPutUserProfile: UserProfile @aws_subscribe(mutations: ["putUserProfile"])
+  onUpdateUserProfile: UserProfile @aws_subscribe(mutations: ["updateUserProfile"])
+  onSoftDeleteUserProfile: UserProfile @aws_subscribe(mutations: ["softDeleteUserProfile"])
+  onPutWoodRampEstimate: WoodRampEstimate @aws_subscribe(mutations: ["putWoodRampEstimate"])
+  onUpdateWoodRampEstimate: WoodRampEstimate @aws_subscribe(mutations: ["updateWoodRampEstimate"])
+  onSoftDeleteWoodRampEstimate: WoodRampEstimate @aws_subscribe(mutations: ["softDeleteWoodRampEstimate"])
+  onPutWorkRequest: WorkRequest @aws_subscribe(mutations: ["putWorkRequest"])
+  onUpdateWorkRequest: WorkRequest @aws_subscribe(mutations: ["updateWorkRequest"])
+  onSoftDeleteWorkRequest: WorkRequest @aws_subscribe(mutations: ["softDeleteWorkRequest"])
+  onPutWorkScheduleEvent: WorkScheduleEvent @aws_subscribe(mutations: ["putWorkScheduleEvent"])
+  onUpdateWorkScheduleEvent: WorkScheduleEvent @aws_subscribe(mutations: ["updateWorkScheduleEvent"])
+  onSoftDeleteWorkScheduleEvent: WorkScheduleEvent @aws_subscribe(mutations: ["softDeleteWorkScheduleEvent"])
+}
+
+type AdSchedule {
+  id: ID!
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  timeZone: String
+  daysOfWeek: [String]
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateAdScheduleInput {
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  timeZone: String
+  daysOfWeek: [String]
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateAdScheduleInput {
+  id: ID!
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  timeZone: String
+  daysOfWeek: [String]
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteAdScheduleInput {
+  id: ID!
+}
+
+input AdScheduleFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Attendee {
+  id: ID!
+  name: String
+  email: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateAttendeeInput {
+  name: String
+  email: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateAttendeeInput {
+  id: ID!
+  name: String
+  email: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteAttendeeInput {
+  id: ID!
+}
+
+input AttendeeFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type AudienceSegment {
+  id: ID!
+  name: String
+  criteria: String
+  segmentSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateAudienceSegmentInput {
+  name: String
+  criteria: String
+  segmentSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateAudienceSegmentInput {
+  id: ID!
+  name: String
+  criteria: String
+  segmentSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteAudienceSegmentInput {
+  id: ID!
+}
+
+input AudienceSegmentFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type CalendarEvent {
+  id: ID!
+  title: String
+  description: String
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  attendees: [String]
+  recurrence: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateCalendarEventInput {
+  title: String
+  description: String
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  attendees: [String]
+  recurrence: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateCalendarEventInput {
+  id: ID!
+  title: String
+  description: String
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  attendees: [String]
+  recurrence: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteCalendarEventInput {
+  id: ID!
+}
+
+input CalendarEventFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Campaign {
+  id: ID!
+  name: String
+  description: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  budget: Float
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateCampaignInput {
+  name: String
+  description: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  budget: Float
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateCampaignInput {
+  id: ID!
+  name: String
+  description: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  budget: Float
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteCampaignInput {
+  id: ID!
+}
+
+input CampaignFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type CampaignAudience {
+  id: ID!
+  demographics: [String]
+  targetingCriteria: String
+  audienceSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateCampaignAudienceInput {
+  demographics: [String]
+  targetingCriteria: String
+  audienceSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateCampaignAudienceInput {
+  id: ID!
+  demographics: [String]
+  targetingCriteria: String
+  audienceSize: Int
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteCampaignAudienceInput {
+  id: ID!
+}
+
+input CampaignAudienceFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type CampaignMetric {
+  id: ID!
+  impressions: Int
+  clicks: Int
+  conversions: Int
+  spend: Float
+  roi: Float
+  value: Float
+  dateRecorded: AWSDateTime
+  targetGoal: Float
+  metricType: String
+  source: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateCampaignMetricInput {
+  impressions: Int
+  clicks: Int
+  conversions: Int
+  spend: Float
+  roi: Float
+  value: Float
+  dateRecorded: AWSDateTime
+  targetGoal: Float
+  metricType: String
+  source: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateCampaignMetricInput {
+  id: ID!
+  impressions: Int
+  clicks: Int
+  conversions: Int
+  spend: Float
+  roi: Float
+  value: Float
+  dateRecorded: AWSDateTime
+  targetGoal: Float
+  metricType: String
+  source: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteCampaignMetricInput {
+  id: ID!
+}
+
+input CampaignMetricFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type ChatAttachment {
+  id: ID!
+  chatMessageId: ID!
+  fileURL: String
+  fileType: String
+  chatMessage: String
+  messengerIds: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateChatAttachmentInput {
+  chatMessageId: ID!
+  fileURL: String
+  fileType: String
+  chatMessage: String
+  messengerIds: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateChatAttachmentInput {
+  id: ID!
+  chatMessageId: ID!
+  fileURL: String
+  fileType: String
+  chatMessage: String
+  messengerIds: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteChatAttachmentInput {
+  id: ID!
+}
+
+input ChatAttachmentFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type ChatMessage {
+  id: ID!
+  userId: ID!
+  chatRoomId: ID!
+  messageContent: String
+  timestamp: AWSDateTime
+  messageType: String
+  attachments: [String]
+  messengerIds: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateChatMessageInput {
+  userId: ID!
+  chatRoomId: ID!
+  messageContent: String
+  timestamp: AWSDateTime
+  messageType: String
+  attachments: [String]
+  messengerIds: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateChatMessageInput {
+  id: ID!
+  userId: ID!
+  chatRoomId: ID!
+  messageContent: String
+  timestamp: AWSDateTime
+  messageType: String
+  attachments: [String]
+  messengerIds: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteChatMessageInput {
+  id: ID!
+}
+
+input ChatMessageFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type ChatRoom {
+  id: ID!
+  messengerIds: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateChatRoomInput {
+  messengerIds: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateChatRoomInput {
+  id: ID!
+  messengerIds: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteChatRoomInput {
+  id: ID!
+}
+
+input ChatRoomFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type ChatRoomUser {
+  userId: ID!
+  chatRoomId: ID!
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateChatRoomUserInput {
+  userId: ID!
+  chatRoomId: ID!
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateChatRoomUserInput {
+  id: ID!
+  userId: ID!
+  chatRoomId: ID!
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteChatRoomUserInput {
+  id: ID!
+}
+
+input ChatRoomUserFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type ChoreServiceEstimate {
+  serviceType: String
+  description: String
+  numberOfRoomsCleaned: Int
+  numberOfGarbageBags: Int
+  estimatedHoursToClean: Float
+  numberOfCarpetShampooedRooms: Int
+  additionalNotes: String
+  memberRequestAdditionalServices: Boolean
+  additionalRequests: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input CreateChoreServiceEstimateInput {
+  serviceType: String
+  description: String
+  numberOfRoomsCleaned: Int
+  numberOfGarbageBags: Int
+  estimatedHoursToClean: Float
+  numberOfCarpetShampooedRooms: Int
+  additionalNotes: String
+  memberRequestAdditionalServices: Boolean
+  additionalRequests: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input UpdateChoreServiceEstimateInput {
+  id: ID!
+  serviceType: String
+  description: String
+  numberOfRoomsCleaned: Int
+  numberOfGarbageBags: Int
+  estimatedHoursToClean: Float
+  numberOfCarpetShampooedRooms: Int
+  additionalNotes: String
+  memberRequestAdditionalServices: Boolean
+  additionalRequests: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input SoftDeleteChoreServiceEstimateInput {
+  id: ID!
+}
+
+input ChoreServiceEstimateFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Contact {
+  id: ID!
+  fullName: String
+  email: String
+  message: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateContactInput {
+  fullName: String
+  email: String
+  message: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateContactInput {
+  id: ID!
+  fullName: String
+  email: String
+  message: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteContactInput {
+  id: ID!
+}
+
+input ContactFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Contract {
+  id: ID!
+  presentedById: ID!
+  title: String
+  partiesInvolved: [String]
+  terms: String
+  contractAmount: Float
+  paymentTerms: String
+  scope: String
+  terminationClause: String
+  signatures: [String]
+  dateEffective: AWSDateTime
+  dateFulfilled: AWSDateTime
+  attachmentUrls: [String]
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateContractInput {
+  presentedById: ID!
+  title: String
+  partiesInvolved: [String]
+  terms: String
+  contractAmount: Float
+  paymentTerms: String
+  scope: String
+  terminationClause: String
+  signatures: [String]
+  dateEffective: AWSDateTime
+  dateFulfilled: AWSDateTime
+  attachmentUrls: [String]
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateContractInput {
+  id: ID!
+  presentedById: ID!
+  title: String
+  partiesInvolved: [String]
+  terms: String
+  contractAmount: Float
+  paymentTerms: String
+  scope: String
+  terminationClause: String
+  signatures: [String]
+  dateEffective: AWSDateTime
+  dateFulfilled: AWSDateTime
+  attachmentUrls: [String]
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteContractInput {
+  id: ID!
+}
+
+input ContractFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type ConversionFunnel {
+  id: ID!
+  visitorsAtStep: Int
+  conversionsAtStep: Int
+  dropOffRate: Float
+  dateRecorded: AWSDateTime
+  notes: String
+  stepName: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateConversionFunnelInput {
+  visitorsAtStep: Int
+  conversionsAtStep: Int
+  dropOffRate: Float
+  dateRecorded: AWSDateTime
+  notes: String
+  stepName: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateConversionFunnelInput {
+  id: ID!
+  visitorsAtStep: Int
+  conversionsAtStep: Int
+  dropOffRate: Float
+  dateRecorded: AWSDateTime
+  notes: String
+  stepName: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteConversionFunnelInput {
+  id: ID!
+}
+
+input ConversionFunnelFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Customer {
+  id: ID!
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  additionalInfo: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateCustomerInput {
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  additionalInfo: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateCustomerInput {
+  id: ID!
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  additionalInfo: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteCustomerInput {
+  id: ID!
+}
+
+input CustomerFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type DoorMeasurement {
+  door1Width: Float
+  door1MaxWidening: Float
+  door1Location: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateDoorMeasurementInput {
+  door1Width: Float
+  door1MaxWidening: Float
+  door1Location: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateDoorMeasurementInput {
+  id: ID!
+  door1Width: Float
+  door1MaxWidening: Float
+  door1Location: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteDoorMeasurementInput {
+  id: ID!
+}
+
+input DoorMeasurementFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type DoorWideningEstimate {
+  doorMeasurements: [String]
+  electricalNeedsRelocation: Boolean
+  electricalRelocationDoors: String
+  needPocketDoorSwingObstruction: Boolean
+  pocketDoorSwingObstructionDoors: String
+  needPocketDoorUnmovableWalls: Boolean
+  pocketDoorUnmovableWallsDoors: String
+  wheelchairOrWalkerWidth: Float
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input CreateDoorWideningEstimateInput {
+  doorMeasurements: [String]
+  electricalNeedsRelocation: Boolean
+  electricalRelocationDoors: String
+  needPocketDoorSwingObstruction: Boolean
+  pocketDoorSwingObstructionDoors: String
+  needPocketDoorUnmovableWalls: Boolean
+  pocketDoorUnmovableWallsDoors: String
+  wheelchairOrWalkerWidth: Float
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input UpdateDoorWideningEstimateInput {
+  id: ID!
+  doorMeasurements: [String]
+  electricalNeedsRelocation: Boolean
+  electricalRelocationDoors: String
+  needPocketDoorSwingObstruction: Boolean
+  pocketDoorSwingObstructionDoors: String
+  needPocketDoorUnmovableWalls: Boolean
+  pocketDoorUnmovableWallsDoors: String
+  wheelchairOrWalkerWidth: Float
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input SoftDeleteDoorWideningEstimateInput {
+  id: ID!
+}
+
+input DoorWideningEstimateFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Estimate {
+  id: ID!
+  createdById: ID!
+  estimateNumber: String
+  paymentTerms: String
+  description: String
+  status: String
+  lineItems: [AWSJSON]
+  jobTasks: [AWSJSON]
+  tags: [String]
+  date: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateEstimateInput {
+  createdById: ID!
+  estimateNumber: String
+  paymentTerms: String
+  description: String
+  status: String
+  lineItems: [AWSJSON]
+  jobTasks: [AWSJSON]
+  tags: [String]
+  date: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateEstimateInput {
+  id: ID!
+  createdById: ID!
+  estimateNumber: String
+  paymentTerms: String
+  description: String
+  status: String
+  lineItems: [AWSJSON]
+  jobTasks: [AWSJSON]
+  tags: [String]
+  date: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteEstimateInput {
+  id: ID!
+}
+
+input EstimateFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Expense {
+  id: ID!
+  approvedById: ID!
+  amount: Float
+  category: String
+  description: String
+  notes: String
+  receiptUrls: [String]
+  date: AWSDateTime
+  isRecurring: Boolean
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateExpenseInput {
+  approvedById: ID!
+  amount: Float
+  category: String
+  description: String
+  notes: String
+  receiptUrls: [String]
+  date: AWSDateTime
+  isRecurring: Boolean
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateExpenseInput {
+  id: ID!
+  approvedById: ID!
+  amount: Float
+  category: String
+  description: String
+  notes: String
+  receiptUrls: [String]
+  date: AWSDateTime
+  isRecurring: Boolean
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteExpenseInput {
+  id: ID!
+}
+
+input ExpenseFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Feedback {
+  id: ID!
+  userId: ID!
+  message: String
+  rating: Float
+  notes: String
+  responseStatus: String
+  feedbackType: String
+  text: String
+  submittedBy: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateFeedbackInput {
+  userId: ID!
+  message: String
+  rating: Float
+  notes: String
+  responseStatus: String
+  feedbackType: String
+  text: String
+  submittedBy: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateFeedbackInput {
+  id: ID!
+  userId: ID!
+  message: String
+  rating: Float
+  notes: String
+  responseStatus: String
+  feedbackType: String
+  text: String
+  submittedBy: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteFeedbackInput {
+  id: ID!
+}
+
+input FeedbackFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type File {
+  id: ID!
+  name: String
+  url: String
+  notes: String
+  type: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateFileInput {
+  name: String
+  url: String
+  notes: String
+  type: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateFileInput {
+  id: ID!
+  name: String
+  url: String
+  notes: String
+  type: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteFileInput {
+  id: ID!
+}
+
+input FileFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+enum GrabBarEstimateShowerwallconditionEnum {
+  Good
+  Bad
+}
+
+enum GrabBarEstimateShowerwalltypeEnum {
+  Tile
+  Fiberglass
+}
+
+type GrabBarEstimate {
+  description: String
+  grabBarLocation: String
+  grabBarLengths: [String]
+  grabBarTypes: [String]
+  need90DegreeGrabBar: Boolean
+  locationOf90DegreeGrabBar: String
+  bathroomDimensions: String
+  needSmallerGrabBar: Boolean
+  showerWallCondition: GrabBarEstimateShowerwallconditionEnum
+  showerWallType: GrabBarEstimateShowerwalltypeEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input CreateGrabBarEstimateInput {
+  description: String
+  grabBarLocation: String
+  grabBarLengths: [String]
+  grabBarTypes: [String]
+  need90DegreeGrabBar: Boolean
+  locationOf90DegreeGrabBar: String
+  bathroomDimensions: String
+  needSmallerGrabBar: Boolean
+  showerWallCondition: GrabBarEstimateShowerwallconditionEnum
+  showerWallType: GrabBarEstimateShowerwalltypeEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input UpdateGrabBarEstimateInput {
+  id: ID!
+  description: String
+  grabBarLocation: String
+  grabBarLengths: [String]
+  grabBarTypes: [String]
+  need90DegreeGrabBar: Boolean
+  locationOf90DegreeGrabBar: String
+  bathroomDimensions: String
+  needSmallerGrabBar: Boolean
+  showerWallCondition: GrabBarEstimateShowerwallconditionEnum
+  showerWallType: GrabBarEstimateShowerwalltypeEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  approvalSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input SoftDeleteGrabBarEstimateInput {
+  id: ID!
+}
+
+input GrabBarEstimateFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Invite {
+  id: ID!
+  email: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateInviteInput {
+  email: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateInviteInput {
+  id: ID!
+  email: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteInviteInput {
+  id: ID!
+}
+
+input InviteFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Invoice {
+  id: ID!
+  invoiceNumber: String
+  dueDate: AWSDateTime
+  paymentTerms: String
+  notes: String
+  lineItems: [AWSJSON]
+  jobTasks: [AWSJSON]
+  status: String
+  paymentStatus: String
+  paymentMethod: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateInvoiceInput {
+  invoiceNumber: String
+  dueDate: AWSDateTime
+  paymentTerms: String
+  notes: String
+  lineItems: [AWSJSON]
+  jobTasks: [AWSJSON]
+  status: String
+  paymentStatus: String
+  paymentMethod: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateInvoiceInput {
+  id: ID!
+  invoiceNumber: String
+  dueDate: AWSDateTime
+  paymentTerms: String
+  notes: String
+  lineItems: [AWSJSON]
+  jobTasks: [AWSJSON]
+  status: String
+  paymentStatus: String
+  paymentMethod: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteInvoiceInput {
+  id: ID!
+}
+
+input InvoiceFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Job {
+  id: ID!
+  scope: String
+  actualHours: Float
+  completionDate: AWSDateTime
+  estimatedHours: Float
+  managerId: ID!
+  notes: String
+  pricingModel: String
+  priority: String
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  status: String
+  tasks: [AWSJSON]
+  lineItems: [AWSJSON]
+  title: String
+  assignedToId: ID!
+  requirements: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateJobInput {
+  scope: String
+  actualHours: Float
+  completionDate: AWSDateTime
+  estimatedHours: Float
+  managerId: ID!
+  notes: String
+  pricingModel: String
+  priority: String
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  status: String
+  tasks: [AWSJSON]
+  lineItems: [AWSJSON]
+  title: String
+  assignedToId: ID!
+  requirements: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateJobInput {
+  id: ID!
+  scope: String
+  actualHours: Float
+  completionDate: AWSDateTime
+  estimatedHours: Float
+  managerId: ID!
+  notes: String
+  pricingModel: String
+  priority: String
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  status: String
+  tasks: [AWSJSON]
+  lineItems: [AWSJSON]
+  title: String
+  assignedToId: ID!
+  requirements: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteJobInput {
+  id: ID!
+}
+
+input JobFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type JobLead {
+  id: ID!
+  conversionFunnelId: ID!
+  adContentId: ID!
+  audienceSegmentId: ID!
+  trafficSourceId: ID!
+  name: String
+  serviceRequested: String
+  description: String
+  dateLastContacted: AWSDateTime
+  conversionRate: Float
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateJobLeadInput {
+  conversionFunnelId: ID!
+  adContentId: ID!
+  audienceSegmentId: ID!
+  trafficSourceId: ID!
+  name: String
+  serviceRequested: String
+  description: String
+  dateLastContacted: AWSDateTime
+  conversionRate: Float
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateJobLeadInput {
+  id: ID!
+  conversionFunnelId: ID!
+  adContentId: ID!
+  audienceSegmentId: ID!
+  trafficSourceId: ID!
+  name: String
+  serviceRequested: String
+  description: String
+  dateLastContacted: AWSDateTime
+  conversionRate: Float
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteJobLeadInput {
+  id: ID!
+}
+
+input JobLeadFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type JobService {
+  id: ID!
+  name: String
+  description: String
+  serviceType: String
+  category: String
+  estimatedCost: Float
+  durationInHours: Float
+  requiredMaterials: [AWSJSON]
+  status: String
+  photoUrls: [String]
+  materialList: [AWSJSON]
+  lineItems: [AWSJSON]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateJobServiceInput {
+  name: String
+  description: String
+  serviceType: String
+  category: String
+  estimatedCost: Float
+  durationInHours: Float
+  requiredMaterials: [AWSJSON]
+  status: String
+  photoUrls: [String]
+  materialList: [AWSJSON]
+  lineItems: [AWSJSON]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateJobServiceInput {
+  id: ID!
+  name: String
+  description: String
+  serviceType: String
+  category: String
+  estimatedCost: Float
+  durationInHours: Float
+  requiredMaterials: [AWSJSON]
+  status: String
+  photoUrls: [String]
+  materialList: [AWSJSON]
+  lineItems: [AWSJSON]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteJobServiceInput {
+  id: ID!
+}
+
+input JobServiceFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type JobTask {
+  id: ID!
+  name: String
+  description: String
+  category: String
+  cost: Float
+  materialList: AWSJSON
+  estimatedHours: Float
+  actualHours: Float
+  notes: String
+  priority: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateJobTaskInput {
+  name: String
+  description: String
+  category: String
+  cost: Float
+  materialList: AWSJSON
+  estimatedHours: Float
+  actualHours: Float
+  notes: String
+  priority: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateJobTaskInput {
+  id: ID!
+  name: String
+  description: String
+  category: String
+  cost: Float
+  materialList: AWSJSON
+  estimatedHours: Float
+  actualHours: Float
+  notes: String
+  priority: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteJobTaskInput {
+  id: ID!
+}
+
+input JobTaskFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type MaterialList {
+  id: ID!
+  materials: [AWSJSON]
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateMaterialListInput {
+  materials: [AWSJSON]
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateMaterialListInput {
+  id: ID!
+  materials: [AWSJSON]
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteMaterialListInput {
+  id: ID!
+}
+
+input MaterialListFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type NetworkProProspect {
+  id: ID!
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateNetworkProProspectInput {
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateNetworkProProspectInput {
+  id: ID!
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteNetworkProProspectInput {
+  id: ID!
+}
+
+input NetworkProProspectFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+enum PaymentPaymentstatusEnum {
+  Pending
+  Completed
+  Failed
+}
+
+type Payment {
+  id: ID!
+  amount: Float
+  notes: String
+  method: String
+  status: String
+  payerId: ID!
+  payeeName: String
+  for: String
+  paymentAddress: String
+  paymentStatus: PaymentPaymentstatusEnum
+  date: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input CreatePaymentInput {
+  amount: Float
+  notes: String
+  method: String
+  status: String
+  payerId: ID!
+  payeeName: String
+  for: String
+  paymentAddress: String
+  paymentStatus: PaymentPaymentstatusEnum
+  date: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input UpdatePaymentInput {
+  id: ID!
+  amount: Float
+  notes: String
+  method: String
+  status: String
+  payerId: ID!
+  payeeName: String
+  for: String
+  paymentAddress: String
+  paymentStatus: PaymentPaymentstatusEnum
+  date: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input SoftDeletePaymentInput {
+  id: ID!
+}
+
+input PaymentFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Product {
+  id: ID!
+  name: String
+  purchasePrice: Float
+  category: String
+  description: String
+  supplier: String
+  salePrice: Float
+  sku: String
+  notes: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateProductInput {
+  name: String
+  purchasePrice: Float
+  category: String
+  description: String
+  supplier: String
+  salePrice: Float
+  sku: String
+  notes: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateProductInput {
+  id: ID!
+  name: String
+  purchasePrice: Float
+  category: String
+  description: String
+  supplier: String
+  salePrice: Float
+  sku: String
+  notes: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteProductInput {
+  id: ID!
+}
+
+input ProductFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Project {
+  id: ID!
+  managerId: ID!
+  name: String
+  scope: String
+  goal: String
+  status: String
+  deadline: AWSDateTime
+  budget: Float
+  notes: String
+  feedbackId: ID!
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  completionDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateProjectInput {
+  managerId: ID!
+  name: String
+  scope: String
+  goal: String
+  status: String
+  deadline: AWSDateTime
+  budget: Float
+  notes: String
+  feedbackId: ID!
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  completionDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateProjectInput {
+  id: ID!
+  managerId: ID!
+  name: String
+  scope: String
+  goal: String
+  status: String
+  deadline: AWSDateTime
+  budget: Float
+  notes: String
+  feedbackId: ID!
+  scheduledDate: AWSDateTime
+  startDate: AWSDateTime
+  completionDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteProjectInput {
+  id: ID!
+}
+
+input ProjectFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+enum PropertyPropertytypeEnum {
+  SingleFamily
+  MultiFamily
+  Apartment
+  Commercial
+}
+
+enum PropertyStatusEnum {
+  Active
+  Pending
+  Rented
+  Sold
+}
+
+type Property {
+  id: ID!
+  ownerId: ID!
+  address: String
+  city: String
+  state: String
+  zipCode: String
+  country: String
+  propertyType: PropertyPropertytypeEnum
+  numberOfUnits: Int
+  squareFeet: Float
+  amenities: [String]
+  assignedManagerId: ID!
+  status: PropertyStatusEnum
+  photos: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreatePropertyInput {
+  ownerId: ID!
+  address: String
+  city: String
+  state: String
+  zipCode: String
+  country: String
+  propertyType: PropertyPropertytypeEnum
+  numberOfUnits: Int
+  squareFeet: Float
+  amenities: [String]
+  assignedManagerId: ID!
+  status: PropertyStatusEnum
+  photos: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdatePropertyInput {
+  id: ID!
+  ownerId: ID!
+  address: String
+  city: String
+  state: String
+  zipCode: String
+  country: String
+  propertyType: PropertyPropertytypeEnum
+  numberOfUnits: Int
+  squareFeet: Float
+  amenities: [String]
+  assignedManagerId: ID!
+  status: PropertyStatusEnum
+  photos: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeletePropertyInput {
+  id: ID!
+}
+
+input PropertyFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Proposal {
+  id: ID!
+  createdById: ID!
+  proposalNumber: String
+  paymentTerms: String
+  title: String
+  scope: String
+  timeline: String
+  qualifications: String
+  approvalDate: AWSDateTime
+  budget: Float
+  lineItems: [AWSJSON]
+  status: String
+  date: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateProposalInput {
+  createdById: ID!
+  proposalNumber: String
+  paymentTerms: String
+  title: String
+  scope: String
+  timeline: String
+  qualifications: String
+  approvalDate: AWSDateTime
+  budget: Float
+  lineItems: [AWSJSON]
+  status: String
+  date: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateProposalInput {
+  id: ID!
+  createdById: ID!
+  proposalNumber: String
+  paymentTerms: String
+  title: String
+  scope: String
+  timeline: String
+  qualifications: String
+  approvalDate: AWSDateTime
+  budget: Float
+  lineItems: [AWSJSON]
+  status: String
+  date: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteProposalInput {
+  id: ID!
+}
+
+input ProposalFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Recipient {
+  id: ID!
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  type: String
+  additionalInfo: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateRecipientInput {
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  type: String
+  additionalInfo: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateRecipientInput {
+  id: ID!
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  type: String
+  additionalInfo: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteRecipientInput {
+  id: ID!
+}
+
+input RecipientFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type RecurrenceRule {
+  id: ID!
+  frequency: String
+  interval: Int
+  until: AWSDateTime
+  count: Int
+  daysOfWeek: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateRecurrenceRuleInput {
+  frequency: String
+  interval: Int
+  until: AWSDateTime
+  count: Int
+  daysOfWeek: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateRecurrenceRuleInput {
+  id: ID!
+  frequency: String
+  interval: Int
+  until: AWSDateTime
+  count: Int
+  daysOfWeek: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteRecurrenceRuleInput {
+  id: ID!
+}
+
+input RecurrenceRuleFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Resource {
+  id: ID!
+  title: String
+  category: String
+  url: String
+  description: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateResourceInput {
+  title: String
+  category: String
+  url: String
+  description: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateResourceInput {
+  id: ID!
+  title: String
+  category: String
+  url: String
+  description: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteResourceInput {
+  id: ID!
+}
+
+input ResourceFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Review {
+  id: ID!
+  reviewerName: String
+  rating: Float
+  comment: String
+  response: String
+  visibility: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateReviewInput {
+  reviewerName: String
+  rating: Float
+  comment: String
+  response: String
+  visibility: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateReviewInput {
+  id: ID!
+  reviewerName: String
+  rating: Float
+  comment: String
+  response: String
+  visibility: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteReviewInput {
+  id: ID!
+}
+
+input ReviewFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type SharedCustomerProspect {
+  id: ID!
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateSharedCustomerProspectInput {
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateSharedCustomerProspectInput {
+  id: ID!
+  name: String
+  email: String
+  phone: String
+  servicesInterestedIn: [String]
+  estimatedValue: Float
+  engagementScore: Float
+  notes: String
+  status: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteSharedCustomerProspectInput {
+  id: ID!
+}
+
+input SharedCustomerProspectFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+enum ShowerConversionEstimateShowertypeEnum {
+  RollIn
+  WalkIn
+}
+
+enum ShowerConversionEstimateExistingwallmaterialEnum {
+  Fiberglass
+  Tile
+}
+
+enum ShowerConversionEstimateExistingtileconditionEnum {
+  Good
+  Bad
+}
+
+enum ShowerConversionEstimateWatercontroltypeEnum {
+  Knobs
+  Lever
+}
+
+enum ShowerConversionEstimateBathroomflooringtypeEnum {
+  Tile
+  Vinyl
+  Wood
+  Carpet
+}
+
+enum ShowerConversionEstimateBathroomfloorconditionEnum {
+  Good
+  Bad
+}
+
+enum ShowerConversionEstimateSubflooringconditionEnum {
+  Good
+  Bad
+}
+
+type ShowerConversionEstimate {
+  id: ID!
+  description: String
+  showerType: ShowerConversionEstimateShowertypeEnum
+  existingWallMaterial: ShowerConversionEstimateExistingwallmaterialEnum
+  existingTileCondition: ShowerConversionEstimateExistingtileconditionEnum
+  tileReplacementNeeded: Boolean
+  waterControlType: ShowerConversionEstimateWatercontroltypeEnum
+  showerHeadReplacementNeeded: Boolean
+  rollInShowerDoorWidth: Float
+  wheelchairWidth: Float
+  bathroomDoorWidth: Float
+  bathroomFlooringType: ShowerConversionEstimateBathroomflooringtypeEnum
+  bathroomFloorCondition: ShowerConversionEstimateBathroomfloorconditionEnum
+  subFlooringCondition: ShowerConversionEstimateSubflooringconditionEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input CreateShowerConversionEstimateInput {
+  description: String
+  showerType: ShowerConversionEstimateShowertypeEnum
+  existingWallMaterial: ShowerConversionEstimateExistingwallmaterialEnum
+  existingTileCondition: ShowerConversionEstimateExistingtileconditionEnum
+  tileReplacementNeeded: Boolean
+  waterControlType: ShowerConversionEstimateWatercontroltypeEnum
+  showerHeadReplacementNeeded: Boolean
+  rollInShowerDoorWidth: Float
+  wheelchairWidth: Float
+  bathroomDoorWidth: Float
+  bathroomFlooringType: ShowerConversionEstimateBathroomflooringtypeEnum
+  bathroomFloorCondition: ShowerConversionEstimateBathroomfloorconditionEnum
+  subFlooringCondition: ShowerConversionEstimateSubflooringconditionEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input UpdateShowerConversionEstimateInput {
+  id: ID!
+  description: String
+  showerType: ShowerConversionEstimateShowertypeEnum
+  existingWallMaterial: ShowerConversionEstimateExistingwallmaterialEnum
+  existingTileCondition: ShowerConversionEstimateExistingtileconditionEnum
+  tileReplacementNeeded: Boolean
+  waterControlType: ShowerConversionEstimateWatercontroltypeEnum
+  showerHeadReplacementNeeded: Boolean
+  rollInShowerDoorWidth: Float
+  wheelchairWidth: Float
+  bathroomDoorWidth: Float
+  bathroomFlooringType: ShowerConversionEstimateBathroomflooringtypeEnum
+  bathroomFloorCondition: ShowerConversionEstimateBathroomfloorconditionEnum
+  subFlooringCondition: ShowerConversionEstimateSubflooringconditionEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input SoftDeleteShowerConversionEstimateInput {
+  id: ID!
+}
+
+input ShowerConversionEstimateFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type SubscriptionPlan {
+  id: ID!
+  planName: String
+  price: Float
+  features: [String]
+  billingCycle: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateSubscriptionPlanInput {
+  planName: String
+  price: Float
+  features: [String]
+  billingCycle: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateSubscriptionPlanInput {
+  id: ID!
+  planName: String
+  price: Float
+  features: [String]
+  billingCycle: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteSubscriptionPlanInput {
+  id: ID!
+}
+
+input SubscriptionPlanFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type SupportTicket {
+  id: ID!
+  teamMemberId: ID!
+  issueType: String
+  description: String
+  resolutionDetails: String
+  status: String
+  priority: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateSupportTicketInput {
+  teamMemberId: ID!
+  issueType: String
+  description: String
+  resolutionDetails: String
+  status: String
+  priority: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateSupportTicketInput {
+  id: ID!
+  teamMemberId: ID!
+  issueType: String
+  description: String
+  resolutionDetails: String
+  status: String
+  priority: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteSupportTicketInput {
+  id: ID!
+}
+
+input SupportTicketFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Team {
+  id: ID!
+  name: String
+  memberIds: [ID]!
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateTeamInput {
+  name: String
+  memberIds: [ID]!
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateTeamInput {
+  id: ID!
+  name: String
+  memberIds: [ID]!
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteTeamInput {
+  id: ID!
+}
+
+input TeamFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type TeamMember {
+  id: ID!
+  department: String
+  jobTitle: String
+  skills: [String]
+  certifications: [String]
+  rating: Float
+  servicesOffered: [String]
+  serviceAreas: [String]
+  experienceLevel: String
+  backgroundCheckStatus: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateTeamMemberInput {
+  department: String
+  jobTitle: String
+  skills: [String]
+  certifications: [String]
+  rating: Float
+  servicesOffered: [String]
+  serviceAreas: [String]
+  experienceLevel: String
+  backgroundCheckStatus: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateTeamMemberInput {
+  id: ID!
+  department: String
+  jobTitle: String
+  skills: [String]
+  certifications: [String]
+  rating: Float
+  servicesOffered: [String]
+  serviceAreas: [String]
+  experienceLevel: String
+  backgroundCheckStatus: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteTeamMemberInput {
+  id: ID!
+}
+
+input TeamMemberFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type Tenant {
+  id: ID!
+  ownerId: ID!
+  accountManagerId: ID!
+  type: String
+  contactPersonId: String
+  status: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input CreateTenantInput {
+  ownerId: ID!
+  accountManagerId: ID!
+  type: String
+  contactPersonId: String
+  status: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input UpdateTenantInput {
+  id: ID!
+  ownerId: ID!
+  accountManagerId: ID!
+  type: String
+  contactPersonId: String
+  status: String
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input SoftDeleteTenantInput {
+  id: ID!
+}
+
+input TenantFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type TrafficSource {
+  id: ID!
+  sourceType: String
+  visits: Int
+  bounceRate: Float
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateTrafficSourceInput {
+  sourceType: String
+  visits: Int
+  bounceRate: Float
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateTrafficSourceInput {
+  id: ID!
+  sourceType: String
+  visits: Int
+  bounceRate: Float
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteTrafficSourceInput {
+  id: ID!
+}
+
+input TrafficSourceFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type UserProfile {
+  id: String
+  name: String
+  email: String
+  phoneNumber: String
+  address: String
+  status: String
+  profilePictureUrl: String
+  lastLogin: AWSDateTime
+  accountType: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateUserProfileInput {
+  name: String
+  email: String
+  phoneNumber: String
+  address: String
+  status: String
+  profilePictureUrl: String
+  lastLogin: AWSDateTime
+  accountType: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateUserProfileInput {
+  id: ID!
+  name: String
+  email: String
+  phoneNumber: String
+  address: String
+  status: String
+  profilePictureUrl: String
+  lastLogin: AWSDateTime
+  accountType: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteUserProfileInput {
+  id: ID!
+}
+
+input UserProfileFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+enum WoodRampEstimateRamptypeEnum {
+  Permanent
+  Portable
+}
+
+enum WoodRampEstimateRampruntypeEnum {
+  Straight
+  WithTurns
+}
+
+enum WoodRampEstimateHandraillocationEnum {
+  Interior
+  Exterior
+}
+
+enum WoodRampEstimateHandrailmaterialpreferenceEnum {
+  Metal
+  Wood
+}
+
+type WoodRampEstimate {
+  totalRiseInInches: Float
+  rampLocation: String
+  rampType: WoodRampEstimateRamptypeEnum
+  portableRampAcknowledgment: Boolean
+  doorHasOutwardSwing: Boolean
+  rampRunType: WoodRampEstimateRampruntypeEnum
+  numberOfTurns: Int
+  rampTieInLocation: String
+  requiresPaverLanding: Boolean
+  requiresConcreteLanding: Boolean
+  memberUnderstandsLayout: Boolean
+  handrailsNeeded: Boolean
+  handrailLengthInFeet: Float
+  handrailTieInLocation: String
+  handrailLocation: WoodRampEstimateHandraillocationEnum
+  handrailMaterialPreference: WoodRampEstimateHandrailmaterialpreferenceEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input CreateWoodRampEstimateInput {
+  totalRiseInInches: Float
+  rampLocation: String
+  rampType: WoodRampEstimateRamptypeEnum
+  portableRampAcknowledgment: Boolean
+  doorHasOutwardSwing: Boolean
+  rampRunType: WoodRampEstimateRampruntypeEnum
+  numberOfTurns: Int
+  rampTieInLocation: String
+  requiresPaverLanding: Boolean
+  requiresConcreteLanding: Boolean
+  memberUnderstandsLayout: Boolean
+  handrailsNeeded: Boolean
+  handrailLengthInFeet: Float
+  handrailTieInLocation: String
+  handrailLocation: WoodRampEstimateHandraillocationEnum
+  handrailMaterialPreference: WoodRampEstimateHandrailmaterialpreferenceEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input UpdateWoodRampEstimateInput {
+  id: ID!
+  totalRiseInInches: Float
+  rampLocation: String
+  rampType: WoodRampEstimateRamptypeEnum
+  portableRampAcknowledgment: Boolean
+  doorHasOutwardSwing: Boolean
+  rampRunType: WoodRampEstimateRampruntypeEnum
+  numberOfTurns: Int
+  rampTieInLocation: String
+  requiresPaverLanding: Boolean
+  requiresConcreteLanding: Boolean
+  memberUnderstandsLayout: Boolean
+  handrailsNeeded: Boolean
+  handrailLengthInFeet: Float
+  handrailTieInLocation: String
+  handrailLocation: WoodRampEstimateHandraillocationEnum
+  handrailMaterialPreference: WoodRampEstimateHandrailmaterialpreferenceEnum
+  additionalServicesRequested: Boolean
+  additionalServicesDescription: String
+  memberSignature: String
+  printName: String
+  approvalDate: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+
+input SoftDeleteWoodRampEstimateInput {
+  id: ID!
+}
+
+input WoodRampEstimateFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type WorkRequest {
+  id: ID!
+  createdById: ID!
+  assignedProId: ID!
+  title: String
+  category: String
+  description: String
+  notes: String
+  status: String
+  priority: String
+  workScope: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateWorkRequestInput {
+  createdById: ID!
+  assignedProId: ID!
+  title: String
+  category: String
+  description: String
+  notes: String
+  status: String
+  priority: String
+  workScope: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateWorkRequestInput {
+  id: ID!
+  createdById: ID!
+  assignedProId: ID!
+  title: String
+  category: String
+  description: String
+  notes: String
+  status: String
+  priority: String
+  workScope: String
+  tags: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteWorkRequestInput {
+  id: ID!
+}
+
+input WorkRequestFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+type WorkScheduleEvent {
+  id: ID!
+  jobType: String
+  customerId: String
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  status: String
+  recurrence: String
+  notes: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+
+input CreateWorkScheduleEventInput {
+  jobType: String
+  customerId: String
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  status: String
+  recurrence: String
+  notes: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+
+input UpdateWorkScheduleEventInput {
+  id: ID!
+  jobType: String
+  customerId: String
+  startTime: AWSDateTime
+  endTime: AWSDateTime
+  location: String
+  status: String
+  recurrence: String
+  notes: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+
+input SoftDeleteWorkScheduleEventInput {
+  id: ID!
+}
+
+input WorkScheduleEventFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}

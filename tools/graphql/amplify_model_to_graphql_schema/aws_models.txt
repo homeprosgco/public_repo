@@ -1,0 +1,1120 @@
+// Enums
+AdContentAdStatus: a.enum(['Draft', 'PendingApproval', 'Approved', 'Active', 'Paused', 'Completed', 'Cancelled', 'Rejected'])
+AdContentAdType: a.enum(['Banner', 'Video', 'Text', 'Carousel', 'Native', 'Popup', 'Interstitial', 'SocialMediaPost', 'Email', 'SearchAd'])
+AdScheduleStatus: a.enum(['Pending', 'Scheduled', 'Running', 'Paused', 'Completed', 'Cancelled'])
+AffiliateProgramStatus: a.enum(['Draft', 'Active', 'Paused', 'Expired', 'Terminated'])
+AppointmentSlot: a.enum(['EarlyMorning', 'Morning', 'Afternoon', 'LateAfternoon'])
+AppUserStatus: a.enum(['Active', 'Suspended', 'Terminated'])
+AttendeeStatus: a.enum(['Invited', 'Confirmed', 'Declined', 'CheckedIn', 'Cancelled'])
+BackgroundCheckStatus: a.enum(['NotInitiated', 'InProgress', 'Clear', 'Flagged', 'Failed'])
+BathroomFloorCondition: a.enum(['Good', 'Bad'])
+BathFloorType: a.enum(['Tile', 'Vinyl', 'Wood', 'Carpet'])
+BidStatus: a.enum(['Draft', 'Submitted', 'UnderReview', 'Accepted', 'Rejected', 'Withdrawn'])
+BidType: a.enum(['FixedPrice', 'TimeAndMaterials', 'CostPlus', 'Hourly'])
+BookingStatus: a.enum(['Requested', 'PendingReview', 'Contacted', 'Scheduled', 'Confirmed', 'InProgress', 'Completed', 'Cancelled', 'NoShow', 'Rescheduled'])
+CampaignMetricSource: a.enum(['GoogleAnalytics', 'FacebookAds', 'GoogleAds', 'TwitterAds', 'LinkedInAds', 'EmailMarketing', 'CRM', 'CustomTracking', 'Other'])
+CampaignMetricType: a.enum(['Impressions', 'Clicks', 'Conversions', 'CTR', 'CPC', 'CPA', 'CPM', 'ROI', 'EngagementRate', 'BounceRate', 'LeadGeneration', 'SalesRevenue', 'CustomerAcquisitionCost', 'LifetimeValue'])
+CampaignStatus: a.enum(['Draft', 'Planned', 'Active', 'Paused', 'Completed', 'Cancelled'])
+ClaimStatus: a.enum(['OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED'])
+CommunicationPreference: a.enum(['InAppNotifications', 'PushNotifications', 'SMS', 'Email', 'Phone'])
+ContentManagementStatus: a.enum(['Draft', 'InReview', 'Approved', 'Published', 'Archived', 'Deleted'])
+ContentManagementType: a.enum(['BlogPost', 'Article', 'Tutorial', 'FAQ', 'News', 'CaseStudy', 'WhitePaper', 'Video', 'Podcast', 'Infographic', 'Webinar'])
+ContractStatus: a.enum(['Draft', 'PendingApproval', 'Active', 'Completed', 'Terminated', 'Cancelled'])
+ConversionFunnelStepName: a.enum(['Awareness', 'Interest', 'Consideration', 'Intent', 'Evaluation', 'Purchase', 'Loyalty', 'Advocacy'])
+CustomerType: a.enum(['Homeowner', 'JobProvider', 'PropertyOwner'])
+DayOfWeek: a.enum(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
+DoorLocation: a.enum(['FrontDoor', 'BedroomDoor', 'BathroomDoor'])
+EstimateStatus: a.enum(['Draft', 'PendingReview', 'Submitted', 'AwaitingCustomerResponse', 'Approved', 'Declined', 'Revised', 'Expired', 'Accepted', 'Invoiced', 'Closed', 'Cancelled'])
+ExpenseType: a.enum(['Company', 'Project'])
+FeedbackResponseStatus: a.enum(['Pending', 'InProgress', 'Resolved', 'Closed', 'Reopened'])
+FeedbackType: a.enum(['General', 'BugReport', 'FeatureRequest', 'ServiceComplaint', 'Praise', 'Other'])
+FollowUpStatus: a.enum(['PENDING', 'COMPLETED', 'SKIPPED'])
+FollowUpType: a.enum(['PHONE', 'EMAIL', 'NOTIFICATION'])
+HandRailLocation: a.enum(['Interior', 'Exterior'])
+HandRailMaterial: a.enum(['Metal', 'Wood'])
+HiringStage: a.enum(['ReadyToHire', 'PlanningAndBudgeting'])
+HiringTimeline: a.enum(['Within1Week', 'OneToTwoWeeks', 'MoreThanTwoWeeks', 'TimingIsFlexible'])
+JobLeadStatus: a.enum(['New', 'Contacted', 'Qualified', 'ProposalSent', 'Negotiation', 'Won', 'Lost', 'Closed'])
+JobPricingModel: a.enum(['FlatRate', 'Hourly', 'PerSquareFoot', 'CustomQuote'])
+JobPriority: a.enum(['Critical', 'High', 'Medium', 'Low', 'Deferred'])
+JobStatus: a.enum(['Pending', 'InProgress', 'OnHold', 'Completed', 'Cancelled', 'AwaitingReview', 'Scheduled'])
+JobTaskPriority: a.enum(['Low', 'Medium', 'High', 'Critical'])
+JobTaskStatus: a.enum(['NotStarted', 'InProgress', 'Completed', 'OnHold', 'Cancelled'])
+LeaseStatus: a.enum(['Pending', 'Active', 'Terminated', 'Completed', 'Cancelled'])
+NetworkProProspectStatus: a.enum(['New', 'Contacted', 'InProcess', 'Approved', 'Rejected', 'Hired', 'Declined'])
+NetworkProStatus: a.enum(['Active', 'Inactive', 'Suspended', 'PendingVerification', 'Deactivated'])
+NotificationPriority: a.enum(['Low', 'Medium', 'High', 'Critical'])
+NotificationType: a.enum([
+  'SystemAlert', 'JobUpdate', 'NewJobLead', 'PaymentReminder', 'Promotion', 'UserMessage',
+  'AppointmentReminder', 'PlatformGoal', 'DocumentUpload', 'DocumentUpdate', 'InvoiceGenerated',
+  'InvoiceDue', 'PaymentProcessed', 'FeedbackRequest', 'ReviewPosted', 'ContractSigned',
+  'EstimateApproved', 'SupportTicketUpdate', 'ProjectDeadline', 'TeamMemberAssigned',
+  'SubscriptionRenewal', 'ProfileUpdate', 'TaskReminder', 'CampaignPerformance',
+  'LeadFollowUpReminder', 'AffiliateProgramUpdate', 'NewSupportTicket', 'AdScheduleUpdate',
+  'ComplianceAlert',
+])
+OnlineStatus: a.enum(['Online', 'Offline', 'Away', 'Busy', 'Invisible'])
+OwnershipStatus: a.enum(['Own', 'Rent', 'Authorized'])
+PaymentMethod: a.enum(['Check', 'Venmo', 'Cashapp', 'Zelle', 'Cash', 'Credit Card', 'Strip'])
+PaymentStatus: a.enum(['Pending', 'Completed', 'Failed'])
+ProjectStatus: a.enum(['Pending', 'InProgress', 'OnHold', 'Completed', 'Cancelled', 'AwaitingReview', 'Scheduled'])
+PropertyStatus: a.enum(['Active', 'Pending', 'Rented', 'Sold'])
+PropertyType: a.enum(['SingleFamily', 'MultiFamily', 'Apartment', 'Commercial', 'MobileHome'])
+ProposalStatus: a.enum(['Draft', 'PendingReview', 'Submitted', 'UnderConsideration', 'ClientFeedbackRequired', 'Negotiation', 'Accepted', 'Declined', 'Revised', 'Expired', 'Withdrawn', 'Closed'])
+RampMaterial: a.enum(['Wood', 'Aluminum'])
+RampRunType: a.enum(['Straight', 'WithTurns'])
+RampType: a.enum(['Permanent', 'Portable'])
+RecipientType: a.enum(['RentTenant', 'InsuranceMember'])
+ReviewVisibility: a.enum(['Public', 'Private', 'Internal'])
+SatisfactionRating: a.enum(['VERY_DISSATISFIED', 'DISSATISFIED', 'NEUTRAL', 'SATISFIED', 'VERY_SATISFIED'])
+SharedCustomerProspectStatus: a.enum(['New', 'Contacted', 'InProcess', 'Approved', 'Rejected', 'Hired', 'Declined'])
+ShowerType: a.enum(['RollIn', 'WalkIn'])
+ShowerWallCondition: a.enum(['Good', 'Bad'])
+ShowerWallType: a.enum(['Tile', 'Fiberglass'])
+ShowerWaterControlType: a.enum(['Knobs', 'Lever'])
+SupportTicketPriority: a.enum(['Low', 'Medium', 'High', 'Critical'])
+SupportTicketStatus: a.enum(['Open', 'InProgress', 'Resolved', 'Closed', 'OnHold', 'Escalated'])
+TeamMemberType: a.enum(['Office', 'ServicePersonnel', 'Manager', 'Owner'])
+TenantStatus: a.enum(['Active', 'Suspended', 'Terminated', 'PendingApproval'])
+TenantType: a.enum(['Homeowner', 'PropertyManager', 'ProjectManger',  'NetworkPro'])
+TrafficSourceType: a.enum(['OrganicSearch', 'PaidSearch', 'SocialMedia', 'Direct', 'Referral', 'Email', 'Affiliate', 'DisplayAds', 'InfluencerMarketing', 'ColdCall', 'NetworkPro'])
+UserRoleName: a.enum([
+  'Admin', 'NetworkPro', 'User', 'ProjectManager', 'JobManager', 'MarketingTeamMember',
+  'CustomerSupportManager', 'FieldsOperationManager', 'AdministrativeDirector',
+  'MarketingManager', 'ITSupport', 'SupportAgent', 'AccountManager', 'ContentManager',
+  'FinancialOfficer', 'Homeowner', 'Tenant', 'PropertyManager', 'Stakeholder',
+  'Recipient', 'Estimator',
+])
+WorkRequestPriority: a.enum(['Low', 'Medium', 'High', 'Urgent'])
+WorkRequestStatus: a.enum(['New', 'InProgress', 'Completed', 'OnHold', 'Cancelled', 'Rejected'])
+
+AdContent: a.model({
+  id: a.id().required(),
+  campaign: belongsTo('Campaign'),
+  title: a.string().required(),
+  bodyText: a.string().required(),
+  mediaURL: a.string().required(),
+  adType: a.ref('AdContentAdType').required(),
+  status: a.ref('AdContentAdStatus').required(),
+  created: a.datetime(),
+  updated: a.datetime()
+})
+
+AdSchedule: a.model({
+  id: a.id().required(),
+  campaign: belongsTo('Campaign'),
+  startTime: a.datetime().required(),
+  endTime: a.datetime().required(),
+  timeZone: a.string(),
+  daysOfWeek: a.string().array().required(),
+  status: a.ref('AdScheduleStatus').default('Pending'),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+AffiliateProgram: a.model({
+  id: a.id().required(),
+  name: a.string().required(),
+  description: a.string().required(),
+  commissionRate: a.float(),
+  status: a.ref('AffiliateProgramStatus'),
+  startDate: a.datetime(),
+  endDate: a.datetime(),
+  termsAndConditions: a.string(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+AppUser: a.model({
+  id: a.id().required(),
+  chats: a.hasMany('ChatMessage'),
+  name: a.string().required(),
+  email: a.email().required(),
+  phoneNumber: a.string(),
+  address: a.string(),
+  status: a.ref('AppUserStatus').default('Active'),
+  profilePictureUrl: a.url(),
+  lastLoginStatus: a.datetime(),
+  onlineStatus: a.ref('OnlineStatus').default('Offline'),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Attendee: a.model({
+  id: a.id().required(),
+  event: a.belongsTo('CalendarEvent'),
+  name: a.string().required(),
+  email: a.string().required(),
+  status: a.ref('AttendeeStatus').default('Invited'),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+AudienceSegment: a.model({
+  id: a.id().required(),
+  campaign: belongsTo('Campaign'),
+  name: a.string().required(),
+  criteria: a.string().required(),
+  segmentSize: a.integer().required(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Bid: a.model({
+  id: a.id().required(),
+  booking: a.belongsTo('Booking').required(),
+  submittedBy: a.hasOne('Tenant').required(),
+  amount: a.float().required(),
+  bidType: a.ref('BidType').required(),
+  scopeOfWork: a.string().required(),
+  notes: a.string(),
+  status: a.ref('BidStatus').default('Draft'),
+  attachments: a.string().array(), // e.g. proposal PDFs, supporting documents
+  validUntil: a.datetime(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+
+Booking: a.model({
+  id: a.id().required(),
+  bids: a.hasMany('Bid'),
+  service: a.string().required(),
+  propertyType: a.ref('PropertyType').required(),
+  status: a.ref('BookingStatus').required(),
+  hiringStage: a.ref('HiringStage').required(),
+  hiringTimeline: a.ref('HiringTimeline').required(),
+  appointmentSlot: a.ref('AppointmentSlot').required(),
+  ownership: a.ref('OwnershipStatus').required(),
+  details: a.string().required(),
+  photoUploadUrls: a.string().array(),
+  termsAccepted: a.boolean().required(),
+  fullname: a.string().required(),
+  address: a.string().required(),
+  email: a.email().required(),
+  phone: a.phone(),
+  created: a.datetime().required(),
+  updated: a.datetime(),
+  confirmed: a.boolean().default(false),
+})
+
+CalendarEvent: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  title: a.string().required(),
+  description: a.string(),
+  startTime: a.datetime().required(),
+  endTime: a.datetime().required(),
+  location: a.string(),
+  attendees: a.hasMany('Attendee'),
+  recurrence: a.hasMany('RecurrenceRule'),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Campaign: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  name: a.string().required(),
+  description: a.string().required(),
+  startDate: a.datetime().required(),
+  endDate: a.datetime().required(),
+  budget: a.float().required(),
+  status: a.ref('CampaignStatus').default('Draft'),
+  created: a.datetime().required(),
+  updated: a.datetime(),
+  adContents: a.hasMany('AdContent'),
+  adSchedules: a.hasMany('AdSchedule'),
+  campaignMetrics: a.hasMany('CampaignMetric'),
+  campaignAudiences: a.hasMany('CampaignAudience'),
+  audienceSegments: a.hasMany('AudienceSegment'),
+  conversionFunnels: a.hasMany('ConversionFunnel'),
+  marketingContents: a.hasMany('MarketingContent'),
+  networkProProspects: a.hasMany('NetworkProProspect'),
+  sharedCustomerPropspects: a.hasMany('SharedCustomerProspect'),
+  jobLeads: a.hasMany('JobLead')
+})
+
+CampaignAudience: a.model({
+  id: a.id().required(),
+  campaign: belongsTo('Campaign'),
+  demographics: a.string().array(),
+  targetingCriteria: a.string(),
+  audienceSize: a.integer(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+CampaignMetric: a.model({
+  id: a.id().required(),
+  campaign: belongsTo('Campaign'),
+  impressions: a.integer(),
+  clicks: a.integer(),
+  conversions: a.integer(),
+  spend: a.float(),
+  roi: a.float(),
+  value: a.float(),
+  dateRecorded: a.datetime(),
+  targetGoal: a.float(),
+  metricType: a.ref('CampaignMetricType').required(),
+  source: a.ref('CampaignMetricSource').required(),
+  trafficSource: a.hasOne('TrafficSource'),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+ChatAttachment: a.model({
+  id: a.id().required(),
+  chatMessage: a.belongsTo('ChatMessage').required(),
+  fileURL: a.string(),
+  fileType: a.string(),
+  created: a.datetime(),
+  updated: a.datetime()
+})
+
+ChatMessage: a.model({
+  id: a.id().required(),
+  user: a.belongsTo('AppUser').required(),
+  chatRoom: a.hasOne('ChatRoom').required(),
+  messageContent: a.string().required(),
+  timestamp: a.datetime().required(),
+  messageType: a.string(),
+  attachments: a.hasMany('ChatAttachment'),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+ChatRoom: a.model({
+  id: a.id().required(),
+  messages: a.hasMany('ChatMessage'),
+  participants: a.hasMany('ChatRoomUser'),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+
+ChatRoomUser: a.model({
+  id: a.id().required(),
+  chatRoom: a.belongsTo('ChatRoom').required(),
+  user: a.belongsTo('AppUser').required(),
+  joinedAt: a.datetime().required(),
+  role: a.string(), // e.g. 'admin', 'member'
+  isMuted: a.boolean().default(false),
+  lastReadMessage: a.belongsTo('ChatMessage'), // optional for read receipts
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+
+ChoreServiceEstimate: a.model({
+  serviceType: a.string().required(), 
+  description: a.string(), 
+  numberOfRoomsCleaned: a.integer(), 
+  numberOfGarbageBags: a.integer(), 
+  estimatedHoursToClean: a.float(), 
+  numberOfCarpetShampooedRooms: a.integer(), 
+  additionalNotes: a.string(), 
+  memberRequestAdditionalServices: a.boolean(), 
+  additionalRequests: a.string(), 
+  approvalSignature: a.string(), 
+  printName: a.string(), 
+  approvalDate: a.date(), 
+  isDeleted: a.boolean().default(false), 
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Contact: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  fullName: a.string().required(),
+  email: a.email().required(),
+  message: a.string().required(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Contract: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  job: a.belongsTo('Job'),
+  presentedBy: a.belongsTo('TeamMember').required(),
+  title: a.string().required(),
+  partiesInvolved: a.string().array().required(),
+  terms: a.string().required(),
+  contractAmount: a.float().required(),
+  paymentTerms: a.string().required(),
+  scope: a.string().required(),
+  terminationClause: a.string().required(),
+  signatures: a.string().array().required(),
+  dateEffective: a.datetime().required(),
+  dateFulfilled: a.datetime(),
+  attachmentUrls: a.url().array(),
+  status: a.ref('ContractStatus'),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+ConversionFunnel: a.model({
+  id: a.id().required(),
+  campaign: belongsTo('Campaign'),
+  visitorsAtStep: a.integer(),
+  conversionsAtStep: a.integer(),
+  dropOffRate: a.float(),
+  dateRecorded: a.datetime(),
+  notes: a.string(),
+  stepName: a.ref('ConversionFunnelStepName').required(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+}),
+
+Customer: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  proposals: a.hasMany('Proposal'),
+  estimates: a.hasMany('Estimate'),
+  projects: a.hasMany('Project'),
+  properties: a.hasMany('Property'),
+  expenses: a.hasMany('Expense'),
+  followUps: a.hasMany('FollowUp'),
+  recipients: a.hasMany('Recipient'),
+  warranties: a.hasMany('Warranty'),
+  warrantyClaims: a.hasMany('WarrantyClaim'),
+  workRequests: a.hasMany('WorkRequest'),
+  customerType: a.ref('CustomerType'),
+  fullName: a.string().required(),
+  phoneNumber: a.string().required(),
+  address: a.string().required(),
+  email: a.email(),
+  additionalInfo: a.string(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+DoorWideningEstimate: a.model({
+  doorMeasurements: a.json().array(),
+  electricalNeedsRelocation: a.boolean(), 
+  electricalRelocationDoors: a.string(), 
+  needPocketDoorSwingObstruction: a.boolean(), 
+  pocketDoorSwingObstructionDoors: a.string(), 
+  needPocketDoorUnmovableWalls: a.boolean(), 
+  pocketDoorUnmovableWallsDoors: a.string(), 
+  wheelchairOrWalkerWidth: a.float(), 
+  additionalServicesRequested: a.boolean(), 
+  additionalServicesDescription: a.string(), 
+  isDeleted: a.boolean().default(false), 
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Estimate: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  createdBy: a.belongsTo('TeamMember'),
+  customer: a.belongsTo('Customer'),
+  job: a.belongsTo('Job'),
+  workRequest: a.belongsTo('WorkRequest'),
+  serviceAddress: a.json().required(),
+  estimateNumber: a.string().required(),
+  paymentTerms: a.string().required(),
+  description: a.string(),
+  status: a.ref('EstimateStatus').required(),
+  lineItems: a.json().array(),
+  jobServices: a.json().array(),
+  tags: a.string().array(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Expense: a.model({
+  id: a.id().required(), 
+  tenant: a.belongsTo('Tenant'),
+  customer: a.hasOne('Customer'),
+  approvedBy: a.belongsTo('TeamMember'),
+  purchasedFor: a.belongsTo('TeamMember'),
+  job: a.belongsTo('Job'),
+  type: a.ref('ExpenseType').required(),
+  amount: a.float().required(),
+  for: a.string(),
+  category: a.string().required(),
+  description: a.string(),
+  notes: a.string(),
+  location: a.string(),
+  receiptUrls: a.string().array(),
+  date: a.datetime(),
+  isRecurring: a.boolean(),
+  tags: a.string().array(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Feedback: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  user: a.belongsTo('AppUser'),
+  project: a.belongsTo('Project'),
+  message: a.string().required(),
+  rating: a.ref('SatisfactionRating'),
+  notes: a.string(),
+  responseStatus: a.ref('FeedbackResponseStatus'),
+  feedbackType: a.ref('FeedbackType'),
+  text: a.string(),
+  submittedBy: a.string(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+
+File: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  proposal: a.belongsTo('Proposal'),
+  job: a.belongsTo('Job'),
+  name: a.string().required(),
+  url: a.url().required(),
+  notes: a.string(),
+  type: a.string().required(),
+  tags: a.string().array(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+FollowUp: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  assignedTo: a.belongsTo('TeamMember'),
+  followedUpBy: a.belongsTo('TeamMember'),
+  project: a.belongsTo('Project'),
+  customer: a.belongsTo('Customer'),
+  scheduledDate: a.date().required(),
+  type: a.ref('FollowUpType').required(),
+  status: a.ref('FollowUpStatus').required(),
+  notes: a.string(),
+  customerResponse: a.string(),
+  warrantyExtensionOffered: a.boolean().default(true),
+  warrantyExtended: a.boolean().default(false),
+  extensionFeeAccepted: a.boolean().default(false),
+  extensionPaidDate: a.date(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+GrabBarEstimate: a.model({
+  description: a.string(), 
+  grabBarLocation: a.string(), 
+  grabBarLengths: a.string().array(),
+  grabBarTypes: a.string().array(),
+  need90DegreeGrabBar: a.boolean(), 
+  locationOf90DegreeGrabBar: a.string(), 
+  bathroomDimensions: a.string(), 
+  needSmallerGrabBar: a.boolean(), 
+  showerWallCondition: a.ref('ShowerWallCondition'), 
+  showerWallType: a.ref('ShowerWallType'), 
+  additionalServicesRequested: a.boolean(), 
+  additionalServicesDescription: a.string(), 
+  approvalSignature: a.string(), 
+  printName: a.string(), 
+  approvalDate: a.date(), 
+  isDeleted: a.boolean().default(false), 
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Invite: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  email: a.email().required(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Invoice: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  invoicedBy: a.belongsTo('TeamMember'),
+  customer: a.belongsTo('Customer'),
+  job: a.belongsTo('Job'),
+  invoiceNumber: a.string().required(),
+  dueDate: a.datetime(),
+  payment: a.belongsTo('Payment'),
+  paymentTerms: a.string(),
+  notes: a.string(),
+  lineItems: a.json().array(),
+  jobServices: a.json().array(),
+  paymentStatus: a.ref('PaymentStatus').required(),
+  paymentMethod: a.ref('PaymentMethod').required(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Job: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  estimate: a.hasOne('Estimate'),
+  proposal: a.hasOne('Proposal'),
+  expenses: a.hasMany('Expense'),
+  project: a.belongsTo('Project'),
+  contracts: a.hasOne('Contract'),
+  assignedTo: a.hasOne('TeamMember'),
+  warranty: a.hasOne('Warranty'),
+  invoice: a.hasOne('Invoice'),
+  files: a.hasMany('File'),
+  scope: a.string().required(),
+  actualHours: a.float(),
+  completionDate: a.datetime(),
+  estimatedHours: a.float(),
+  manager: a.hasOne('TeamMember'),
+  notes: a.string(),
+  pricingModel: a.ref('JobPricingModel').required(),
+  priority: a.ref('JobPriority').required(),
+  scheduledDate: a.datetime(),
+  startDate: a.datetime(),
+  status: a.ref('JobStatus').required(),
+  tasks: a.json().array(),
+  service: a.json().array(),
+  lineItems: a.json().array(),
+  title: a.string().required(),
+  requirements: a.string().array(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+JobLead: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  email: a.email().required(),
+  phone: a.phone(),
+  conversionFunnel: a.hasOne('ConversionFunnel'),
+  adContent: a.hasOne('AdContent'),
+  audienceSegment: a.hasOne('AudienceSegment'),
+  trafficSource: a.hasOne('TrafficSource'),
+  name: a.string().required(),
+  serviceRequested: a.string().required(),
+  description: a.string().required(),
+  dateLastContacted: a.datetime(),
+  conversionRate: a.float(),
+  estimatedValue: a.float(),
+  engagementScore: a.float(),
+  notes: a.string(),
+  status: a.string().required(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+JobService: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  name: a.string().required(),
+  description: a.string().required(),
+  serviceType: a.string().required(),
+  category: a.string().required(),
+  estimatedCost: a.float(),
+  durationInHours: a.float(),
+  requiredMaterials: a.json().array(),
+  photoUrls: a.string().array(),
+  materialList: a.json().array(),
+  lineItems: a.json().array(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+JobTask: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  assignedTo: a.belongsTo('TeamMember'),
+  name: a.string().required(),
+  description: a.string().required(),
+  category: a.string().required(),
+  notes: a.string(),
+  priority: a.ref('JobTaskPriority'),
+  status: a.ref('JobTaskStatus'),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Lease: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  unit: a.hasOne('Unit').required(),
+  rentTenants: a.hasMany('Recipient').required(),
+  startDate: a.date().required(),
+  endDate: a.date().required(),
+  monthlyRent: a.float().required(),
+  depositAmount: a.float(),
+  documentUrl: a.string().required(),
+  status: a.ref('LeaseStatus').required(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+MaintenanceLog: a.model({
+  id: a.id().required(),
+  description: a.string().required(),
+  tenant: a.belongsTo('Tenant'),
+  teamMember: a.belongsTo('TeamMember'),
+  serviceDate: a.date().required(),
+  notes: a.string(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+MarketingContent: a.model({
+  id: a.id().required(),
+  author: a.hasOne('TeamMember').required(),
+  title: a.string().required(),
+  body: a.string().required(),
+  datePublished: a.datetime().required(),
+  tags: a.string().array(),
+  seoKeywords: a.string().array().required(),
+  relatedMedia: a.string().array(),
+  status: a.ref('ContentManagementStatus').required(),
+  type: a.ref('ContentManagementType').required(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+MaterialList: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  materials: a.json().array(),
+  tags: a.string().array(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+NetworkProProspect: a.model({
+  id: a.id().required(),
+  campaign: a.belongsTo('Campaign'),
+  name: a.string().required(),
+  email: a.string().required(),
+  phone: a.string(),
+  servicesInterestedIn: a.string().array(),
+  estimatedValue: a.float(),
+  engagementScore: a.float(),
+  notes: a.string(),
+  status: a.ref('NetworkProProspectStatus').default('New'),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Payment: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  amount: a.float().required(),
+  notes: a.string(),
+  method: a.ref('PaymentMethod').required(),
+  status: a.ref('PaymentStatus').required(),
+  paidBy: a.hasOne('TeamMember').required(),
+  paidTo: a.hasOne('TeamMember'),
+  job: a.hasOne('Job'),
+  customPaidTo: a.string(),
+  for: a.string(),
+  address: a.string(), 
+  date: a.date().required(), 
+  isDeleted: a.boolean().default(false), 
+  created: a.datetime(),
+  updated: a.datetime()
+})
+
+Product: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  name: a.string().required(),
+  purchasePrice: a.float().required(),
+  category: a.string().required(),
+  description: a.string(),
+  supplier: a.string(),
+  salePrice: a.float(),
+  sku: a.string(),
+  notes: a.string(),
+  tags: a.string().array(),
+  created: a.datetime(),
+  updated: a.datetime()
+})
+
+Project: a.model({
+  id: a.id().required(),
+  customer: a.belongsTo('Customer'),
+  tenant: a.belongsTo('Tenant'),
+  team: a.belongsTo('Team'),
+  manager: a.belongsTo('TeamMember').required(),
+  jobs: a.hasMany('Job'),
+  followUp: a.hasMany('FollowUp'),
+  review: a.hasOne('Review'),
+  feedback: a.hasMany('Feedback'),
+  name: a.string().required(),
+  scope: a.string().required(),
+  goal: a.string(),
+  status: a.ref('ProjectStatus').required(),
+  deadline: a.datetime(),
+  budget: a.float(),
+  notes: a.string(),
+  feedback: a.hasOne('Feedback'),
+  scheduledDate: a.datetime(),
+  startDate: a.datetime(),
+  completionDate: a.datetime(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Property: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  owner: a.belongsTo('Customer').required(),
+  tenants: a.hasMany('Recipient'),
+  address: a.string().required(),
+  city: a.string().required(),
+  state: a.string().required(),
+  zipCode: a.string().required(),
+  country: a.string().required(),
+  propertyType: a.ref('PropertyType').required(),
+  numberOfUnits: a.integer(),
+  squareFeet: a.float(),
+  amenities: a.string().array(),
+  status: a.ref('PropertyStatus').required(),
+  photos: a.string().array(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Proposal: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  customer: a.belongsTo('Customer'),
+  workRequest: a.belongsTo('WorkRequest'),
+  job: a.belongsTo('Job'),
+  createdBy: a.hasOne('TeamMember').required(),
+  files: a.hasMany('File'),
+  number: a.string().required(),
+  paymentTerms: a.string().required(),
+  title: a.string().required(),
+  scope: a.string().required(),
+  timeline: a.string(),
+  qualifications: a.string(),
+  approvalDate: a.datetime(),
+  budget: a.float(),
+  lineItems: a.json().array(),
+  status: a.ref('ProposalStatus').required(),
+  date: a.datetime(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Recipient: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  rentalProperty: a.belongsTo('Property'),
+  customer: a.belongsTo('Customer'),
+  fullName: a.string().required(),
+  phoneNumber: a.string().required(),
+  address: a.string().required(),
+  email: a.email(),
+  type: a.ref('RecipientType').required(),
+  additionalInfo: a.string(),
+  tags: a.string().array(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+RecurrenceRule: a.model({
+  id: a.id().required(),
+  event: a.belongsTo('CalendarEvent'),
+  frequency: a.string().required(),
+  interval: a.integer().required(),
+  until: a.datetime(),
+  count: a.integer(),
+  daysOfWeek: a.string().array(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Resource: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  title: a.string().required(),
+  category: a.string().required(),
+  url: a.url().required(),
+  description: a.string().required(),
+  tags: a.string().array(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Review: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  project: a.belongsTo('Project'),
+  reviewerName: a.string().required(),
+  rating: a.ref('SatisfactionRating').required(),
+  comment: a.string(),
+  response: a.string(),
+  visibility: a.ref('ReviewVisibility').required(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+SharedCustomerProspect: a.model({
+  id: a.id().required(),
+  campaign: a.belongsTo('Campaign'),
+  name: a.string().required(),
+  email: a.email().required(),
+  phone: a.string(),
+  servicesInterestedIn: a.string().array(),
+  estimatedValue: a.float(),
+  engagementScore: a.float(),
+  notes: a.string(),
+  status: a.ref('SharedCustomerProspectStatus').default('New'),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+ShowerConversionEstimate: a.model({
+  id: a.id().required(),
+  description: a.string().required(), 
+  showerType: a.ref('ShowerType'), 
+  existingWallMaterial: a.ref('ShowerWallType'), 
+  existingTileCondition: a.ref('ShowerWallCondition'), 
+  tileReplacementNeeded: a.boolean(), 
+  waterControlType: a.ref('ShowerWaterControlType'), 
+  showerHeadReplacementNeeded: a.boolean().required(), 
+  rollInShowerDoorWidth: a.float(), 
+  wheelchairWidth: a.float(), 
+  bathroomDoorWidth: a.float(), 
+  bathroomFlooringType: a.ref('BathroomFloorType'), 
+  bathroomFloorCondition: a.ref('BathroomFloorCondition'), 
+  subFlooringCondition: a.ref('BathroomFloorCondition'), 
+  additionalServicesRequested: a.boolean(), 
+  additionalServicesDescription: a.string(), 
+  memberSignature: a.string(), 
+  printName: a.string(), 
+  approvalDate: a.date(), 
+  isDeleted: a.boolean().default(false), 
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+SubscriptionPlan: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  planName: a.string().required(),
+  price: a.float().required(),
+  features: a.string().array().required(),
+  billingCycle: a.string().required(),
+  startDate: a.datetime().required(),
+  endDate: a.datetime().required(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+SupportTicket: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  team: a.belongsTo('Team').required(),
+  teamMember: a.belongsTo('TeamMember').required(),
+  issueType: a.string(),
+  description: a.string().required(),
+  resolutionDetails: a.string(),
+  status: a.ref('SupportTicketStatus').required(),
+  priority: a.ref('SupportTicketPriority').required(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Team: a.model({
+  id: a.id().required(),
+  tenant: a.belongsTo('Tenant'),
+  members: a.hasMany('TeamMember'),
+  name: a.string().required(),
+  supportTickets: a.hasMany('SupportTicket'),
+  projects: a.hasMany('Project'),
+  jobTasks: a.hasMany('JobTask'),
+  followUps: a.hasMany('FollowUp'),
+  feedback: a.hasMany('Feedback'),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+TeamTeamMembers: a.model({
+  teamId: a.id().required(),
+  team: a.belongsTo('Team'),
+  teamMemberId: a.id().required(),
+  teamMember: a.belongsTo('TeamMember')
+})
+
+TeamMember: a.model({
+  id: a.id().required(),
+  teams: a.hasMany('Team'),
+  type: a.ref('TeamMemberType'),
+  contractsPresented: a.hasMany('Contract'),
+  claimsHandled: a.hasMany('WarrantyClaim'),
+  workRequests: a.hasMany('WorkRequest'),
+  maintenancePerformed: a.hasMany('MaintenanceLog'),
+  workScheduleEvent: a.hasMany('WorkScheduleEvent'),
+  department: a.string(),
+  jobTitle: a.string(),
+  skills: a.string().array(),
+  certifications: a.string().array(),
+  rating: a.float(),
+  servicesOffered: a.string().array(),
+  serviceAreas: a.string().array(),
+  experienceLevel: a.string(),
+  backgroundCheckStatus: a.ref('BackgroundCheckStatus'),
+  isDeleted: a.boolean().default(false),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Tenant: a.model({
+  id: a.id().required(),
+  owner: a.hasOne('AppUser').required(),
+  accountManager: a.hasOne('TeamMember').required(),
+  type: a.string().required(),
+  contactPerson: a.hasOne('AppUser').required(),
+  status: a.ref('TenantStatus').required(),
+  isDeleted: a.boolean().default(false),
+  campaigns: a.hasMany('Campaign'),
+  contacts: a.hasMany('Contact'),
+  contracts: a.hasMany('Contract'),
+  customers: a.hasMany('Customer'),
+  estimates: a.hasMany('Estimate'),
+  expenses: a.hasMany('Expense'),
+  feedbacks: a.hasMany('Feedback'),
+  files: a.hasMany('File'),
+  invites: a.hasMany('Invite'),
+  invoices: a.hasMany('Invoice'),
+  jobs: a.hasMany('Job'),
+  jobLeads: a.hasMany('JobLead'),
+  jobServices: a.hasMany('JobService'),
+  jobTasks: a.hasMany('JobTask'),
+  maintenanceLogs: a.hasMany('MaintenanceLog'),
+  materialLists: a.hasMany('MaterialList'),
+  payments: a.hasMany('Payment'),
+  products: a.hasMany('Product'),
+  projects: a.hasMany('Project'),
+  proposals: a.hasMany('Proposal'),
+  recipients: a.hasMany('Recipient'),
+  resources: a.hasMany('Resource'),
+  reviews: a.hasMany('Review'),
+  subscriptionPlans: a.hasMany('SubscriptionPlan'),
+  supportTickets: a.hasMany('SupportTicket'),
+  teams: a.hasMany('Team'),
+  teamMembers: a.hasMany('TeamMember'),
+  created: a.datetime().required(),
+  updated: a.datetime(),
+})
+
+TrafficSource: a.model({
+  id: a.id().required(),
+  campaign: belongsTo('Campaign'),
+  sourceType: a.ref('TrafficSourceType').required(),
+  visits: a.integer(),
+  bounceRate: a.float(),
+  isDeleted: a.boolean().default(false),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Unit: a.model({
+  id: a.id().required(),
+  property: a.belongsTo('Property').required(),
+  unitNumber: a.string().required(),
+  bedrooms: a.integer().required(),
+  bathrooms: a.integer().required(),
+  sqft: a.float(),
+  rentAmount: a.float().required(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+Warranty: a.model({
+  id: a.id().required(),
+  startDate: a.date().required(),
+  endDate: a.date().required(),
+  coveredItems: a.string(),
+  exclusions: a.string(),
+  maintenanceRequirements: a.string(),
+  warrantyClaims: a.hasMany('WarrantyClaim'),
+  maintenanceLogs: a.hasMany('MaintenanceLog'),
+  followUps: a.hasMany('FollowUp'),
+  isExtended: a.boolean().default(false),
+  extensionFeePaid: a.boolean().default(false),
+  extensionPaymentLink: a.url(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+WarrantyClaim: a.model({
+  id: a.id().required(),
+  warranty: a.belongsTo('Warranty'),
+  issueReported: a.string().required(),
+  reportDate: a.date().required(),
+  resolution: a.string(),
+  resolvedDate: a.date(),
+  responseTimeHours: a.integer(),
+  costIncurred: a.float(),
+  satisfactionRating: a.integer(),
+  rootCause: a.string(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+WoodRampEstimate: a.model({
+  totalRiseInInches: a.float().required(), 
+  rampLocation: a.string().required(), 
+  rampType: a.ref('RampType'), 
+  portableRampAcknowledgment: a.boolean(), 
+  doorHasOutwardSwing: a.boolean(), 
+  rampRunType: a.ref('RampRunType'), 
+  numberOfTurns: a.integer().default(0), 
+  rampTieInLocation: a.string(), 
+  requiresPaverLanding: a.boolean(), 
+  requiresConcreteLanding: a.boolean(), 
+  memberUnderstandsLayout: a.boolean(), 
+  handrailsNeeded: a.boolean().default(false), 
+  handrailLengthInFeet: a.float(), 
+  handrailTieInLocation: a.string(), 
+  handrailLocation: a.ref('HandRailLocation'), 
+  handrailMaterialPreference: a.ref('HandRailMaterial'), 
+  additionalServicesRequested: a.boolean(), 
+  additionalServicesDescription: a.string(), 
+  memberSignature: a.string(), 
+  printName: a.string(), 
+  approvalDate: a.date(), 
+  isDeleted: a.boolean().default(false), 
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+WorkRequest: a.model({
+  id: a.id().required(),
+  createdBy: a.belongsTo('TeamMember'),
+  assignedPro: a.belongsTo('Tenant'),
+  assignedPersonnel: a.belongsTo('TeamMember'),
+  proposal: a.hasOne('Proposal'),
+  estimate: a.hasOne('Estimate'),
+  title: a.string().required(),
+  category: a.string().required(),
+  description: a.string().required(),
+  notes: a.string(),
+  status: a.string().required(),
+  priority: a.string().required(),
+  workScope: a.string(),
+  tags: a.string().array(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})
+
+WorkScheduleEvent: a.model({
+  id: a.id().required(),
+  teamMember: a.hasOne('TeamMember'),
+  jobType: a.string().required(),
+  customer: a.hasOne('Customer').required(),
+  startTime: a.datetime().required(),
+  endTime: a.datetime().required(),
+  location: a.string().required(),
+  status: a.string().required(),
+  recurrence: a.string(),
+  notes: a.string(),
+  created: a.datetime().required(),
+  updated: a.datetime()
+})

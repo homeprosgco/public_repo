@@ -1,0 +1,17 @@
+import { gql } from 'apollo-angular';
+
+export const UPDATE_{{ type_name.upper() }} = gql`
+  mutation Update{{ type_name }}($input: Update{{ type_name }}Input!) {
+    update{{ type_name }}(input: $input) {
+      id
+      {% for scalar in scalars %}
+      {{ scalar }}
+      {% endfor %}
+      {% for rel in relations %}
+      {{ rel | lower }} {
+        id
+      }
+      {% endfor %}
+    }
+  }
+`;

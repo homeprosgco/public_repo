@@ -1,0 +1,68 @@
+input JobInput {
+  customerId: String!
+  status: JobStatus!
+  category: String!
+  requestedWorkScope: String!
+  definedWorkScope: String!
+  createdById: String!
+  address: AddressInput!
+  jobLeadId: String
+  notes: String
+  comments: [CommentInput!]
+  imageURLs: [String]
+  fileURLs: [String]
+  activity: [ActivityInput!]
+  assignedTo: String
+  startDate: String
+  estimateId: String
+  poNumber: String
+  jobManager: String
+}
+
+type Job {
+  id: String
+  customerId: String!
+  status: JobStatus!
+  createdById: String!
+  definedWorkScope: String!
+  jobLeadId: String
+  notes: String
+  comments: [Comment!]
+  imageURLs: [String!]
+  fileURLs: [String!]
+  category: String!
+  activity: [Activity!]
+  address: Address!
+  requestedWorkScope: String!
+  created: String!
+  updated: String
+  assignedTo: String
+  startDate: String
+  completedDate: String
+  estimateId: String
+  proposalId: String
+  poNumber: String
+  jobManagerId: String
+}
+
+type Query {
+  jobs: [Job!]!
+  jobById(jobIdInput: GetByID!): Job!
+}
+
+type Mutation {
+  createJob(jobInput: JobInput!): Job!
+  updateJob(jobIdInput: GetByID!, updateJobInput: JobInput!): Job!
+  removeJob(jobIdInput: GetByID!): String!
+}
+
+enum JobStatus {
+  NEW
+  SCHEDULED
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETE
+  INVOICED
+  INVOICE_PAID
+  PENDING
+}

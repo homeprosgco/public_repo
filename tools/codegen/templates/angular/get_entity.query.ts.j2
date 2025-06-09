@@ -1,0 +1,23 @@
+import { gql } from 'apollo-angular';
+
+export const GET_{{ type_name.upper() }} = gql`
+  query Get{{ type_name }}(
+    $id: ID!
+    {% for rel in relations %}
+    , $include{{ rel }}: Boolean!
+    {% endfor %}
+  ) {
+    get{{ type_name }}(id: $id) {
+      id
+      {% for scalar in scalars %}
+      {{ scalar }}
+      {% endfor %}
+      {% for rel in relations %}
+      {{ rel | lower }} @include(if: $include{{ rel }}) {
+        id
+        # Add more fields manually if needed
+      }
+      {% endfor %}
+    }
+  }
+`;

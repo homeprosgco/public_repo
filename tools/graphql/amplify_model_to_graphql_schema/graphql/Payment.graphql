@@ -1,0 +1,96 @@
+enum PaymentMethod {
+  Check
+  Venmo
+  Cashapp
+  Zelle
+  Cash
+  Credit Card
+  Strip
+}
+enum PaymentStatus {
+  Pending
+  Completed
+  Failed
+}
+type Payment {
+  id: ID!
+  tenant: Tenant @belongsTo
+  amount: Float
+  notes: String
+  method: PaymentMethod
+  status: PaymentStatus
+  paidBy: TeamMember @hasOne
+  paidTo: TeamMember @hasOne
+  job: Job @hasOne
+  customPaidTo: String
+  for: String
+  address: String
+  date: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input CreatePaymentInput {
+  tenant: Tenant
+  amount: Float
+  notes: String
+  method: PaymentMethod
+  status: PaymentStatus
+  paidBy: TeamMember
+  paidTo: TeamMember
+  job: Job
+  customPaidTo: String
+  for: String
+  address: String
+  date: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input UpdatePaymentInput {
+  id: ID!
+  tenant: Tenant
+  amount: Float
+  notes: String
+  method: PaymentMethod
+  status: PaymentStatus
+  paidBy: TeamMember
+  paidTo: TeamMember
+  job: Job
+  customPaidTo: String
+  for: String
+  address: String
+  date: AWSDate
+  isDeleted: Boolean
+  created: AWSDateTime
+  updated: AWSDateTime
+}
+input SoftDeletePaymentInput {
+  id: ID!
+}
+
+input PaymentFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getPayment(id: ID!): Payment
+  queryPayments(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: PaymentFilterInput
+  ): [Payment]
+}
+type Mutation {
+  putPayment(input: CreatePaymentInput!): Payment
+  updatePayment(input: UpdatePaymentInput!): Payment
+  softDeletePayment(input: SoftDeletePaymentInput!): Payment
+  deletePayment(id: ID!): Payment
+}
+type Subscription {
+  onPutPayment: Payment @aws_subscribe(mutations: ["putPayment"])
+  onUpdatePayment: Payment @aws_subscribe(mutations: ["updatePayment"])
+  onSoftDeletePayment: Payment @aws_subscribe(mutations: ["softDeletePayment"])
+}

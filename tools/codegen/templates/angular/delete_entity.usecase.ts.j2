@@ -1,0 +1,13 @@
+import { Injectable } from '@angular/core';
+import { I{{ type_name }}Repository } from '../repositories/i-{{ split_and_hyphenate(type_name) }}.repository';
+import { {{ type_name }} } from '../../data/models/{{ split_and_hyphenate(type_name) }}.interface';
+import { Observable } from 'rxjs';
+
+@Injectable({ providedIn: 'root' })
+export class Delete{{ type_name }}UseCase {
+  constructor(private repo: I{{ type_name }}Repository) {}
+
+  execute(id: string): Observable<{{ type_name }}> {
+    return this.repo.delte{{ type_name }}(id);
+  }
+}

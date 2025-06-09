@@ -1,0 +1,72 @@
+
+type Customer {
+  id: ID!
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  additionalInfo: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateCustomerInput {
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  additionalInfo: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateCustomerInput {
+  id: ID!
+  fullName: String
+  phoneNumber: String
+  address: String
+  email: String
+  additionalInfo: String
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteCustomerInput {
+  id: ID!
+}
+
+type Query {
+    getCustomer(id: ID!): Customer
+    
+    queryCustomers(
+        limit: Int, 
+        nextToken: String, 
+        includeDeleted: Boolean = false,  # ✅ Allow fetching soft-deleted records only when explicitly requested
+        filters: CustomerFilterInput
+    ): [Customer]
+    }
+
+    input CustomerFilterInput {
+    field: String
+    value: String
+    operator: String
+}
+    
+type Mutation {
+    putCustomer(input: CreateCustomerInput!): Customer
+    updateCustomer(input: UpdateCustomerInput!): Customer
+    # ✅ Soft Delete - Marks `isDeleted = true`
+    softDeleteCustomer(input: SoftDeleteCustomerInput!): Customer
+        # @aws_auth(cognito_groups: ["SUPERADMIN", "ADMIN"])
+
+    # ❌ Hard Delete - Restricted to SUPERADMIN Only
+    deleteCustomer(id: ID!): Customer
+        # @aws_auth(cognito_groups: ["SUPERADMIN"])
+}
+    
+type Subscription {
+    onPutCustomer: Customer @aws_subscribe(mutations: ["putCustomer"])
+    onUpdateCustomer: Customer @aws_subscribe(mutations: ["updateCustomer"])
+    onSoftDeleteCustomer: Customer @aws_subscribe(mutations: ["softDeleteCustomer"])
+}
+    

@@ -1,0 +1,65 @@
+
+type RecurrenceRule {
+  id: ID!
+  event: CalendarEvent @belongsTo
+  frequency: String
+  interval: Int
+  until: AWSDateTime
+  count: Int
+  daysOfWeek: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean!
+}
+input CreateRecurrenceRuleInput {
+  event: CalendarEvent
+  frequency: String
+  interval: Int
+  until: AWSDateTime
+  count: Int
+  daysOfWeek: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean = false
+}
+input UpdateRecurrenceRuleInput {
+  id: ID!
+  event: CalendarEvent
+  frequency: String
+  interval: Int
+  until: AWSDateTime
+  count: Int
+  daysOfWeek: [String]
+  created: AWSDateTime
+  updated: AWSDateTime
+  isDeleted: Boolean
+}
+input SoftDeleteRecurrenceRuleInput {
+  id: ID!
+}
+
+input RecurrenceRuleFilterInput {
+  field: String
+  value: String
+  operator: String
+}
+type Query {
+  getRecurrenceRule(id: ID!): RecurrenceRule
+  queryRecurrenceRules(
+    limit: Int, 
+    nextToken: String, 
+    includeDeleted: Boolean = false,
+    filters: RecurrenceRuleFilterInput
+  ): [RecurrenceRule]
+}
+type Mutation {
+  putRecurrenceRule(input: CreateRecurrenceRuleInput!): RecurrenceRule
+  updateRecurrenceRule(input: UpdateRecurrenceRuleInput!): RecurrenceRule
+  softDeleteRecurrenceRule(input: SoftDeleteRecurrenceRuleInput!): RecurrenceRule
+  deleteRecurrenceRule(id: ID!): RecurrenceRule
+}
+type Subscription {
+  onPutRecurrenceRule: RecurrenceRule @aws_subscribe(mutations: ["putRecurrenceRule"])
+  onUpdateRecurrenceRule: RecurrenceRule @aws_subscribe(mutations: ["updateRecurrenceRule"])
+  onSoftDeleteRecurrenceRule: RecurrenceRule @aws_subscribe(mutations: ["softDeleteRecurrenceRule"])
+}

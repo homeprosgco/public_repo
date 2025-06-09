@@ -47,3 +47,35 @@ Edit
 <h1 class="text-color-primary text-text-headline-medium font-[var(--font-weight-body-large)]">
   Unified typography and color system
 </h1>
+
+# 🌀 Tailwind-Aware Angular Design System
+
+A fully type-safe, extensible **Angular + Tailwind CSS utility system** powered by **dynamic code generation, PrimeNG themes, and declarative directives**.
+
+> This project demonstrates advanced Nx monorepo architecture, Angular directive design, Tailwind theming, code generation pipelines, and cross-system design token integration — ideal for large-scale component libraries or design systems.
+
+---
+
+## 🚀 Features
+
+✅ **Design Token Sync**  
+A single source of truth for design tokens, synced across:
+- Tailwind CSS (v4 `@theme` API)
+- PrimeNG themes
+- Angular applications & libraries
+
+✅ **Generated Utility Class Maps**  
+Python generators output 100% type-safe maps for:
+- Tailwind spacing, grid, typography, colors
+- Material Design 3 tokens
+- Responsive and pseudo class variants
+
+✅ **Type-Safe Angular Directives**  
+Use Tailwind utility classes declaratively via Angular signals:
+
+```html
+<!-- Apply dynamic sizing utilities -->
+<div [twSize]="{ base: 'lg', md: 'xl' }"></div>
+
+<!-- Dynamically style typography -->
+<p [twText]="{ base: 'headline-small', lg: 'display-small' }"></p>
