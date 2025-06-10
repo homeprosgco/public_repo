@@ -1,0 +1,581 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  engineType      = "binary"
+  binaryTargets   = ["native", "debian-openssl-1.1.x"]
+  previewFeatures = ["filteredRelationCount"]
+}
+
+generator zod {
+  provider = "zod-prisma"
+  output   = "./zod" // (default) the directory where generated zod schemas will be saved
+
+  relationModel = true // (default) Create and export both plain and related models.
+  // relationModel         = "default" // Do not export model without relations.
+  // relationModel         = false // Do not generate related model
+
+  modelCase = "camelCase" // (default) Output models using pascal case (ex. UserModel, PostModel)
+  // modelCase             = "camelCase" // Output models using camel case (ex. userModel, postModel)
+
+  modelSuffix = "Schema" // (default) Suffix to apply to your prisma models when naming Zod schemas
+
+  // useDecimalJs          = false // (default) represent the prisma Decimal type using as a JS number
+  useDecimalJs = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
+
+  // https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
+  prismaJsonNullability = true // (default) uses prisma's scheme for JSON field nullability
+  // prismaJsonNullability = false // allows null assignment to optional JSON fields
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Website {
+  id         String @id @default(cuid())
+  userId     String @unique
+  websiteURL String @unique
+  user       User   @relation(fields: [userId], references: [id])
+
+  @@map("websites")
+}
+
+model AvatarURL {
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+  src    String
+
+  @@map("user_avatars")
+}
+
+model User {
+  id                       String                     @id @unique
+  accountType              AccountType                @default(Homeowner)
+  accountStatus            AccountStatus              @default(Active)
+  adminUser                AdminUser?
+  assignedBookings         ServiceProvidersBookings[]
+  authId                   String                     @unique
+  avatarURL                AvatarURL?
+  createdAt                DateTime                   @default(now())
+  ///@zod.email({message: "Invalid email address"})
+  email                    String                     @unique
+  favoriteServiceProviders FavoriteServiceProvider[]
+  ///@zod.min(3, {message: "Full name must be longer than 3 characters"})
+  fullname                 String
+  goldUser                 GoldUser?
+  isAdmin                  Boolean                    @default(false)
+  membershipStatus         MembershipStatus           @default(Valued)
+  ///@zod.min(5, {message: "Address must be longer than 5 characters"})
+  primaryAddress           String
+  projectReviews           ProjectReview[]
+  roles                    Role[]                     @default([User])
+  serviceProvider          ServiceProvider?
+  updatedAt                DateTime                   @updatedAt
+  userBookings             UserBooking[]
+  userFeedback             UserFeedback[]
+  website                  Website?
+
+  @@map("users")
+}
+
+model GoldUser {
+  userId           String @unique
+  user             User   @relation(fields: [userId], references: [id])
+  ///@zod.min(3, {message: "Company name must be longer than 3 characters"})
+  companyName      String
+  ///@zod.regex(/([0-9]{3})-([0-9]{3})-([0-9]{4})/, {message: "Phone number should match format ###-###-####"})
+  primaryTelephone String
+
+  @@map("gold_users")
+}
+
+model Booking {
+  id                    String                      @id @default(cuid())
+  preferredBookingDates PreferredBookingDate[]
+  bookingAppointments   BookingAppointment[]
+  bookingCategory       ServiceCategory
+  bookingOnlineQuotes   BookingOnlineQuote[]
+  bookingImageFolderId  BookingImageFolderId?
+  bookedProvider        BookedProvider?
+  bookingType           BookingResponseType
+  ///@zod.regex(/([0-9]{3})-([0-9]{3})-([0-9]{4})/, {message: "Phone number should match format ###-###-####"})
+  contactTelephone      String
+  createdAt             DateTime                    @default(now())
+  ///@zod.min(3, {message: "Name must be longer than 3 characters"})
+  customerName          String
+  customerUploadURLs    String[]
+  ///@zod.email({message: "Invalid email address"})
+  email                 String
+  hiringTimeline        ProjectTimeline
+  interestedProviders   BookingInterestedProvider[]
+  isApproved            Boolean                     @default(false)
+  isAuthorizedPerson    ProjectAuthorizedOwner
+  isDirectQuote         Boolean                     @default(false)
+  ///@zod.min(80, {message: "Please provide us with some details about your project"})
+  projectDescription    String
+  projectFocus          String
+  projectStatus         ProjectStatus
+  projectTitle          String
+  propertyType          PropertyType
+  ///@zod.min(1, {message: "Address is required"})
+  serviceAddress        String
+  serviceProviders      ServiceProvidersBookings[]
+  serviceType           ServiceDetails
+  status                BookingStatus               @default(Submitted)
+  updatedAt             DateTime                    @updatedAt
+  userBooking           UserBooking?
+  views                 Int                         @default(0)
+  zipcode               String
+
+  @@map("bookings")
+}
+
+model BookingInterestedProvider {
+  bookingId         String          @unique
+  booking           Booking         @relation(fields: [bookingId], references: [id])
+  serviceProviderId String          @unique
+  serviceProvider   ServiceProvider @relation(fields: [serviceProviderId], references: [id])
+
+  @@id([bookingId, serviceProviderId])
+  @@map("bookings_interested_providers")
+}
+
+model BookingImageFolderId {
+  id        String  @unique
+  bookingId String  @unique
+  booking   Booking @relation(fields: [bookingId], references: [id])
+
+  @@map("booking_image_upload_folder_ids")
+}
+
+model BookedProvider {
+  bookingId         String          @unique
+  booking           Booking         @relation(fields: [bookingId], references: [id])
+  serviceProvider   ServiceProvider @relation(fields: [serviceProviderId], references: [id])
+  serviceProviderId String
+
+  @@unique([bookingId, serviceProviderId])
+  @@map("booked_service_providers")
+}
+
+model PreferredBookingDate {
+  id              String            @id @default(cuid())
+  appointmentDate DateTime
+  timeSlots       BookingTimeSlot[]
+  bookingId       String
+  booking         Booking           @relation(fields: [bookingId], references: [id])
+
+  @@map("bookings_preferred_dates")
+}
+
+model UserBooking {
+  bookingId String  @unique
+  booking   Booking @relation(fields: [bookingId], references: [id])
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+
+  @@id([bookingId, userId])
+  @@map("user_bookings")
+}
+
+model BookingAppointment {
+  appointmentDate   DateTime
+  bookingId         String
+  booking           Booking           @relation(fields: [bookingId], references: [id])
+  comment           String
+  createdAt         DateTime          @default(now())
+  serviceProviderId String
+  serviceProvider   ServiceProvider   @relation(fields: [serviceProviderId], references: [userId])
+  startingPrice     String            @default("0")
+  timeSlots         BookingTimeSlot[]
+  updatedAt         DateTime          @updatedAt
+
+  @@id([bookingId, serviceProviderId])
+  @@map("bookings_appointments")
+}
+
+model BookingOnlineQuote {
+  booking           Booking         @relation(fields: [bookingId], references: [id])
+  bookingId         String
+  createdAt         DateTime        @default(now())
+  comment           String
+  highPriceRange    String
+  lowPriceRange     String
+  serviceProvider   ServiceProvider @relation(fields: [serviceProviderId], references: [userId])
+  serviceProviderId String
+
+  @@id([bookingId, serviceProviderId])
+  @@map("bookings_online_quotes")
+}
+
+model ServiceProvidersBookings {
+  assignedAt        DateTime        @default(now())
+  assignedBy        User            @relation(fields: [assignedById], references: [id])
+  assignedById      String
+  booking           Booking         @relation(fields: [bookingId], references: [id])
+  bookingId         String
+  serviceProvider   ServiceProvider @relation(fields: [serviceProviderId], references: [id])
+  serviceProviderId String
+
+  @@id([bookingId, serviceProviderId])
+  @@map("service_providers_bookings")
+}
+
+model ServiceProvider {
+  id                      String                      @id @default(cuid())
+  ///@zod.min(2, {message: "Add a minimum of 2 areas of expertise"})
+  areasOfExpertise        String[]
+  ///@zod.min(100, {message: "Company bio name must be longer than 100 characters"})
+  companyBio              String
+  ///@zod.min(3, {message: "Company name must be longer than 3 characters"})
+  companyName             String                      @unique
+  bookingAppointments     BookingAppointment[]
+  bookingOnlineQuotes     BookingOnlineQuote[]
+  favorited               FavoriteServiceProvider[]
+  operatingHours          OperatingHour[]
+  ///@zod.regex(/([0-9]{3})-([0-9]{3})-([0-9]{4})/, {message: "Phone number should match format ###-###-####"})
+  primaryTelephone        String                      @unique
+  projects                Project[]
+  serviceCategories       ServiceCategory[]
+  serviceDetails          ServiceDetails[]
+  serviceProviderBookings ServiceProvidersBookings[]
+  serviceProviderReviews  ServiceProviderReview[]
+  user                    User                        @relation(fields: [userId], references: [id])
+  userId                  String                      @unique
+  verifiedLicense         Boolean                     @default(false)
+  bookedBookings          BookedProvider[]
+  interestedBookings      BookingInterestedProvider[]
+  logoURL                 String?
+  profileProjectURLs      String[]                    @default([])
+
+  @@map("service_providers")
+}
+
+model OperatingHour {
+  id                String          @id @default(cuid())
+  dayOfWeek         DayOfWeek
+  serviceProvider   ServiceProvider @relation(fields: [serviceProviderId], references: [userId])
+  serviceProviderId String
+  openingHour       String
+  closingHour       String
+  isClosed          Boolean
+
+  @@map("service_provider_operating_hours")
+}
+
+model FavoriteServiceProvider {
+  id                String          @id @default(cuid())
+  serviceProvider   ServiceProvider @relation(fields: [serviceProviderId], references: [userId])
+  serviceProviderId String
+  user              User            @relation(fields: [userId], references: [id])
+  userId            String
+
+  @@map("user_favorite_service_providers")
+}
+
+model CompanyReview {
+  id       String @id @default(cuid())
+  reviewId String @unique
+  review   Review @relation(fields: [reviewId], references: [id])
+
+  @@map("company_reviews")
+}
+
+model ServiceProviderReview {
+  providerId      String
+  serviceProvider ServiceProvider @relation(fields: [providerId], references: [id])
+  reviewId        String          @unique
+  review          Review          @relation(fields: [reviewId], references: [id])
+
+  @@id([providerId, reviewId])
+  @@map("service_provider_reviews")
+}
+
+model Review {
+  id                    String                 @id @default(cuid())
+  rating                Int
+  customerName          String
+  location              String
+  createdAt             DateTime               @default(now())
+  comment               String
+  projectReview         ProjectReview?
+  companyReview         CompanyReview?
+  serviceProviderReview ServiceProviderReview?
+
+  @@map("reviews")
+}
+
+model AdminUser {
+  userId     String @unique
+  user       User   @relation(fields: [userId], references: [authId])
+  department String
+
+  @@map("admin_users")
+}
+
+model ServiceProviderProspect {
+  id                 String                        @id @default(cuid())
+  companyName        String
+  phoneNumber        String                        @unique
+  primaryPhotoURL    String?
+  source             ServiceProviderProspectSource @default(Other)
+  serviceCategories  ServiceCategory[]
+  campaignSent       Boolean                       @default(false)
+  campaignLastSent   DateTime                      @updatedAt
+  campaignSentStatus CampaignSentStatus            @default(Pending)
+  createdAt          DateTime                      @default(now())
+  imageURLs          Json[]
+  location           String
+  interested         Boolean                       @default(false)
+  prospectReviews    ProspectReview[]
+  directURL          String?
+  website            String?
+  companyBio         String?
+  title              String?
+
+  @@map("service_provider_prospects")
+}
+
+model ProspectReview {
+  id               String                  @id @default(cuid())
+  prospectId       String
+  prospect         ServiceProviderProspect @relation(fields: [prospectId], references: [id])
+  date             DateTime
+  rating           Int
+  review           String
+  photoURLs        String[]
+  reviewerName     String
+  reviewerLocation String
+
+  @@map("prospect_reviews")
+}
+
+model UserFeedback {
+  id        String   @id @default(cuid())
+  feedback  String
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("users_feedback")
+}
+
+model Project {
+  id                String          @id @default(cuid())
+  serviceProviderId String
+  serviceProvider   ServiceProvider @relation(fields: [serviceProviderId], references: [userId])
+  imageURLs         String[]
+  serviceCategory   ServiceCategory
+  title             String
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  location          String
+  serviceType       String
+  priceRangeLower   String
+  priceRangeHigher  String
+  projectReview     ProjectReview?
+
+  @@map("service_provider_projects")
+}
+
+model ProjectReview {
+  projectId String  @unique
+  project   Project @relation(fields: [projectId], references: [id])
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  reviewId  String  @unique
+  review    Review  @relation(fields: [reviewId], references: [id])
+
+  @@id([projectId, reviewId])
+  @@map("service_provider_project_reviews")
+}
+
+enum MembershipStatus {
+  Valued
+  Gold
+  Diamond
+  Elite
+}
+
+enum BookingResponseType {
+  Online_Quote
+  In_Home_Estimate
+}
+
+enum AccountType {
+  Homeowner
+  Property_Manager
+  Realtor
+  Service_Provider
+  Employee
+  Administrator
+}
+
+enum AccountStatus {
+  Active
+  Suspended
+  Banned
+}
+
+enum Role {
+  User
+  Admin
+  Manager
+  DevOpsManager
+  FinanceManager
+  OperationsManager
+  SecurityAdmin
+  ServiceProvider
+  SuperAdmin
+  Owner
+}
+
+enum CampaignSentStatus {
+  Pending
+  Sent
+  UnSuccesful
+}
+
+enum ServiceProviderProspectSource {
+  Other
+  Referred
+  Craigslist
+  Yelp
+  HomeAdvisor
+  GoogleSearch
+  YellowPages
+  InstaAd
+  FacebookAd
+}
+
+enum BookingStatus {
+  Cancelled
+  Completed
+  Ongoing
+  New
+  Submitted
+  Processing
+  Approved
+  Confirmed
+  Quotes_Pending
+  Bookings_Pending
+}
+
+enum BookingTimeSlot {
+  Early_Morning
+  Morning
+  Afternoon
+  Late_Afternoon
+}
+
+enum ProjectTimeline {
+  Flexible
+  One_Week
+  One_Two_Weeks
+  Two_Weeks_Or_More
+  This_Week
+  Custom_Appointment
+}
+
+enum ProjectStatus {
+  Ready_To_Hire
+  Planning_And_Budgeting
+}
+
+enum ProjectAuthorizedOwner {
+  No
+  Yes
+  Authorized
+}
+
+enum PropertyType {
+  Single_Family_Home
+  Condominium
+  TownHome
+  Multi_Unit
+  Commercial_Building
+  Mobile_Home
+}
+
+enum ServiceDetails {
+  Free_Estimates
+  Warranty
+  Contractor
+  Repairs
+  Replacement
+  New_Installation
+  Assembly
+  Residential
+  Commercial
+  Maintenance
+}
+
+enum DayOfWeek {
+  Sun
+  Mon
+  Tues
+  Weds
+  Thurs
+  Fri
+  Sat
+}
+
+enum ServiceCategory {
+  Other
+  Damage_Restoration
+  General_Contractor
+  Home_Cleaning
+  Landscaping
+  Plumbing
+  Carpentry
+  Roofing
+  Decks_And_Railings
+  Drywall
+  Gutter_Services
+  Insulation
+  Locksmith
+  Masonry
+  Concrete
+  Patio_Coverings
+  Refinishing
+  Security_Systems
+  Siding
+  Tiling
+  Window_Washing
+  Electrical
+  Handyman
+  Home_Inspector
+  Power_Washing
+  Tree_Services
+  Carpet_Installation
+  Demolition
+  Excavation
+  Glass_And_Mirrors
+  Holiday_Decorations
+  Mobile_Home_Repair
+  Pool_And_Hot_Tub_Services
+  Roof_Inspectors
+  Solar_Installation
+  Stucco
+  Water_Purification
+  Flooring
+  Air_Conditioning
+  Painting
+  Windows_And_Doors
+  Cabinetry
+  Countertop_Installation
+  Fences_And_Gates
+  Garage_Door_Services
+  Grout_Services
+  Irrigation
+  Pool_Cleaners
+  Shutters
+  WallPapering
+  WaterProofing
+  Paving
+  Garbage_Removal
+  Laminate_And_Hardwood_Flooring
+}

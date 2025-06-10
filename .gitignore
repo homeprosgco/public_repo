@@ -64,3 +64,5 @@ vitest.config.*.timestamp*
 ngrok
 ngrok-stable-linux-amd64.zip
 venv
+**/node_modules/
+node_modules/
