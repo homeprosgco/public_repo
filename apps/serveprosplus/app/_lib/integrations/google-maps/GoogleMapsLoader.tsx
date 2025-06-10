@@ -8,7 +8,7 @@ type GoolgeMapsLoaderProps = {
 export default function GoogleMapsLoader({ children }: GoolgeMapsLoaderProps) {
   return (
     <LoadScript
-      googleMapsApiKey="AIzaSyDXV7puMZ0n4iWMcVR-AmT63lu_k-PZMoU"
+      googleMapsApiKey=""
       libraries={["places"]}
       loadingElement={<SplashPage />}
     >
