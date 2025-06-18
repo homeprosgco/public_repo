@@ -1,81 +1,76 @@
-# Nx Angular Monorepo + Shared Tailwind CSS
+# 🧰 Full-Stack Web Dev Monorepo | Angular, Flutter, React + Clean Architecture
 
-🧠 A professional monorepo scaffold using Angular + Nx + shared Tailwind CSS configuration.
-
-## Tech Stack
-
-- Angular (Nx workspace)
-- Tailwind CSS with a shared preset
-- Nx Libraries for clean architecture
-- VS Code in Docker DevContainer
-
-## Why This Repo?
-
-To showcase clean, scalable frontend architecture to potential employers & clients.
-
-🎨 Shared Design Tokens with Tailwind CSS v4 & PrimeNG
-This monorepo integrates Tailwind CSS v4+ and PrimeNG v19+ using a shared, tokenized theming system powered by CSS variables.
-
-✅ Theme Architecture Overview
-libs/tailwind-preset/theme.css: Defines all Tailwind @theme variables used throughout the app.
-
-Uses CSS custom properties (variables) to ensure consistent values across both Tailwind and PrimeNG components.
-
-PrimeNG provides core theme values via the tailwindcss-primeui plugin, accessible through --p-* variables.
-
-Tailwind consumes these via @theme and generates utility classes like text-color-primary, bg-color-surface, etc.
-
-🧱 How It Works
-PrimeNG provides design tokens like:
---p-colors-primary, --p-typography-headline-medium-size, etc.
-
-Tailwind consumes these tokens via @theme variables defined in theme.css:
-
-css
-Copy
-Edit
-@theme {
-  --color-primary: var(--p-colors-primary);
-  --text-headline-medium: var(--p-typography-headline-medium-size);
-  --font-weight-body-large: var(--p-typography-body-large-weight);
-}
-These are automatically available in your Tailwind classes:
-
-html
-Copy
-Edit
-<h1 class="text-color-primary text-text-headline-medium font-[var(--font-weight-body-large)]">
-  Unified typography and color system
-</h1>
-
-# 🌀 Tailwind-Aware Angular Design System
-
-A fully type-safe, extensible **Angular + Tailwind CSS utility system** powered by **dynamic code generation, PrimeNG themes, and declarative directives**.
-
-> This project demonstrates advanced Nx monorepo architecture, Angular directive design, Tailwind theming, code generation pipelines, and cross-system design token integration — ideal for large-scale component libraries or design systems.
+This repo contains a professional, multi-framework monorepo demonstrating real-world full-stack applications built using **Uncle Bob’s Clean Architecture** principles and powered by modern tools like **Nx, AWS Amplify, GraphQL, Supabase, and Firebase**.
 
 ---
 
-## 🚀 Features
+## 🎯 Purpose
 
-✅ **Design Token Sync**  
-A single source of truth for design tokens, synced across:
-- Tailwind CSS (v4 `@theme` API)
-- PrimeNG themes
-- Angular applications & libraries
+To showcase scalable, real-world web and mobile application architecture using multiple frameworks — built for problem-solving, automation, and hands-on delivery. All projects reflect the mindset and skills of a **self-taught, job-ready full-stack developer** looking to contribute meaningfully to a remote engineering team.
 
-✅ **Generated Utility Class Maps**  
-Python generators output 100% type-safe maps for:
-- Tailwind spacing, grid, typography, colors
-- Material Design 3 tokens
-- Responsive and pseudo class variants
+---
 
-✅ **Type-Safe Angular Directives**  
-Use Tailwind utility classes declaratively via Angular signals:
+## 🏗️ Project Highlights
+
+### 📱 Flutter Applications (AWS + Riverpod)
+
+- **Coming Soon Page**  
+  Folder: `aws_basecamp-homeprosgapp_feature-coming_soon_early_adopter_email`  
+  → Implements Clean Architecture with Flutter, powered by AWS Amplify.  
+  → Collects and stores early adopter emails using GraphQL and AWS infrastructure.
+
+- **Booking System**  
+  Folder: `aws_basecamp-homeprosgapp_feature-booking`  
+  → A fully functioning booking system built in Flutter using **Riverpod** for state management, **Amplify for backend**, and **GraphQL** for API communication.
+
+---
+
+### ⚛️ React App (Remix + Supabase)
+
+- Folder: `serveprosplus`  
+  → A modern web application built with the **Remix framework**, using **Mantine UI** for styling and theming.  
+  → Implements full-stack **authentication and authorization** with Supabase and third-party services:
+  - **Prisma** (ORM)
+  - **Stripe** (Payments)
+  - **Twilio** (SMS)
+  - **OneSignal** (Push notifications)
+  - **Apify** (Web scraping/data automation)
+
+---
+
+### 🅰️ Angular Application (GraphQL + Firebase)
+
+- Folder: `tech1pro`  
+  → A full-stack Angular application using **Apollo GraphQL Client** on the frontend  
+  → Backend powered by **Firebase Functions**, querying **Firestore** with a **NestJS GraphQL API**  
+  → Built using **Angular v2+** with structured, maintainable architecture
+
+---
+
+### ⚙️ Code Generation Tools
+
+- Folder: `tools/codegen`  
+  → Contains scaffold generators for both **Angular** and **Flutter** projects  
+  → Automates project setup based on **Amplify data models → GraphQL schema → application layers**, using Clean Architecture
+
+---
+
+## 🌀 Nx Angular Monorepo + Tailwind + PrimeNG
+
+This monorepo features a powerful **Angular + Nx + TailwindCSS + PrimeNG** stack for design system management.
+
+### 🧱 Highlights:
+
+- **Design Token System**  
+  Shared design tokens across Tailwind and PrimeNG using CSS custom properties
+
+- **Code-Generated Utility Maps**  
+  Python scripts generate type-safe Tailwind spacing, typography, colors, etc.
+
+- **Type-Safe Angular Directives**  
+  Angular signals for declarative styling like `[twText]` and `[twSize]`
 
 ```html
-<!-- Apply dynamic sizing utilities -->
+<!-- Example usage -->
 <div [twSize]="{ base: 'lg', md: 'xl' }"></div>
-
-<!-- Dynamically style typography -->
 <p [twText]="{ base: 'headline-small', lg: 'display-small' }"></p>
