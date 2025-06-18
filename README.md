@@ -1,6 +1,6 @@
 # 🧰 Full-Stack Web Dev Monorepo | Angular, Flutter, React + Clean Architecture
 
-This repo contains a professional, multi-framework monorepo demonstrating real-world full-stack applications built using **Uncle Bob’s Clean Architecture** principles and powered by modern tools like **Nx, AWS Amplify, GraphQL, Supabase, and Firebase**.
+This repo contains a professional, multi-framework monorepo demonstrating real-world full-stack applications built using **Uncle Bob’s Clean Architecture** principles and powered by modern tools like **Nx, AWS Amplify, GraphQL, Supabase, AWS CDK, AWS resources and Firebase**.
 
 ---
 
